@@ -14,4 +14,20 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
+
+	(r'^$', 'system_scan.scan.views.index'),
+
+	(r'^(?P<contest_id>\d+)/$', 'system_scan.scan.views.contest'),
+	(r'^(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.answer'),
+	(r'^(?P<contest_id>\d+)/score/$', 'system_scan.scan.views.scre'),
+
+	(r'^mark/(?P<contest_id>\d+)/$', 'system_scan.scan.views.mark_top'),
+	(r'^mark/(?P<contest_id>\d+)/(?P<user_id>\d+)/$', 'system_scan.scan.views.mark_user'),
+	(r'^mark/(?P<contest_id>\d+)/(?P<user_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.mark'),
+	
+	(r'^setting/$', 'system_scan.scan.views.setting'),
+	(r'^setting/(?P<contest_id>\d+)/$', 'system_scan.scan.views.setting_contest'),
+	(r'^setting/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.setting_problem'),
+
+	(r'^admin/$', 'system_scan.scan.views.admin'),
 )
