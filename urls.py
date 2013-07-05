@@ -1,8 +1,8 @@
 from django.conf.urls.defaults import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
@@ -30,4 +30,5 @@ urlpatterns = patterns('',
 	(r'^setting/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.setting_problem'),
 
 	(r'^admin/$', 'system_scan.scan.views.admin'),
+	(r'^admin/database/', include(admin.site.urls)),
 )

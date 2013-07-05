@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 # Create your models here.
 class User(models.Model):
@@ -60,3 +61,11 @@ class Score(models.Model):
 
     def __unicode__(self):
         return self.score
+
+admin.site.register(User)
+admin.site.register(Contest)
+admin.site.register(Genre)
+admin.site.register(Privilege)
+admin.site.register(Problem)
+admin.site.register(Answer)
+admin.site.register(Score)
