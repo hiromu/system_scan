@@ -1,0 +1,16 @@
+<table>
+	<th>
+		<td>Name</td>
+		<td>Start</td>
+		<td>End</td>
+		<td></td>
+	</th>
+	{% for contest in contest_list %}
+	<tr>
+		<td>{{ contest.name }}</td>
+		<td>{{ contest.start }}</td>
+		<td>{{ contest.end }}</td>
+		<td></td>
+	</tr>
+	{% endfor %}
+</table>
