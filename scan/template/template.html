@@ -10,7 +10,7 @@
 		<div class="container">
 			<div class="head">
 				<ul class="nav nav-pills pull-right">
-					{% if user.is_authenticated %}
+					{% if request.user.is_authenticated %}
 					<li class="disabled">
 						<a href="#" class="disabled">{{ user.username }}</a>
 					</li>
