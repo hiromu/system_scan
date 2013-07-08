@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" />
+		<link rel="stylesheet" href="/static/style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="head">
+				<ul class="nav nav-pills pull-right">
+					{% if user.is_authenticated %}
+					<li class="disabled">
+						<a href="#" class="disabled">{{ user.username }}</a>
+					</li>
+					<li class="active">
+						<a href="/logout">Logout</a>
+					</li>
+					{% else %}
+					<li class="active">
+						<a href="/login">Login</a>
+					</li>
+					{% endif %}
+				</ul>
+				<h1>System Scan</h1>
+			</div>
+			<hr />
+			<div class="main">
+				{% block main %}
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

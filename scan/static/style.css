@@ -3,6 +3,11 @@ body {
 	padding-bottom: 40px;
 }
 
+a.disabled {
+	pointer-events: none;
+	cursor: default;
+}
+
 .container {
 	magrin: 0 auto;
 	max-width: 1000px;

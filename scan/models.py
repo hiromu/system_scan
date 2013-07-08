@@ -1,16 +1,7 @@
 from django.db import models
-from django.contrib import admin
+from django.contrib import admin, auth
 
 # Create your models here.
-class User(models.Model):
-    user_name = models.CharField(max_length = 50)
-    first_name = models.CharField(max_length = 50)
-    last_name = models.CharField(max_length = 50)
-    admin = models.BooleanField()
-
-    def __unicode__(self):
-        return self.user_name
-
 class Contest(models.Model):
     name = models.CharField(max_length = 50)
     start = models.DateTimeField()
@@ -26,7 +17,7 @@ class Genre(models.Model):
         return self.name
 
 class Privilege(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey('auth.User')
     contest = models.ForeignKey(Contest)
 
     def __unicode__(self):
@@ -45,7 +36,7 @@ class Problem(models.Model):
         return self.statement
 
 class Answer(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey('auth.User')
     problem = models.ForeignKey(Problem)
     answer = models.TextField()
     point = models.PositiveIntegerField()
@@ -54,7 +45,7 @@ class Answer(models.Model):
         return self.answer
 
 class Score(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey('auth.User')
     contest = models.ForeignKey(Contest)
     genre = models.ForeignKey(Genre)
     score = models.PositiveIntegerField()
@@ -62,7 +53,6 @@ class Score(models.Model):
     def __unicode__(self):
         return self.score
 
-admin.site.register(User)
 admin.site.register(Contest)
 admin.site.register(Genre)
 admin.site.register(Privilege)

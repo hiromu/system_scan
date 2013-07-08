@@ -1,4 +1,6 @@
-{% include "header.html" %}
+{% extends "template.html" %}
+
+{% block main %}
 <table class="table table-striped">
 	<th>
 		<td>Name</td>
@@ -15,4 +17,4 @@
 	</tr>
 	{% endfor %}
 </table>
-{% include "footer.html" %}
+{% endblock %}

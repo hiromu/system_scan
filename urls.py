@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 
 	(r'^$', 'system_scan.scan.views.index'),
+	(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),
+	(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
 
 	(r'^(?P<contest_id>\d+)/$', 'system_scan.scan.views.contest'),
 	(r'^(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.answer'),
