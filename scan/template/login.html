@@ -3,7 +3,7 @@
 
 {% block main %}
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<div class="alert alert-error">ログインに失敗しました</div>
 {% endif %}
 <form method="post" action="{% url 'django.contrib.auth.views.login'%}">
 	{% csrf_token %}
@@ -17,7 +17,7 @@
 			<td>{{ form.password }}</td>
 		</tr>
 	</table>
-	<input type="submit" class="btn btn-primary" value="login" />
+	<input type="submit" class="btn btn-primary" value="Login" />
 	<input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock %}
