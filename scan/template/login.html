@@ -5,7 +5,7 @@
 {% if form.errors %}
 <div class="alert alert-error">ログインに失敗しました</div>
 {% endif %}
-<form method="post" action="{% url 'django.contrib.auth.views.login'%}">
+<form method="post" action="{% url 'system_scan.scan.views.custom_login' %}">
 	{% csrf_token %}
 	<table>
 		<tr>
