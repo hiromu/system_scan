@@ -1,0 +1,9 @@
+body {
+	padding-top: 20px;
+	padding-bottom: 40px;
+}
+
+.container {
+	magrin: 0 auto;
+	max-width: 1000px;
+}
