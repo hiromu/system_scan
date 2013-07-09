@@ -3,50 +3,50 @@
 import datetime
 
 from django.contrib import admin
-from django.db import models
+from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField
 
-class Genre(models.Model):
-	name = models.CharField(max_length = 50)
-
-	def __unicode__(self):
-		return self.name
-
-class Contest(models.Model):
-	name = models.CharField('名前', max_length = 50)
-	start = models.DateTimeField('開始日時')
-	end = models.DateTimeField('終了日時')
-	genres = models.ManyToManyField(Genre, verbose_name = '問題ジャンル')
-	users = models.ManyToManyField('auth.User', verbose_name = 'ユーザー名')
+class Genre(Model):
+	name = CharField(max_length = 50)
 
 	def __unicode__(self):
 		return self.name
 
-class Problem(models.Model):
-	contest = models.ForeignKey(Contest)
-	genre = models.ForeignKey(Genre)
-	type = models.PositiveIntegerField()
-	statement = models.TextField()
-	option = models.TextField()
-	result = models.TextField()
-	point = models.PositiveIntegerField()
+class Contest(Model):
+	name = CharField('名前', max_length = 50)
+	start = DateTimeField('開始日時')
+	end = DateTimeField('終了日時')
+	genres = ManyToManyField(Genre, verbose_name = '問題ジャンル')
+	users = ManyToManyField('auth.User', verbose_name = 'ユーザー名')
+
+	def __unicode__(self):
+		return self.name
+
+class Problem(Model):
+	contest = ForeignKey(Contest)
+	genre = ForeignKey(Genre)
+	type = PositiveIntegerField()
+	statement = TextField()
+	option = TextField()
+	result = TextField()
+	point = PositiveIntegerField()
 
 	def __unicode__(self):
 		return self.statement
 
-class Answer(models.Model):
-	user = models.ForeignKey('auth.User')
-	problem = models.ForeignKey(Problem)
-	answer = models.TextField()
-	point = models.PositiveIntegerField()
+class Answer(Model):
+	user = ForeignKey('auth.User')
+	problem = ForeignKey(Problem)
+	answer = TextField()
+	point = PositiveIntegerField()
 
 	def __unicode__(self):
 		return self.answer
 
-class Score(models.Model):
-	user = models.ForeignKey('auth.User')
-	contest = models.ForeignKey(Contest)
-	genre = models.ForeignKey(Genre)
-	score = models.PositiveIntegerField()
+class Score(Model):
+	user = ForeignKey('auth.User')
+	contest = ForeignKey(Contest)
+	genre = ForeignKey(Genre)
+	score = PositiveIntegerField()
 
 	def __unicode__(self):
 		return self.score

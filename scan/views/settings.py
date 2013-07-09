@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from system_scan.scan.forms import *
+from system_scan.scan.forms.settings import *
 from system_scan.scan.models import *
 
 from django.contrib.auth.decorators import login_required
