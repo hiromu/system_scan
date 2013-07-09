@@ -9,6 +9,7 @@ from django.forms import ModelForm
 class ContestForm(ModelForm):
 	class Meta:
 		model = Contest
+		fields = ('name', 'start', 'end')
 
 	def clean(self):
 		cleaned_data = super(ContestForm, self).clean()
