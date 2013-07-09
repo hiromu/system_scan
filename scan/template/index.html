@@ -2,12 +2,12 @@
 
 {% block main %}
 <table class="table table-striped">
-	<th>
-		<td>名前</td>
-		<td>開始日時</td>
-		<td>終了日時</td>
-		<td></td>
-	</th>
+	<tr>
+		<th>名前</th>
+		<th>開始日時</th>
+		<th>終了日時</th>
+		<th></th>
+	</tr>
 	{% for contest in contest_list %}
 	<tr>
 		<td>{{ contest.name }}</td>

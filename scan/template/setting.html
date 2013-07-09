@@ -2,7 +2,7 @@
 {% load url from future %}
 
 {% block main %}
-<form method="post" action="{% url 'system_scan.scan.views.setting' %}">
+<form method="post" action="{% url 'system_scan.scan.views.settings.index' %}">
 	{% csrf_token %}
 	<table class="form">
 		{{ form }}

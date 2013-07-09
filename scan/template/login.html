@@ -5,7 +5,7 @@
 {% if form.errors %}
 <div class="alert alert-error">ログインに失敗しました。</div>
 {% endif %}
-<form method="post" action="{% url 'system_scan.scan.views.custom_login' %}">
+<form method="post" action="{% url 'system_scan.scan.views.accounts.login' %}">
 	{% csrf_token %}
 	<table class="form">
 		<tr>
