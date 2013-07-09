@@ -2,9 +2,11 @@
 
 from system_scan.scan.models import *
 
+import json
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import CheckboxSelectMultiple, ModelForm
+from django.forms import CharField, CheckboxSelectMultiple, Form, ModelForm, TextInput
 
 class ContestForm(ModelForm):
 	class Meta:
@@ -33,13 +35,30 @@ class ContestGenreForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ContestGenreForm, self).__init__(*args, **kwargs)
 		self.fields['genres'].help_text = ''
-		#self.fields['genres'].widget = CheckboxSelectMultiple()
+		self.fields['genres'].widget = CheckboxSelectMultiple()
+		self.fields['genres'].queryset = Genre.objects.all()
 
-class PrivilegeForm(ModelForm):
-	class Meta:
-		model = Privilege
-		fields = ('user',)
+class ContestUserForm(Form):
+	user = CharField(label = 'ユーザー名')
 
 	def __init__(self, contest, *args, **kwargs):
-		super(PrivilegeForm, self).__init__(*args, **kwargs)
-		self.fields['user'].queryset = User.objects.exclude(id__in = Privilege.objects.filter(contest = contest).values_list('id', flat = True))
+		self.contest = contest
+		super(ContestUserForm, self).__init__(*args, **kwargs)
+
+		html_id = self.auto_id % ('user')
+		choices = [user.username for user in User.objects.exclude(id__in = contest.users.values_list('id', flat = True))]
+
+		self.fields['user'].help_text = '<script>$(\'#%s\').autocomplete({source:%s});</script>' % (html_id, json.dumps(choices))
+
+	def clean(self):
+		cleaned_data = super(ContestUserForm, self).clean()
+		user = cleaned_data.get('user')
+
+		if not user or not User.objects.filter(username = user):
+			self._errors['user'] = self.error_class(['存在しないユーザーです。'])
+			del cleaned_data['user']
+		elif User.objects.get(username = user) in self.contest.users.all():
+			self._errors['user'] = self.error_class(['ユーザーはすでに追加されています。'])
+			del cleaned_data['user']
+
+		return cleaned_data

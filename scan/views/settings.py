@@ -30,11 +30,9 @@ def contest(request, contest_id):
 
 	contest = get_object_or_404(Contest, pk = contest_id)
 	if request.method == 'POST':
-		form = ContestForm(request.POST)
+		form = ContestForm(request.POST, instance = contest)
 		if form.is_valid():
-			contest = form.save(commit = False)
-			contest.pk = contest_id
-			contest.save()
+			contest = form.save()
 	
 	form = ContestForm(instance = contest)
 	context = {'form': form, 'contest_id': contest_id}
@@ -47,11 +45,9 @@ def genre(request, contest_id):
 
 	contest = get_object_or_404(Contest, pk = contest_id)
 	if request.method == 'POST':
-		form = ContestGenreForm(request.POST)
+		form = ContestGenreForm(request.POST, instance = contest)
 		if form.is_valid():
-			contest = form.save(commit = False)
-			contest.pk = contest_id
-			contest.save()
+			contest = form.save()
 	
 	form = ContestGenreForm(instance = contest)
 	context = {'form': form, 'contest_id': contest_id}
@@ -63,9 +59,8 @@ def user(request, contest_id):
 		return redirect('system_scan.scan.views.index')
 
 	contest = get_object_or_404(Contest, pk = contest_id)
-	privileges = Privilege.objects.filter(contest = contest)
 	
-	context = {'contest_id': contest_id, 'privileges': privileges}
+	context = {'contest_id': contest_id, 'users': contest.users.all()}
 	return render_to_response('settings/user.html', context, RequestContext(request))
 
 @login_required
@@ -75,14 +70,14 @@ def user_add(request, contest_id):
 
 	contest = get_object_or_404(Contest, pk = contest_id)
 	if request.method == 'POST':
-		form = PrivilegeForm(contest, request.POST)
+		form = ContestUserForm(contest, request.POST)
 		if form.is_valid():
-			privilege = form.save(commit = False)
-			privilege.contest = contest
-			privilege.save()
+			user = User.objects.get(username = form.data.get('user'))
+			contest.users.add(user)
+			contest.save()
 			return redirect('system_scan.scan.views.settings.user', contest_id)
 	else:
-		form = PrivilegeForm(contest)
+		form = ContestUserForm(contest)
 
 	context = {'form': form, 'contest_id': contest_id}
 	return render_to_response('settings/user_add.html', context, RequestContext(request))
@@ -94,6 +89,6 @@ def user_del(request, contest_id, user_id):
 
 	contest = get_object_or_404(Contest, pk = contest_id)
 	user = get_object_or_404(User, pk = user_id)
-	Privilege.objects.filter(contest = contest, user = user).delete()
+	contest.users.remove(user)
 
 	return redirect('system_scan.scan.views.settings.user', contest_id)

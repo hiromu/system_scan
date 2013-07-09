@@ -22,12 +22,12 @@
 					<th>名前</th>
 					<th></th>
 				</tr>
-				{% for priv in privileges %}
+				{% for user in users %}
 				<tr>
-					<td>{{ priv.user.username }}</td>
-					<td>{{ priv.user.last_name }} {{ priv.user.first_name }}</td>
+					<td>{{ user.username }}</td>
+					<td>{{ user.last_name }} {{ user.first_name }}</td>
 					<td>
-						<a href="{% url 'system_scan.scan.views.settings.user_del' contest_id priv.user.id %}" class="btn btn-danger">削除</a>
+						<a href="{% url 'system_scan.scan.views.settings.user_del' contest_id user.id %}" class="btn btn-danger">削除</a>
 					</td>
 				</tr>
 				{% endfor %}

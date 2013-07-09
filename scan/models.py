@@ -2,8 +2,8 @@
 
 import datetime
 
+from django.contrib import admin
 from django.db import models
-from django.contrib import admin, auth
 
 class Genre(models.Model):
 	name = models.CharField(max_length = 50)
@@ -16,16 +16,10 @@ class Contest(models.Model):
 	start = models.DateTimeField('開始日時')
 	end = models.DateTimeField('終了日時')
 	genres = models.ManyToManyField(Genre, verbose_name = '問題ジャンル')
+	users = models.ManyToManyField('auth.User', verbose_name = 'ユーザー名')
 
 	def __unicode__(self):
 		return self.name
-
-class Privilege(models.Model):
-	user = models.ForeignKey('auth.User', verbose_name = 'ユーザー名')
-	contest = models.ForeignKey(Contest)
-
-	def __unicode__(self):
-		return unicode(self.contest) + ' - ' + unicode(self.user)
 
 class Problem(models.Model):
 	contest = models.ForeignKey(Contest)
@@ -59,7 +53,6 @@ class Score(models.Model):
 
 admin.site.register(Contest)
 admin.site.register(Genre)
-admin.site.register(Privilege)
 admin.site.register(Problem)
 admin.site.register(Answer)
 admin.site.register(Score)
