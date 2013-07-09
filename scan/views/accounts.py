@@ -7,7 +7,7 @@ def login(request):
 	if request.user.is_authenticated():
 		return redirect('system_scan.scan.views.index')
 	else:
-		return django_login(request, 'login.html')
+		return django_login(request, 'accounts/login.html')
 
 def profile(request):
 	return redirect('system_scan.scan.views.index')

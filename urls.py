@@ -30,7 +30,7 @@ urlpatterns = patterns('',
 	(r'^mark/(?P<contest_id>\d+)/(?P<user_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.mark'),
 	
 	(r'^settings/$', 'system_scan.scan.views.settings.index'),
-	(r'^settings/(?P<contest_id>\d+)/$', 'system_scan.scan.views.setting_contest'),
+	(r'^settings/(?P<contest_id>\d+)/$', 'system_scan.scan.views.settings.contest'),
 	(r'^settings/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.setting_problem'),
 
 	(r'^admin/$', 'system_scan.scan.views.admin'),
