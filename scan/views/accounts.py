@@ -4,10 +4,10 @@ from django.contrib.auth.views import login as django_login
 from django.shortcuts import redirect
 
 def login(request):
-	if request.user.is_authenticated():
-		return redirect('system_scan.scan.views.index')
-	else:
-		return django_login(request, 'accounts/login.html')
+    if request.user.is_authenticated():
+        return redirect('system_scan.scan.views.index')
+    else:
+        return django_login(request, 'accounts/login.html')
 
 def profile(request):
-	return redirect('system_scan.scan.views.index')
+    return redirect('system_scan.scan.views.index')

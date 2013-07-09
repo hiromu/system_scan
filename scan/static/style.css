@@ -1,28 +1,28 @@
 body {
-	padding-top: 20px;
-	padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 40px;
 }
 
 a.disabled {
-	pointer-events: none;
-	cursor: default;
+    pointer-events: none;
+    cursor: default;
 }
 
 a.logo {
-	color: #000000;
-	text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 
 a.btn {
-	margin-left: 5px;
-	margin-right: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .container {
-	magrin: 0 auto;
-	max-width: 1000px;
+    magrin: 0 auto;
+    max-width: 1000px;
 }
 
 .form th {
-	padding: 12px;
+    padding: 12px;
 }

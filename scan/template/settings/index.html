@@ -3,17 +3,17 @@
 
 {% block main %}
 <form method="post">
-	{% csrf_token %}
-	<table class="form">
-		{{ form }}
-		<tr>
-			<th></th>
-			<td>
-				<input type="submit" class="btn btn-primary" value="作成" />
-				<a href="{% url 'system_scan.scan.views.index' %}" class="btn">戻る</a>
-			</td>
-		</tr>
-	</table>
-	<input type="hidden" name="next" value="{{ next }}" />
+    {% csrf_token %}
+    <table class="form">
+        {{ form }}
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" class="btn btn-primary" value="作成" />
+                <a href="{% url 'system_scan.scan.views.index' %}" class="btn">戻る</a>
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock %}

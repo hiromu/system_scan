@@ -3,31 +3,31 @@
 
 {% block main %}
 <div class="tabbable">
-	<ul class="nav nav-tabs">
-		<li>
-			<a href="{% url 'system_scan.scan.views.settings.contest' contest_id %}">一般設定</a>
-		</li>
-		<li class="active">
-			<a href="#" class="disabled">問題設定</a>
-		</li>
-		<li>
-			<a href="{% url 'system_scan.scan.views.settings.user' contest_id %}">ユーザー設定</a>
-		</li>
-	</ul>
-	<div class="tab-content">
-		<div class="tab-pane active" id="generic">
-			<form method="post">
-				{% csrf_token %}
-				<table class="form">
-					{{ form }}
-					<tr>
-						<th></th>
-						<td>
-							<input type="submit" class="btn btn-primary" value="更新" />
-						</td>
-					</tr>
-				</table>
-			</form>
-		</div>
-	</div>
+    <ul class="nav nav-tabs">
+        <li>
+            <a href="{% url 'system_scan.scan.views.settings.contest' contest_id %}">一般設定</a>
+        </li>
+        <li class="active">
+            <a href="#" class="disabled">問題設定</a>
+        </li>
+        <li>
+            <a href="{% url 'system_scan.scan.views.settings.user' contest_id %}">ユーザー設定</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="generic">
+            <form method="post">
+                {% csrf_token %}
+                <table class="form">
+                    {{ form }}
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="submit" class="btn btn-primary" value="更新" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
 {% endblock %}

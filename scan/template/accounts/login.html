@@ -6,23 +6,23 @@
 <div class="alert alert-error">ログインに失敗しました。</div>
 {% endif %}
 <form method="post">
-	{% csrf_token %}
-	<table class="form">
-		<tr>
-			<th>{{ form.username.label_tag }}</th>
-			<td>{{ form.username }}</td>
-		</tr>
-		<tr>
-			<th>{{ form.password.label_tag }}</th>
-			<td>{{ form.password }}</td>
-		</tr>
-		<tr>
-			<th></th>
-			<td>
-				<input type="submit" class="btn btn-primary" value="ログイン" />
-			</td>
-		</tr>
-	</table>
-	<input type="hidden" name="next" value="{{ next }}" />
+    {% csrf_token %}
+    <table class="form">
+        <tr>
+            <th>{{ form.username.label_tag }}</th>
+            <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <th>{{ form.password.label_tag }}</th>
+            <td>{{ form.password }}</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" class="btn btn-primary" value="ログイン" />
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock %}
