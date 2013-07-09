@@ -5,10 +5,10 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li>
-            <a href="{% url 'system_scan.scan.views.settings.contest' contest_id %}">一般設定</a>
+            <a href="{% url 'scan.views.settings.contest' contest_id %}">一般設定</a>
         </li>
         <li>
-            <a href="{% url 'system_scan.scan.views.settings.genre' contest_id %}">問題設定</a>
+            <a href="{% url 'scan.views.settings.genre' contest_id %}">問題設定</a>
         </li>
         <li class="active">
             <a href="#" class="disabled">ユーザー設定</a>
@@ -27,12 +27,12 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.last_name }} {{ user.first_name }}</td>
                     <td>
-                        <a href="{% url 'system_scan.scan.views.settings.user_del' contest_id user.id %}" class="btn btn-danger">削除</a>
+                        <a href="{% url 'scan.views.settings.user_del' contest_id user.id %}" class="btn btn-danger">削除</a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'system_scan.scan.views.settings.user_add' contest_id %}" class="btn btn-primary">追加</a>
+            <a href="{% url 'scan.views.settings.user_add' contest_id %}" class="btn btn-primary">追加</a>
         </div>
     </div>
 {% endblock %}

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from system_scan.scan.models import *
-from system_scan.scan.forms import *
+from scan.models import Contest
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext

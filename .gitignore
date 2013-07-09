@@ -36,8 +36,7 @@ nosetests.xml
 .pydevproject
 
 # Do not upload passwords
-/settings.py
-/settings_ldap.py
+/*/settings*.py
 
 ## Editor backup and swap files
 *~

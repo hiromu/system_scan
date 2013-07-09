@@ -20,13 +20,13 @@
         <td></td>
         {% if request.user.is_staff %}
         <td>
-            <a href="{% url 'system_scan.scan.views.settings.contest' contest.id %}">設定</a>
+            <a href="{% url 'scan.views.settings.contest' contest.id %}">設定</a>
         </td>
         {% endif %}
     </tr>
     {% endfor %}
 </table>
 {% if request.user.is_staff %}
-<a href="{% url 'system_scan.scan.views.settings.index' %}" class="btn btn-primary">追加</a>
+<a href="{% url 'scan.views.settings.index' %}" class="btn btn-primary">追加</a>
 {% endif %}
 {% endblock %}

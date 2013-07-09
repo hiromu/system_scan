@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from system_scan.scan.models import *
+from scan.models import *
 
 import json
 

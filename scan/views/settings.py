@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from system_scan.scan.forms.settings import *
-from system_scan.scan.models import *
+from scan.forms.settings import *
+from scan.models import Contest
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render_to_response
@@ -10,13 +10,13 @@ from django.template import RequestContext
 @login_required
 def index(request):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     if request.method == 'POST':
         form = ContestForm(request.POST)
         if form.is_valid():
             contest = form.save()
-            return redirect('system_scan.scan.views.settings.contest', contest_id = contest.id)
+            return redirect('scan.views.settings.contest', contest_id = contest.id)
     else:
         form = ContestForm()
 
@@ -26,7 +26,7 @@ def index(request):
 @login_required
 def contest(request, contest_id):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
     if request.method == 'POST':
@@ -41,7 +41,7 @@ def contest(request, contest_id):
 @login_required
 def genre(request, contest_id):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
     if request.method == 'POST':
@@ -56,7 +56,7 @@ def genre(request, contest_id):
 @login_required
 def user(request, contest_id):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
     
@@ -66,7 +66,7 @@ def user(request, contest_id):
 @login_required
 def user_add(request, contest_id):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
     if request.method == 'POST':
@@ -75,7 +75,7 @@ def user_add(request, contest_id):
             user = User.objects.get(username = form.data.get('user'))
             contest.users.add(user)
             contest.save()
-            return redirect('system_scan.scan.views.settings.user', contest_id)
+            return redirect('scan.views.settings.user', contest_id)
     else:
         form = ContestUserForm(contest)
 
@@ -85,10 +85,10 @@ def user_add(request, contest_id):
 @login_required
 def user_del(request, contest_id, user_id):
     if not request.user.is_staff:
-        return redirect('system_scan.scan.views.index')
+        return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
     user = get_object_or_404(User, pk = user_id)
     contest.users.remove(user)
 
-    return redirect('system_scan.scan.views.settings.user', contest_id)
+    return redirect('scan.views.settings.user', contest_id)
