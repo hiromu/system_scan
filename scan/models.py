@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
+
+import datetime
+
 from django.db import models
 from django.contrib import admin, auth
 
-# Create your models here.
 class Contest(models.Model):
-    name = models.CharField(max_length = 50)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    name = models.CharField('名前', max_length = 50)
+    start = models.DateTimeField('開始日時')
+    end = models.DateTimeField('終了日時')
 
     def __unicode__(self):
         return self.name

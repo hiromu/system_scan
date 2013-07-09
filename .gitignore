@@ -37,3 +37,4 @@ nosetests.xml
 
 # Do not upload passwords
 settings.py
+settings_ldap.py

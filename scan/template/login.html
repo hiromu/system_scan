@@ -3,21 +3,26 @@
 
 {% block main %}
 {% if form.errors %}
-<div class="alert alert-error">ログインに失敗しました</div>
+<div class="alert alert-error">ログインに失敗しました。</div>
 {% endif %}
 <form method="post" action="{% url 'system_scan.scan.views.custom_login' %}">
 	{% csrf_token %}
-	<table>
+	<table class="form">
 		<tr>
-			<td>{{ form.username.label_tag }}</td>
+			<th>{{ form.username.label_tag }}</th>
 			<td>{{ form.username }}</td>
 		</tr>
 		<tr>
-			<td>{{ form.password.label_tag }}</td>
+			<th>{{ form.password.label_tag }}</th>
 			<td>{{ form.password }}</td>
 		</tr>
+		<tr>
+			<th></th>
+			<td>
+				<input type="submit" class="btn btn-primary" value="ログイン" />
+			</td>
+		</tr>
 	</table>
-	<input type="submit" class="btn btn-primary" value="Login" />
 	<input type="hidden" name="next" value="{{ next }}" />
 </form>
 {% endblock %}
