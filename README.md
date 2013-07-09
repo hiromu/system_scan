@@ -11,7 +11,7 @@
 ## Dependences
 
 1. Python 2.7
-2. Django
+2. Django 1.3.1
 
 You can install these packages as below in Ubuntu.
 
