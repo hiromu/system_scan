@@ -2,6 +2,7 @@
 
 from system_scan.scan.models import *
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 
@@ -22,3 +23,12 @@ class ContestForm(ModelForm):
 			del cleaned_data['end']
 
 		return cleaned_data
+
+class PrivilegeForm(ModelForm):
+	class Meta:
+		model = Privilege
+		fields = ('user',)
+
+	def __init__(self, contest, *args, **kwargs):
+		super(PrivilegeForm, self).__init__(*args, **kwargs)
+		self.fields['user'].queryset = User.objects.exclude(id__in = Privilege.objects.filter(contest = contest).values_list('id', flat = True))

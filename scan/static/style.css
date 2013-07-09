@@ -13,6 +13,11 @@ a.logo {
 	text-decoration: none;
 }
 
+a.btn {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
 .container {
 	magrin: 0 auto;
 	max-width: 1000px;

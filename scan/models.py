@@ -20,11 +20,11 @@ class Genre(models.Model):
         return self.name
 
 class Privilege(models.Model):
-    user = models.ForeignKey('auth.User')
+    user = models.ForeignKey('auth.User', verbose_name = 'ユーザー名')
     contest = models.ForeignKey(Contest)
 
     def __unicode__(self):
-        return self.user
+        return unicode(self.contest) + ' - ' + unicode(self.user)
 
 class Problem(models.Model):
     contest = models.ForeignKey(Contest)

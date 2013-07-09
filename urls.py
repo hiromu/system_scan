@@ -32,7 +32,10 @@ urlpatterns = patterns('',
 	(r'^settings/$', 'system_scan.scan.views.settings.index'),
 	(r'^settings/(?P<contest_id>\d+)/$', 'system_scan.scan.views.settings.contest'),
 	(r'^settings/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'system_scan.scan.views.setting_problem'),
-
+	(r'^settings/(?P<contest_id>\d+)/user/$', 'system_scan.scan.views.settings.user'),
+	(r'^settings/(?P<contest_id>\d+)/user/add/$', 'system_scan.scan.views.settings.user_add'),
+	(r'^settings/(?P<contest_id>\d+)/user/del/(?P<user_id>\d+)/$', 'system_scan.scan.views.settings.user_del'),
+	
 	(r'^admin/$', 'system_scan.scan.views.admin'),
 	(r'^admin/database/', include(admin.site.urls)),
 )
