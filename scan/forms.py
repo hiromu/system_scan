@@ -4,7 +4,7 @@ from system_scan.scan.models import *
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
+from django.forms import CheckboxSelectMultiple, ModelForm
 
 class ContestForm(ModelForm):
 	class Meta:
@@ -24,6 +24,16 @@ class ContestForm(ModelForm):
 			del cleaned_data['end']
 
 		return cleaned_data
+
+class ContestGenreForm(ModelForm):
+	class Meta:
+		model = Contest
+		fields = ('genres',)
+
+	def __init__(self, *args, **kwargs):
+		super(ContestGenreForm, self).__init__(*args, **kwargs)
+		self.fields['genres'].help_text = ''
+		#self.fields['genres'].widget = CheckboxSelectMultiple()
 
 class PrivilegeForm(ModelForm):
 	class Meta:

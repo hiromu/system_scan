@@ -8,7 +8,7 @@
 			<a href="#" class="disabled">一般設定</a>
 		</li>
 		<li>
-			<a href="genre">問題設定</a>
+			<a href="{% url 'system_scan.scan.views.settings.genre' contest_id %}">問題設定</a>
 		</li>
 		<li>
 			<a href="{% url 'system_scan.scan.views.settings.user' contest_id %}">ユーザー設定</a>

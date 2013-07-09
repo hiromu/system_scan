@@ -41,6 +41,23 @@ def contest(request, contest_id):
 	return render_to_response('settings/contest.html', context, RequestContext(request))
 
 @login_required
+def genre(request, contest_id):
+	if not request.user.is_staff:
+		return redirect('system_scan.scan.views.index')
+
+	contest = get_object_or_404(Contest, pk = contest_id)
+	if request.method == 'POST':
+		form = ContestGenreForm(request.POST)
+		if form.is_valid():
+			contest = form.save(commit = False)
+			contest.pk = contest_id
+			contest.save()
+	
+	form = ContestGenreForm(instance = contest)
+	context = {'form': form, 'contest_id': contest_id}
+	return render_to_response('settings/genre.html', context, RequestContext(request))
+
+@login_required
 def user(request, contest_id):
 	if not request.user.is_staff:
 		return redirect('system_scan.scan.views.index')
@@ -49,7 +66,7 @@ def user(request, contest_id):
 	privileges = Privilege.objects.filter(contest = contest)
 	
 	context = {'contest_id': contest_id, 'privileges': privileges}
-	return render_to_response('settings/user.html', context)
+	return render_to_response('settings/user.html', context, RequestContext(request))
 
 @login_required
 def user_add(request, contest_id):

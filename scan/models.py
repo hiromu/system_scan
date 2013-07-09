@@ -15,7 +15,7 @@ class Contest(models.Model):
 	name = models.CharField('名前', max_length = 50)
 	start = models.DateTimeField('開始日時')
 	end = models.DateTimeField('終了日時')
-	genres = models.ManyToManyField(Genre)
+	genres = models.ManyToManyField(Genre, verbose_name = '問題ジャンル')
 
 	def __unicode__(self):
 		return self.name

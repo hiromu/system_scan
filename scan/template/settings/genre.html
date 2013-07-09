@@ -7,11 +7,11 @@
 		<li>
 			<a href="{% url 'system_scan.scan.views.settings.contest' contest_id %}">一般設定</a>
 		</li>
-		<li>
-			<a href="{% url 'system_scan.scan.views.settings.genre' contest_id %}">問題設定</a>
-		</li>
 		<li class="active">
-			<a href="#" class="disabled">ユーザー設定</a>
+			<a href="#" class="disabled">問題設定</a>
+		</li>
+		<li>
+			<a href="{% url 'system_scan.scan.views.settings.user' contest_id %}">ユーザー設定</a>
 		</li>
 	</ul>
 	<div class="tab-content">
@@ -23,8 +23,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<input type="submit" class="btn btn-primary" value="追加" />
-							<a href="{% url 'system_scan.scan.views.settings.user' contest_id %}" class="btn">戻る</a>
+							<input type="submit" class="btn btn-primary" value="更新" />
 						</td>
 					</tr>
 				</table>
