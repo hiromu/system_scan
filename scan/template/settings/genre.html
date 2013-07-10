@@ -1,17 +1,18 @@
 {% extends "template.html" %}
 {% load url from future %}
+{% load i18n %}
 
 {% block main %}
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li>
-            <a href="{% url 'scan.views.settings.contest' contest_id %}">一般設定</a>
+            <a href="{% url 'scan.views.settings.contest' contest_id %}">{% trans "一般設定" %}</a>
         </li>
         <li class="active">
-            <a href="#" class="disabled">問題設定</a>
+            <a href="#" class="disabled">{% trans "問題設定" %}</a>
         </li>
         <li>
-            <a href="{% url 'scan.views.settings.user' contest_id %}">ユーザー設定</a>
+            <a href="{% url 'scan.views.settings.user' contest_id %}">{% trans "ユーザー設定" %}</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -23,7 +24,7 @@
                     <tr>
                         <th></th>
                         <td>
-                            <input type="submit" class="btn btn-primary" value="更新" />
+                            <input type="submit" class="btn btn-primary" value="{% trans "更新" %}" />
                         </td>
                     </tr>
                 </table>

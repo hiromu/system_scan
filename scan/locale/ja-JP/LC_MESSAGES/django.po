@@ -1,0 +1,104 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-07-10 23:49+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: .\template\index.html.py:8 .\template\settings\user.html.py:23
+msgid "名前"
+msgstr "名前"
+
+#: .\template\index.html.py:9
+msgid "開始日時"
+msgstr "開始日時"
+
+#: .\template\index.html.py:10
+msgid "終了日時"
+msgstr "終了日時"
+
+#: .\template\index.html.py:22 .\template\contests\index.html.py:20
+msgid "進む"
+msgstr "進む"
+
+#: .\template\index.html.py:26
+msgid "設定"
+msgstr "設定"
+
+#: .\template\index.html.py:33 .\template\settings\user.html.py:36
+#: .\template\settings\user_add.html.py:27
+msgid "追加"
+msgstr "追加"
+
+#: .\template\template.html.py:22
+msgid "ログアウト"
+msgstr "ログアウト"
+
+#: .\template\template.html.py:26 .\template\accounts\login.html.py:23
+msgid "ログイン"
+msgstr "ログイン"
+
+#: .\template\template.html.py:30
+msgid "System Scan"
+msgstr "System Scan"
+
+#: .\template\accounts\login.html.py:7
+msgid "ログインに失敗しました。"
+msgstr "ログインに失敗しました。"
+
+#: .\template\contests\index.html.py:8
+msgid "ジャンル"
+msgstr "ジャンル"
+
+#: .\template\contests\index.html.py:16
+#: .\template\settings\contest.html.py:12
+#: .\template\settings\genre.html.py:12 .\template\settings\user.html.py:12
+#: .\template\settings\user_add.html.py:12
+msgid "問題設定"
+msgstr "問題設定"
+
+#: .\template\settings\contest.html.py:9 .\template\settings\genre.html.py:9
+#: .\template\settings\user.html.py:9 .\template\settings\user_add.html.py:9
+msgid "一般設定"
+msgstr "一般設定"
+
+#: .\template\settings\contest.html.py:15
+#: .\template\settings\genre.html.py:15
+#: .\template\settings\user.html.py:15
+#: .\template\settings\user_add.html.py:15
+msgid "ユーザー設定"
+msgstr "ユーザー設定"
+
+#: .\template\settings\contest.html.py:27
+#: .\template\settings\genre.html.py:27
+msgid "更新"
+msgstr "更新"
+
+#: .\template\settings\index.html.py:13
+msgid "作成"
+msgstr "作成"
+
+#: .\template\settings\index.html.py:14
+#: .\template\settings\user_add.html.py:28
+msgid "戻る"
+msgstr "戻る"
+
+#: .\template\settings\user.html.py:22
+msgid "ユーザー名"
+msgstr "ユーザー名"
+
+#: .\template\settings\user.html.py:31
+msgid "削除"
+msgstr "削除"

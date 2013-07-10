@@ -1,7 +1,7 @@
 {% load url from future %}
-
+{% load i18n %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ request.LANGUAGE_CODE }}">
     <head>
         <link rel="stylesheet" href="/static/jquery/flick/jquery-ui.min.css" />
         <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css" />
@@ -19,15 +19,15 @@
                         <a href="#" class="disabled">{{ user.username }}</a>
                     </li>
                     <li class="active">
-                        <a href="{% url 'django.contrib.auth.views.logout' %}">ログアウト</a>
+                        <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "ログアウト" %}</a>
                     </li>
                     {% else %}
                     <li class="active">
-                        <a href="{% url 'scan.views.accounts.login' %}">ログイン</a>
+                        <a href="{% url 'scan.views.accounts.login' %}">{% trans "ログイン" %}</a>
                     </li>
                     {% endif %}
                 </ul>
-                <h1><a class="logo" href="{% url 'scan.views.index' %}">System Scan</a></h1>
+                <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans "System Scan" %}</a></h1>
             </div>
             <hr />
             <div class="main">

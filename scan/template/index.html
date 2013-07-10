@@ -1,12 +1,13 @@
 {% extends "template.html" %}
 {% load url from future %}
+{% load i18n %}
 
 {% block main %}
 <table class="table table-striped">
     <tr>
-        <th>名前</th>
-        <th>開始日時</th>
-        <th>終了日時</th>
+        <th>{% trans "名前" %}</th>
+        <th>{% trans "開始日時" %}</th>
+        <th>{% trans "終了日時" %}</th>
         <th></th>
         {% if request.user.is_staff %}
         <th></th>
@@ -18,17 +19,17 @@
         <td>{{ contest.start }}</td>
         <td>{{ contest.end }}</td>
         <td>
-            <a href="{% url 'scan.views.contests.index' contest.id %}">進む</a>
+            <a href="{% url 'scan.views.contests.index' contest.id %}">{% trans "進む" %}</a>
         </td>
         {% if request.user.is_staff %}
         <td>
-            <a href="{% url 'scan.views.settings.contest' contest.id %}">設定</a>
+            <a href="{% url 'scan.views.settings.contest' contest.id %}">{% trans "設定" %}</a>
         </td>
         {% endif %}
     </tr>
     {% endfor %}
 </table>
 {% if request.user.is_staff %}
-<a href="{% url 'scan.views.settings.index' %}" class="btn btn-primary">追加</a>
+<a href="{% url 'scan.views.settings.index' %}" class="btn btn-primary">{% trans "追加" %}</a>
 {% endif %}
 {% endblock %}

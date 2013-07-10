@@ -1,10 +1,11 @@
 {% extends "template.html" %}
 {% load url from future %}
+{% load i18n %}
 
 {% block main %}
 <table class="table table-striped">
     <tr>
-        <th>ジャンル</th>
+        <th>{% trans "ジャンル" %}</th>
         <th></th>
     </tr>
     {% for genre in genres %}
@@ -12,11 +13,11 @@
         <td>{{ genre.name }}</td>
         {% if request.user.is_staff or request.user in users %}
         <td>
-            <a href="{% url 'scan.views.settings.problem' contest_id genre.id %}">問題設定</a>
+            <a href="{% url 'scan.views.settings.problem' contest_id genre.id %}">{% trans "問題設定" %}</a>
         </td>
         {% else %}
         <td>
-            <a href="{% url 'scan.views.contests.answer' contest_id %}">進む</a>
+            <a href="{% url 'scan.views.contests.answer' contest_id %}">{% trans "進む" %}</a>
         </td>
         {% endif %}
     </tr>
