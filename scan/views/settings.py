@@ -92,3 +92,7 @@ def user_del(request, contest_id, user_id):
     contest.users.remove(user)
 
     return redirect('scan.views.settings.user', contest_id)
+
+@login_required
+def problem(request, contest_id, genre_id):
+    return redirect('scan.views.index')

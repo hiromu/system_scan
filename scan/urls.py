@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^$', 'scan.views.index'),
 
-#   (r'^(?P<contest_id>\d+)/$', 'scan.views.contest'),
+    (r'^(?P<contest_id>\d+)/$', 'scan.views.contests.index'),
 #   (r'^(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.answer'),
 #   (r'^(?P<contest_id>\d+)/score/$', 'scan.views.score'),
 
@@ -21,7 +21,7 @@ urlpatterns = patterns('',
     
     (r'^settings/$', 'scan.views.settings.index'),
     (r'^settings/(?P<contest_id>\d+)/$', 'scan.views.settings.contest'),
-#   (r'^settings/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.setting_problem'),
+    (r'^settings/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.settings.problem'),
     (r'^settings/(?P<contest_id>\d+)/genre/$', 'scan.views.settings.genre'),
     (r'^settings/(?P<contest_id>\d+)/user/$', 'scan.views.settings.user'),
     (r'^settings/(?P<contest_id>\d+)/user/add/$', 'scan.views.settings.user_add'),

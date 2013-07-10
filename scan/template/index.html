@@ -17,7 +17,9 @@
         <td>{{ contest.name }}</td>
         <td>{{ contest.start }}</td>
         <td>{{ contest.end }}</td>
-        <td></td>
+        <td>
+            <a href="{% url 'scan.views.contests.index' contest.id %}">進む</a>
+        </td>
         {% if request.user.is_staff %}
         <td>
             <a href="{% url 'scan.views.settings.contest' contest.id %}">設定</a>

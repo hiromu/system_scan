@@ -1,0 +1,25 @@
+{% extends "template.html" %}
+{% load url from future %}
+
+{% block main %}
+<table class="table table-striped">
+    <tr>
+        <th>ジャンル</th>
+        <th></th>
+    </tr>
+    {% for genre in genres %}
+    <tr>
+        <td>{{ genre.name }}</td>
+        {% if request.user.is_staff or request.user in users %}
+        <td>
+            <a href="{% url 'scan.views.settings.problem' contest_id genre.id %}">問題設定</a>
+        </td>
+        {% else %}
+        <td>
+            <a href="{% url 'scan.views.contests.answer' contest_id %}">進む</a>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
