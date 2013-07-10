@@ -3,6 +3,11 @@
 # C extensions
 *.so
 
+# Django
+
+django/
+django_auth_ldap/
+
 # Packages
 *.egg
 *.egg-info
@@ -35,8 +40,10 @@ nosetests.xml
 .project
 .pydevproject
 
-# Do not upload passwords
-/*/settings*.py
+# Do not upload passwords and environment-dependence setting
+/*/settings_ldap.py
+/*/settings_db.py
+/*/settings_template.py
 
 ## Editor backup and swap files
 *~
