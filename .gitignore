@@ -4,7 +4,6 @@
 *.so
 
 # Django
-
 django/
 django_auth_ldap/
 
@@ -44,6 +43,7 @@ nosetests.xml
 /*/settings_ldap.py
 /*/settings_db.py
 /*/settings_template.py
+/*/settings_key.py
 
 ## Editor backup and swap files
 *~
