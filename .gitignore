@@ -40,10 +40,9 @@ nosetests.xml
 .pydevproject
 
 # Do not upload passwords and environment-dependence setting
-/*/settings_ldap.py
-/*/settings_db.py
-/*/settings_template.py
-/*/settings_key.py
+/*/settings/settings_database.py
+/*/settings/settings_ldap.py
+/*/settings/settings_local.py
 
 ## Editor backup and swap files
 *~

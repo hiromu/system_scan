@@ -144,11 +144,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages'
 )
 
-# Import settings of Database
-from settings_db import *
-# Import settings of LDAP
+from settings_database import *
 from settings_ldap import *
-# Import settings of template
-from settings_template import *
-# Import settings of key
-from settings_key import *
+from settings_local import *
