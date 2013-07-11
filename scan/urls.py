@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 #   (r'^mark/(?P<contest_id>\d+)/$', 'scan.views.mark_top'),
 #   (r'^mark/(?P<contest_id>\d+)/(?P<user_id>\d+)/$', 'scan.views.mark_user'),
 #   (r'^mark/(?P<contest_id>\d+)/(?P<user_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.mark'),
-    
+
     (r'^settings/$', 'scan.views.settings.index'),
     (r'^settings/(?P<contest_id>\d+)/$', 'scan.views.settings.contest'),
     (r'^settings/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.settings.problem'),
@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     (r'^settings/(?P<contest_id>\d+)/user/$', 'scan.views.settings.user'),
     (r'^settings/(?P<contest_id>\d+)/user/add/$', 'scan.views.settings.user_add'),
     (r'^settings/(?P<contest_id>\d+)/user/del/(?P<user_id>\d+)/$', 'scan.views.settings.user_del'),
-    
+
 #   (r'^admin/$', 'scan.views.admin'),
     (r'^admin/database/', include(admin.site.urls)),
 )

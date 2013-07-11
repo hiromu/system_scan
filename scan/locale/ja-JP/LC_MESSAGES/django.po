@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-10 23:49+0900\n"
+"POT-Creation-Date: 2013-07-11 13:49+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\template\index.html.py:8 .\template\settings\user.html.py:23
+#: .\forms\settings.py:23
+msgid "開始日時を現在時刻より前に設定することはできません。"
+msgstr "開始日時を現在時刻より前に設定することはできません。"
+
+#: .\forms\settings.py:26
+msgid "終了日時を開始日時より前に設定することはできません。"
+msgstr "終了日時を開始日時より前に設定することはできません。"
+
+#: .\forms\settings.py:43 .\models\__init__.py:20
+#: .\template\settings\user.html.py:22
+msgid "ユーザー名"
+msgstr "ユーザー名"
+
+#: .\forms\settings.py:59
+msgid "存在しないユーザーです。"
+msgstr "存在しないユーザーです。"
+
+#: .\forms\settings.py:62
+msgid "ユーザーはすでに追加されています。"
+msgstr "ユーザーはすでに追加されています。"
+
+#: .\models\__init__.py:16
+#: .\template\index.html.py:8
+#: .\template\settings\user.html.py:23
 msgid "名前"
 msgstr "名前"
 
+#: .\models\__init__.py:17
 #: .\template\index.html.py:9
 msgid "開始日時"
 msgstr "開始日時"
 
+#: .\models\__init__.py:18
 #: .\template\index.html.py:10
 msgid "終了日時"
 msgstr "終了日時"
 
-#: .\template\index.html.py:22 .\template\contests\index.html.py:20
+#: .\models\__init__.py:19
+msgid "問題ジャンル"
+msgstr "問題ジャンル"
+
+#: .\template\index.html.py:22
+#: .\template\contests\index.html.py:20
 msgid "進む"
 msgstr "進む"
 
@@ -37,22 +67,23 @@ msgstr "進む"
 msgid "設定"
 msgstr "設定"
 
-#: .\template\index.html.py:33 .\template\settings\user.html.py:36
+#: .\template\index.html.py:33
+#: .\template\settings\user.html.py:36
 #: .\template\settings\user_add.html.py:27
 msgid "追加"
 msgstr "追加"
 
-#: .\template\template.html.py:22
+#: .\template\template.html.py:13 .\template\template.html.py:32
+msgid "System Scan"
+msgstr "System Scan"
+
+#: .\template\template.html.py:24
 msgid "ログアウト"
 msgstr "ログアウト"
 
-#: .\template\template.html.py:26 .\template\accounts\login.html.py:23
+#: .\template\template.html.py:28 .\template\accounts\login.html.py:23
 msgid "ログイン"
 msgstr "ログイン"
-
-#: .\template\template.html.py:30
-msgid "System Scan"
-msgstr "System Scan"
 
 #: .\template\accounts\login.html.py:7
 msgid "ログインに失敗しました。"
@@ -94,10 +125,6 @@ msgstr "作成"
 #: .\template\settings\user_add.html.py:28
 msgid "戻る"
 msgstr "戻る"
-
-#: .\template\settings\user.html.py:22
-msgid "ユーザー名"
-msgstr "ユーザー名"
 
 #: .\template\settings\user.html.py:31
 msgid "削除"

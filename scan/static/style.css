@@ -3,6 +3,12 @@ body {
     padding-bottom: 40px;
 }
 
+header {
+    border-bottom: solid 1px #eeeeee;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
 a.disabled {
     pointer-events: none;
     cursor: default;

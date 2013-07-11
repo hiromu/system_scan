@@ -4,7 +4,7 @@ import datetime
 
 from django.contrib import admin
 from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 class Genre(Model):
     name = CharField(max_length = 50)
@@ -16,8 +16,8 @@ class Contest(Model):
     name = CharField(_(u"名前"), max_length = 50)
     start = DateTimeField(_(u"開始日時"))
     end = DateTimeField(_(u"終了日時"))
-    genres = ManyToManyField(Genre, verbose_name = _(u'問題ジャンル'))
-    users = ManyToManyField('auth.User', verbose_name = _(u'ユーザー名'))
+    genres = ManyToManyField(Genre, verbose_name = _(u"問題ジャンル"))
+    users = ManyToManyField('auth.User', verbose_name = _(u"ユーザー名"))
 
     def __unicode__(self):
         return self.name

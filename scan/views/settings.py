@@ -33,7 +33,7 @@ def contest(request, contest_id):
         form = ContestForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
-    
+
     form = ContestForm(instance = contest)
     context = {'form': form, 'contest_id': contest_id}
     return render_to_response('settings/contest.html', context, RequestContext(request))
@@ -48,7 +48,7 @@ def genre(request, contest_id):
         form = ContestGenreForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
-    
+
     form = ContestGenreForm(instance = contest)
     context = {'form': form, 'contest_id': contest_id}
     return render_to_response('settings/genre.html', context, RequestContext(request))
@@ -59,7 +59,7 @@ def user(request, contest_id):
         return redirect('scan.views.index')
 
     contest = get_object_or_404(Contest, pk = contest_id)
-    
+
     context = {'contest_id': contest_id, 'users': contest.users.all()}
     return render_to_response('settings/user.html', context, RequestContext(request))
 
