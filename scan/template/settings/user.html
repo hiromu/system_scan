@@ -1,20 +1,10 @@
-{% extends "template.html" %}
+{% extends 'template.html' %}
 {% load url from future %}
 {% load i18n %}
 
 {% block main %}
 <div class="tabbable">
-    <ul class="nav nav-tabs">
-        <li>
-            <a href="{% url 'scan.views.contests.settings' contest_id 'contest' %}">{% trans "一般設定" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'scan.views.contests.settings' contest_id 'genre' %}">{% trans "問題設定" %}</a>
-        </li>
-        <li class="active">
-            <a href="#" class="disabled">{% trans "ユーザー設定" %}</a>
-        </li>
-    </ul>
+    {% include 'settings/tab.html' %}
     <div class="tab-content">
         <div class="tab-pane active" id="generic">
             <table class="table table-striped">
@@ -28,12 +18,12 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.last_name }} {{ user.first_name }}</td>
                     <td>
-                        <a href="{% url 'scan.views.contests.user_del_settings' contest_id user.id %}" class="btn btn-danger">{% trans "削除" %}</a>
+                        <a href="{% url 'scan.views.settings.user_del' contest_id user.id %}" class="btn btn-danger">{% trans "削除" %}</a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'scan.views.contests.settings' contest_id 'user_add' %}" class="btn btn-primary">{% trans "追加" %}</a>
+            <a href="{% url 'scan.views.settings.user_add' contest_id %}" class="btn btn-primary">{% trans "追加" %}</a>
         </div>
     </div>
 {% endblock %}

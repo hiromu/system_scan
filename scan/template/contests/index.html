@@ -1,4 +1,4 @@
-{% extends "template.html" %}
+{% extends 'template.html' %}
 {% load url from future %}
 {% load i18n %}
 
@@ -17,7 +17,7 @@
         </td>
         {% else %}
         <td>
-            <a href="{% url 'scan.views.contests.answer' contest_id %}">{% trans "進む" %}</a>
+            <a href="{% url 'scan.views.contests.answer' contest_id genre.id %}">{% trans "進む" %}</a>
         </td>
         {% endif %}
     </tr>

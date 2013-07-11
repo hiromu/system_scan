@@ -1,20 +1,10 @@
-{% extends "template.html" %}
+{% extends 'template.html' %}
 {% load url from future %}
 {% load i18n %}
 
 {% block main %}
 <div class="tabbable">
-    <ul class="nav nav-tabs">
-        <li class="active">
-            <a href="#" class="disabled">{% trans "一般設定" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'scan.views.contests.settings' contest_id 'genre' %}">{% trans "問題設定" %}</a>
-        </li>
-        <li>
-            <a href="{% url 'scan.views.contests.settings' contest_id 'user' %}">{% trans "ユーザー設定" %}</a>
-        </li>
-    </ul>
+    {% include 'settings/tab.html' %}
     <div class="tab-content">
         <div class="tab-pane active" id="generic">
             <form method="post">
