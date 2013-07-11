@@ -49,7 +49,8 @@ def contest_settings(request, contest_id, contest):
         form = ContestForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
-    form = ContestForm(instance = contest)
+    else:
+        form = ContestForm(instance = contest)
     context = {'contest_id': contest_id, 'form': form, 'page': 'contest'}
     return render_to_response('settings/contest.html', context, RequestContext(request))
 
@@ -59,7 +60,8 @@ def genre_settings(request, contest_id, contest):
         form = ContestGenreForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
-    form = ContestGenreForm(instance = contest)
+    else:
+        form = ContestGenreForm(instance = contest)
     context = {'contest_id': contest_id, 'form': form, 'page': 'genre'}
     return render_to_response('settings/genre.html', context, RequestContext(request))
 
