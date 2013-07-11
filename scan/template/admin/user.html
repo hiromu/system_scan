@@ -1,0 +1,24 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<div class="tabbable">
+    {% include 'admin/tab.html' %}
+    <div class="tab-content">
+        <div class="tab-pane active" id="generic">
+            <table class="table table-striped">
+                <tr>
+                    <th>{% trans "ユーザー名" %}</th>
+                    <th>{% trans "名前" %}</th>
+                </tr>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.last_name }} {{ user.first_name }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

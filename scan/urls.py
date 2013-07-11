@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     (r'^accounts/profile/$', 'scan.views.accounts.profile'),
 
-#   (r'^admin/$', 'scan.views.admin'),
+    (r'^admin/$', 'scan.views.admin.index'),
     (r'^admin/database/', include(admin.site.urls)),
+    (r'^admin/(?P<tab>\w*)/$', 'scan.views.admin.admin'),
 )

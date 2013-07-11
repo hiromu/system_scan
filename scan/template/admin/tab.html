@@ -1,0 +1,16 @@
+{% load url from future %}
+{% load i18n %}
+
+<ul class="nav nav-tabs">
+    {% for tab in tabs %}
+        {% ifequal page tab.0 %}
+        <li class="active">
+            <a href="#" class="disabled">{{ tab.1.1 }}</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'scan.views.admin.admin' tab.0 %}">{{ tab.1.1 }}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
+</ul>

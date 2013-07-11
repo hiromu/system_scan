@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<div class="tabbable">
+    {% include 'admin/tab.html' %}
+    <div class="tab-content">
+        <div class="tab-pane active" id="generic">
+            <table class="table table-striped">
+                <tr>
+                    <th>{% trans "ジャンル名" %}</th>
+                </tr>
+                {% for genre in genres %}
+                <tr>
+                    <td>{{ genre.name }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'scan.views.admin.admin' 'genre_add' %}" class="btn btn-primary">{% trans "追加" %}</a>
+        </div>
+{% endblock %}
