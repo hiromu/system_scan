@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from scan.forms.admin import *
-#from scan.models import Contest
 from scan.models import Genre
 
 from django.contrib.auth.models import User
@@ -48,3 +47,17 @@ def genre_settings(request):
 def user_settings(request):
     context = {'page': 'user', 'tabs': tabs, 'users': User.objects.all()}
     return render_to_response('admin/user.html', context, RequestContext(request))
+
+@login_required
+def genre_add(request):
+    if not request.user.is_staff:
+        return redirect('scan.views.index')
+    if request.method == 'POST':
+        form = GenreAddForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('scan.views.admin.admin', tab = 'genre')
+    else:
+        form = GenreAddForm()
+    context = {'form': form, 'page': 'genre', 'tabs': tabs}
+    return render_to_response('admin/genre_add.html', context, RequestContext(request))

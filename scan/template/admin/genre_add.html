@@ -1,0 +1,25 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<div class="tabbable">
+    {% include 'admin/tab.html' %}
+    <div class="tab-content">
+        <div class="tab-pane active" id="generic">
+            <form method="post">
+                {% csrf_token %}
+                <table class="form">
+                    {{ form }}
+                    <tr>
+                        <th></th>
+                        <td>
+                            <input type="submit" class="btn btn-primary" value="{% trans "追加" %}" />
+                            <a href="{% url 'scan.views.admin.admin' 'genre' %}" class="btn">{% trans "戻る" %}</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}
