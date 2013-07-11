@@ -4,7 +4,7 @@ body {
 }
 
 header {
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: solid 1px #eeeeee;
     margin-bottom: 20px;
     padding-bottom: 10px;
 }

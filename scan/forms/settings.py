@@ -7,6 +7,7 @@ import json
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.forms import CharField, CheckboxSelectMultiple, Form, ModelForm, TextInput
+from django.utils.translation import ugettext_lazy as _
 
 class ContestForm(ModelForm):
     class Meta:
@@ -19,10 +20,10 @@ class ContestForm(ModelForm):
         end = cleaned_data.get('end')
 
         if start < datetime.datetime.now():
-            self._errors['start'] = self.error_class(['開始日時を現在時刻より前に設定することはできません。'])
+            self._errors['start'] = self.error_class([_(u"開始日時を現在時刻より前に設定することはできません。")])
             del cleaned_data['start']
         if end < start:
-            self._errors['end'] = self.error_class(['終了日時を開始日時より前に設定することはできません。'])
+            self._errors['end'] = self.error_class([_(u"終了日時を開始日時より前に設定することはできません。")])
             del cleaned_data['end']
 
         return cleaned_data
@@ -39,7 +40,7 @@ class ContestGenreForm(ModelForm):
         self.fields['genres'].queryset = Genre.objects.all()
 
 class ContestUserForm(Form):
-    user = CharField(label = 'ユーザー名')
+    user = CharField(label = _(u"ユーザー名"))
 
     def __init__(self, contest, *args, **kwargs):
         self.contest = contest
@@ -55,10 +56,10 @@ class ContestUserForm(Form):
         user = cleaned_data.get('user')
 
         if not user or not User.objects.filter(username = user):
-            self._errors['user'] = self.error_class(['存在しないユーザーです。'])
+            self._errors['user'] = self.error_class([_(u"存在しないユーザーです。")])
             del cleaned_data['user']
         elif User.objects.get(username = user) in self.contest.users.all():
-            self._errors['user'] = self.error_class(['ユーザーはすでに追加されています。'])
+            self._errors['user'] = self.error_class([_(u"ユーザーはすでに追加されています。")])
             del cleaned_data['user']
 
         return cleaned_data
