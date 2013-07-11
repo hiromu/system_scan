@@ -2,31 +2,15 @@
 {% load i18n %}
 
 <ul class="nav nav-tabs">
-    {% if page == 'contest' %}
-    <li class="active">
-        <a href="#" class="disabled">{% trans "一般設定" %}</a>
-    </li>
-    {% else %}
-    <li>
-        <a href="{% url 'scan.views.settings.settings' contest_id 'contest' %}">{% trans "一般設定" %}</a>
-    </li>
-    {% endif %}
-    {% if page == 'genre' %}
-    <li class="active">
-        <a href="#" class="disabled">{% trans "問題設定" %}</a>
-    </li>
-    {% else %}
-    <li>
-        <a href="{% url 'scan.views.settings.settings' contest_id 'genre' %}">{% trans "問題設定" %}</a>
-    </li>
-    {% endif %}
-    {% if page == 'user' %}
-    <li class="active">
-        <a href="#" class="disabled">{% trans "ユーザー設定" %}</a>
-    </li>
-    {% else %}
-    <li>
-        <a href="{% url 'scan.views.settings.settings' contest_id 'user' %}">{% trans "ユーザー設定" %}</a>
-    </li>
-    {% endif %}
+    {% for tab in tabs %}
+        {% ifequal page tab.0 %}
+        <li class="active">
+            <a href="#" class="disabled">{{ tab.1.1 }}</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'scan.views.settings.settings' contest_id tab.0 %}">{{ tab.1.1 }}</a>
+        </li>
+        {% endifequal %}
+    {% endfor %}
 </ul>

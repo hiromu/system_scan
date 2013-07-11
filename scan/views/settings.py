@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
+from django.utils.translation import ugettext_lazy as _
+
+tabs = {}
 
 @login_required
 def add(request):
@@ -30,16 +33,19 @@ def index(request, contest_id):
 
 @login_required
 def settings(request, contest_id, tab):
-    tabs = {
-        'contest'   :contest_settings,
-        'genre'     :genre_settings,
-        'user'      :user_settings,
-    }
-    if tab in tabs:
-        if not request.user.is_staff:
-            return redirect('scan.views.index')
-        contest = get_object_or_404(Contest, pk = contest_id)
-        return tabs[tab](request, contest_id, contest)
+    global tabs
+    tabs = (
+        ('contest'   ,(contest_settings, _(u"一般設定"))),
+        ('genre'     ,(genre_settings, _(u"問題設定"))),
+        ('user'      ,(user_settings, _(u"ユーザー設定"))),
+    )
+    for value in tabs:
+        if value[0] == tab:
+            if not request.user.is_staff:
+                return redirect('scan.views.index')
+            contest = get_object_or_404(Contest, pk = contest_id)
+            return value[1][0](request, contest_id, contest)
+            break
     else:
         raise Http404
 
@@ -50,7 +56,7 @@ def contest_settings(request, contest_id, contest):
         if form.is_valid():
             contest = form.save()
     form = ContestForm(instance = contest)
-    context = {'contest_id': contest_id, 'form': form, 'page': 'contest'}
+    context = {'contest_id': contest_id, 'form': form, 'page': 'contest', 'tabs': tabs}
     return render_to_response('settings/contest.html', context, RequestContext(request))
 
 @login_required
@@ -60,12 +66,12 @@ def genre_settings(request, contest_id, contest):
         if form.is_valid():
             contest = form.save()
     form = ContestGenreForm(instance = contest)
-    context = {'contest_id': contest_id, 'form': form, 'page': 'genre'}
+    context = {'contest_id': contest_id, 'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('settings/genre.html', context, RequestContext(request))
 
 @login_required
 def user_settings(request, contest_id, contest):
-    context = {'contest_id': contest_id, 'page': 'user', 'users': contest.users.all()}
+    context = {'contest_id': contest_id, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
     return render_to_response('settings/user.html', context, RequestContext(request))
 
 @login_required
