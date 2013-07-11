@@ -6,10 +6,10 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li>
-            <a href="{% url 'scan.views.settings.contest' contest_id %}">{% trans "一般設定" %}</a>
+            <a href="{% url 'scan.views.contests.settings' contest_id 'contest' %}">{% trans "一般設定" %}</a>
         </li>
         <li>
-            <a href="{% url 'scan.views.settings.genre' contest_id %}">{% trans "問題設定" %}</a>
+            <a href="{% url 'scan.views.contests.settings' contest_id 'genre' %}">{% trans "問題設定" %}</a>
         </li>
         <li class="active">
             <a href="#" class="disabled">{% trans "ユーザー設定" %}</a>
@@ -25,7 +25,7 @@
                         <th></th>
                         <td>
                             <input type="submit" class="btn btn-primary" value="{% trans "追加" %}" />
-                            <a href="{% url 'scan.views.settings.user' contest_id %}" class="btn">{% trans "戻る" %}</a>
+                            <a href="{% url 'scan.views.contests.settings' contest_id 'user' %}" class="btn">{% trans "戻る" %}</a>
                         </td>
                     </tr>
                 </table>

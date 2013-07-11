@@ -6,13 +6,13 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
         <li>
-            <a href="{% url 'scan.views.settings.contest' contest_id %}">{% trans "一般設定" %}</a>
+            <a href="{% url 'scan.views.contests.settings' contest_id 'contest' %}">{% trans "一般設定" %}</a>
         </li>
         <li class="active">
             <a href="#" class="disabled">{% trans "問題設定" %}</a>
         </li>
         <li>
-            <a href="{% url 'scan.views.settings.user' contest_id %}">{% trans "ユーザー設定" %}</a>
+            <a href="{% url 'scan.views.contests.settings' contest_id 'user' %}">{% trans "ユーザー設定" %}</a>
         </li>
     </ul>
     <div class="tab-content">
