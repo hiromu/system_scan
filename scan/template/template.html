@@ -22,11 +22,11 @@
                 <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans "System Scan" %}</a></h1>
                 <ul class="nav nav-pills pull-right">
                     {% if request.user.is_authenticated %}
-                    <li>
-                        <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
-                    </li>
-                    <li class="disabled">
-                        <a href="#" class="disabled">{{ user.username }}</a>
+                    <li id="user-info">
+                        <a href="{% url 'scan.views.accounts.profile' %}">
+                            <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
+                            <p>{{ user.username }}</p>
+                        </a>
                     </li>
                     {% if request.user.is_staff %}
                     <li>
