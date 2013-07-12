@@ -14,7 +14,7 @@ class GenreAddForm(ModelForm):
         fields = ('name',)
 
 class UserEditForm(ModelForm):
-    is_staff = BooleanField(label = _(u'管理者'))
+    is_staff = BooleanField(label = _(u'管理者'), required = False)
 
     class Meta:
         model = User
