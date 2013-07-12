@@ -54,6 +54,22 @@ def genre_add(request):
     context = {'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('admin/genre_add.html', context, RequestContext(request))
 
+@login_required
+def user_edit(request, user_id):
+    if not request.user.is_staff:
+        return redirect('scan.views.index')
+
+    user = get_object_or_404(User, pk = user_id)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance = user)
+        if form.is_valid():
+            form.save()
+            return redirect('scan.views.admin.admin', tab = 'user')
+    else:
+        form = UserEditForm(instance = user)
+    context = {'form': form, 'page': 'user', 'tabs': tabs}
+    return render_to_response('admin/user_edit.html', context, RequestContext(request))
+
 tabs = (
     ('general'  ,(general_settings, _(u"一般設定"))),
     ('genre'    ,(genre_settings,   _(u"ジャンル設定"))),

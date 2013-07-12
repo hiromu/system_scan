@@ -28,6 +28,11 @@
                     <li class="disabled">
                         <a href="#" class="disabled">{{ user.username }}</a>
                     </li>
+                    {% if request.user.is_staff %}
+                    <li>
+                        <a href="{% url 'scan.views.admin.index' %}">{% trans "サイト設定" %}</a>
+                    </li>
+                    {% endif %}
                     <li class="active">
                         <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "ログアウト" %}</a>
                     </li>

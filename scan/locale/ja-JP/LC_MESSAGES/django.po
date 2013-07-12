@@ -73,15 +73,19 @@ msgstr "設定"
 msgid "追加"
 msgstr "追加"
 
-#: .\template\template.html.py:13 .\template\template.html.py:32
+#: .\template\template.html.py:13 .\template\template.html.py:40
 msgid "System Scan"
 msgstr "System Scan"
 
-#: .\template\template.html.py:24
+#: .\template\template.html.py:28
+msgid "サイト設定"
+msgstr "サイト設定"
+
+#: .\template\template.html.py:32
 msgid "ログアウト"
 msgstr "ログアウト"
 
-#: .\template\template.html.py:28 .\template\accounts\login.html.py:23
+#: .\template\template.html.py:36 .\template\accounts\login.html.py:23
 msgid "ログイン"
 msgstr "ログイン"
 

@@ -2,11 +2,8 @@
 
 from scan.models import *
 
-import json
-
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.forms import CharField, CheckboxSelectMultiple, Form, ModelForm, TextInput
+from django.forms import BooleanField, CharField, ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 class GenreAddForm(ModelForm):
@@ -15,3 +12,10 @@ class GenreAddForm(ModelForm):
     class Meta:
         model = Genre
         fields = ('name',)
+
+class UserEditForm(ModelForm):
+    is_staff = BooleanField(label = _(u'管理者'))
+
+    class Meta:
+        model = User
+        fields = ('is_staff',)

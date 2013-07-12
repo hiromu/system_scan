@@ -26,6 +26,7 @@ urlpatterns = patterns('',
 
     (r'^admin/$', 'scan.views.admin.index'),
     (r'^admin/database/', include(admin.site.urls)),
-    (r'^admin/(?P<tab>\w*)/$', 'scan.views.admin.admin'),
     (r'^admin/genre/add/$', 'scan.views.admin.genre_add'),
+    (r'^admin/user/edit/(?P<user_id>\d+)/$', 'scan.views.admin.user_edit'),
+    (r'^admin/(?P<tab>\w*)/$', 'scan.views.admin.admin'),
 )

@@ -9,13 +9,23 @@
         <div class="tab-pane active" id="generic">
             <table class="table table-striped">
                 <tr>
-                    <th>{% trans "ユーザー名" %}</th>
-                    <th>{% trans "名前" %}</th>
+                    <th>{% trans 'ユーザー名' %}</th>
+                    <th>{% trans '名前' %}</th>
+                    <th>{% trans '管理者' %}</th>
+                    <th>
                 </tr>
                 {% for user in users %}
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.last_name }} {{ user.first_name }}</td>
+                    {% if user.is_staff %}
+                    <td>✓</td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
+                    <td>
+                        <a href="{% url 'scan.views.admin.user_edit' user.id %}">設定</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
