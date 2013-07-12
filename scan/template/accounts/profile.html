@@ -1,0 +1,24 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+{% load gravatar %}
+
+{% block main %}
+<h2>{% if user.lastname or user.firstname %}{{ user.lastname }} {{ user.firstname }}{% else %}<span class="light">{% trans "未設定" %}</span>{% endif %} ({{ user.username }})</h2>
+<img id="big-icon" alt="icon" width="300" height="300" src="{% big_gravatar_url user.email %}" />
+<h3>{% trans "プロフィール" %}</h3>
+<ul id="profile_list">
+    <li>{% trans "ユーザー名" %}: {{ user.username }}</li>
+    {% if user.lastname or user.firstname %}
+    <li>{% trans "名前" %}: {{ user.lastname }} {{ user.firstname }}</li>
+    {% else %}
+    <li>{% trans "名前" %}: <span class="light">{% trans "未設定" %}</span></li>
+    {% endif %}
+    {% if user.email %}
+    <li>{% trans "メールアドレス" %}: {{ user.email }}</li>
+    {% else %}
+    <li>{% trans "メールアドレス" %}: <span class="light">{% trans "未設定" %}</span></li>
+    {% endif %}
+</ul>
+<p id="icon-message">{% trans "このサイトではメールアドレスを元にGravatorのアイコンを使用しています。アイコンの変更はGravatorで行ってください。" %}</p>
+{% endblock %}

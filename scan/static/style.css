@@ -4,7 +4,7 @@ body {
 }
 
 header {
-    border-bottom: solid 1px #eeeeee;
+    border-bottom: 1px solid #eeeeee;
     margin-bottom: 20px;
     padding-bottom: 10px;
     position: relative;
@@ -30,6 +30,29 @@ header>ul {
     float: left;
 }
 
+#big-icon {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding: 4px;
+    border: 1px solid #eeeeee;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+#profile_list {
+    list-style-position: inside;
+    padding-left: 320px;
+    font-size: 17px;
+}
+
+#profile_list>li {
+    margin-top: 6px;
+}
+
+#icon-message {
+    clear: both;
+}
+
 a.disabled {
     pointer-events: none;
     cursor: default;
@@ -43,6 +66,10 @@ a.logo {
 a.btn {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.light {
+    color: #999999;
 }
 
 .container {
