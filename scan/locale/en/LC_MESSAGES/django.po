@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-11 13:34+0900\n"
+"POT-Creation-Date: 2013-07-12 21:34+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,15 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: .\forms\admin.py:10 .\template\admin\genre.html.py:12
+#:, fuzzy
+msgid "ジャンル名"
+msgstr "Genre"
+
+#: .\forms\admin.py:17 .\template\admin\user.html.py:14
+msgid "管理者"
+msgstr "Administrator"
 
 #: .\forms\settings.py:23
 msgid "開始日時を現在時刻より前に設定することはできません。"
@@ -26,7 +35,7 @@ msgid "終了日時を開始日時より前に設定することはできませ�
 msgstr "Can't set the end time less than the current time."
 
 #: .\forms\settings.py:43 .\models\__init__.py:20
-#: .\template\settings\user.html.py:22
+#: .\template\admin\user.html.py:12 .\template\settings\user.html.py:12
 msgid "ユーザー名"
 msgstr "Username"
 
@@ -39,7 +48,7 @@ msgid "ユーザーはすでに追加されています。"
 msgstr "The user has already been added."
 
 #: .\models\__init__.py:16 .\template\index.html.py:8
-#: .\template\settings\user.html.py:23
+#: .\template\admin\user.html.py:13 .\template\settings\user.html.py:13
 msgid "名前"
 msgstr "Name"
 
@@ -63,24 +72,25 @@ msgstr "Proceed"
 msgid "設定"
 msgstr "Settings"
 
-#: .\template\index.html.py:33 .\template\settings\user.html.py:36
-#: .\template\settings\user_add.html.py:27
+#: .\template\index.html.py:33 .\template\admin\genre.html.py:20
+#: .\template\admin\genre_add.html.py:17 .\template\settings\user.html.py:26
+#: .\template\settings\user_add.html.py:17
 msgid "追加"
 msgstr "Add"
 
-#: .\template\template.html.py:13 .\template\template.html.py:40
+#: .\template\template.html.py:14 .\template\template.html.py:22
 msgid "System Scan"
 msgstr "System Scan"
 
-#: .\template\template.html.py:28
+#: .\template\template.html.py:33
 msgid "サイト設定"
 msgstr "Site settings"
 
-#: .\template\template.html.py:32
+#: .\template\template.html.py:37
 msgid "ログアウト"
 msgstr "Logout"
 
-#: .\template\template.html.py:36 .\template\accounts\login.html.py:23
+#: .\template\template.html.py:41 .\template\accounts\login.html.py:23
 msgid "ログイン"
 msgstr "Login"
 
@@ -88,43 +98,46 @@ msgstr "Login"
 msgid "ログインに失敗しました。"
 msgstr "Failed to login."
 
+#: .\template\admin\genre_add.html.py:18
+#: .\template\admin\user_edit.html.py:18
+#: .\template\settings\add.html.py:14
+#: .\template\settings\user_add.html.py:18
+msgid "戻る"
+msgstr "Back"
+
+#: .\template\admin\user_edit.html.py:17
+msgid "変更"
+msgstr "Change"
+
 #: .\template\contests\index.html.py:8
 msgid "ジャンル"
 msgstr "Genre"
 
-#: .\template\contests\index.html.py:16
-#: .\template\settings\contest.html.py:12
-#: .\template\settings\genre.html.py:12 .\template\settings\user.html.py:12
-#: .\template\settings\user_add.html.py:12
+#: .\template\contests\index.html.py:16 .\views\settings.py:106
 msgid "問題設定"
 msgstr "Problem settings"
 
-#: .\template\settings\contest.html.py:9 .\template\settings\genre.html.py:9
-#: .\template\settings\user.html.py:9 .\template\settings\user_add.html.py:9
-msgid "一般設定"
-msgstr "General settings"
-
-#: .\template\settings\contest.html.py:15
-#: .\template\settings\genre.html.py:15
-#: .\template\settings\user.html.py:15
-#: .\template\settings\user_add.html.py:15
-msgid "ユーザー設定"
-msgstr "User settings"
-
-#: .\template\settings\contest.html.py:27
-#: .\template\settings\genre.html.py:27
-msgid "更新"
-msgstr "Update"
-
-#: .\template\settings\index.html.py:13
+#: .\template\settings\add.html.py:13
 msgid "作成"
 msgstr "Create"
 
-#: .\template\settings\index.html.py:14
-#: .\template\settings\user_add.html.py:28
-msgid "戻る"
-msgstr "Back"
+#: .\template\settings\contest.html.py:17
+#: .\template\settings\genre.html.py:17
+msgid "更新"
+msgstr "Update"
 
-#: .\template\settings\user.html.py:31
+#: .\template\settings\user.html.py:21
 msgid "削除"
 msgstr "Delete"
+
+#: .\views\admin.py:74 .\views\settings.py:105
+msgid "一般設定"
+msgstr "General settings"
+
+#: .\views\admin.py:75
+msgid "ジャンル設定"
+msgstr "Genre"
+
+#: .\views\admin.py:76 .\views\settings.py:107
+msgid "ユーザー設定"
+msgstr "User settings"
