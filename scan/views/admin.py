@@ -10,20 +10,12 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
-tabs = {}
-
 @login_required
 def index(request):
     return redirect('scan.views.admin.admin', 'general')
 
 @login_required
 def admin(request, tab):
-    global tabs
-    tabs = (
-        ('general'  ,(general_settings, _(u"一般設定"))),
-        ('genre'    ,(genre_settings,   _(u"ジャンル設定"))),
-        ('user'     ,(user_settings,    _(u"ユーザー設定"))),
-    )
     for value in tabs:
         if value[0] == tab:
             if not request.user.is_staff:
@@ -77,3 +69,9 @@ def user_edit(request, user_id):
         form = UserEditForm(instance = user)
     context = {'form': form, 'page': 'user', 'tabs': tabs}
     return render_to_response('admin/user_edit.html', context, RequestContext(request))
+
+tabs = (
+    ('general'  ,(general_settings, _(u"一般設定"))),
+    ('genre'    ,(genre_settings,   _(u"ジャンル設定"))),
+    ('user'     ,(user_settings,    _(u"ユーザー設定"))),
+)

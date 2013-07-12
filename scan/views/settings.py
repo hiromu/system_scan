@@ -9,8 +9,6 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
 
-tabs = {}
-
 @login_required
 def add(request):
     if not request.user.is_staff:
@@ -33,12 +31,6 @@ def index(request, contest_id):
 
 @login_required
 def settings(request, contest_id, tab):
-    global tabs
-    tabs = (
-        ('contest'   ,(contest_settings, _(u"一般設定"))),
-        ('genre'     ,(genre_settings, _(u"問題設定"))),
-        ('user'      ,(user_settings, _(u"ユーザー設定"))),
-    )
     for value in tabs:
         if value[0] == tab:
             if not request.user.is_staff:
@@ -91,7 +83,7 @@ def user_add(request, contest_id):
             return redirect('scan.views.settings.settings', contest_id, 'user')
     else:
         form = ContestUserForm(contest)
-    context = {'contest_id': contest_id, 'form': form, 'page': 'user'}
+    context = {'contest_id': contest_id, 'form': form, 'page': 'user', 'tabs': tabs}
     return render_to_response('settings/user_add.html', context, RequestContext(request))
 
 @login_required
@@ -108,3 +100,9 @@ def user_del(request, contest_id, user_id):
 @login_required
 def problem(request, contest_id, genre_id):
     return redirect('scan.views.index')
+
+tabs = (
+    ('contest'   ,(contest_settings,    _(u"一般設定"))),
+    ('genre'     ,(genre_settings,      _(u"問題設定"))),
+    ('user'      ,(user_settings,       _(u"ユーザー設定"))),
+)
