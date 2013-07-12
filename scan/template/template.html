@@ -1,5 +1,6 @@
 {% load url from future %}
 {% load i18n %}
+{% load gravatar %}
 <!DOCTYPE html>
 <html lang="{{ request.LANGUAGE_CODE }}">
     <head>
@@ -17,9 +18,13 @@
     </head>
     <body>
         <div class="container">
-            <header class="head">
+            <header class="head clearfix">
+                <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans "System Scan" %}</a></h1>
                 <ul class="nav nav-pills pull-right">
                     {% if request.user.is_authenticated %}
+                    <li>
+                        <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
+                    </li>
                     <li class="disabled">
                         <a href="#" class="disabled">{{ user.username }}</a>
                     </li>
@@ -32,7 +37,6 @@
                     </li>
                     {% endif %}
                 </ul>
-                <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans "System Scan" %}</a></h1>
             </header>
             <div class="main">
                 {% block main %}
