@@ -9,7 +9,7 @@
         <div class="tab-pane active" id="generic">
             <table class="table table-striped">
                 <tr>
-                    <th>{% trans "ジャンル名" %}</th>
+                    <th>{% trans 'ジャンル名' %}</th>
                 </tr>
                 {% for genre in genres %}
                 <tr>
@@ -17,6 +17,6 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'scan.views.admin.genre_add' %}" class="btn btn-primary">{% trans "追加" %}</a>
+            <a href='{% url 'scan.views.admin.genre_add' %}' class='btn btn-primary'>{% trans '追加' %}</a>
         </div>
 {% endblock %}
