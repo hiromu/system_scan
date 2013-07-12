@@ -11,7 +11,7 @@
         <script type="text/javascript" src="/static/jquery/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="/static/jquery/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
-        <title>{% trans "System Scan" %}</title>
+        <title>{% trans "System Scan" %}{% if subtitles %}{% for subtitle in subtitles %} - {{ subtitle }}{% endfor %}{% endif %}</title>
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
