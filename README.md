@@ -8,7 +8,7 @@
 "System Scan" is a new online examination system.
 
 ----
-## Dependences
+## Requirements
 
 1. Python 2.7
 2. Django 1.4.5
