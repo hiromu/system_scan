@@ -23,8 +23,10 @@
                 <ul class="nav nav-pills pull-right">
                     {% if request.user.is_authenticated %}
                     <li id="user-info">
-                        <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
-                        <a href="{% url 'scan.views.accounts.profile' %}">{{ user.username }}</a>
+                        <a href="{% url 'scan.views.accounts.profile' %}">
+                            <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
+                            <p>{{ user.username }}</p>
+                        </a>
                     </li>
                     {% if request.user.is_staff %}
                     <li>
