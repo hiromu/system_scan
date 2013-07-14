@@ -21,6 +21,10 @@ header>ul {
     margin-top: -20px;
 }
 
+header>ul>li {
+    margin-left: 5px;
+}
+
 #user-info>a {
     display: block;
     height: 40px;
