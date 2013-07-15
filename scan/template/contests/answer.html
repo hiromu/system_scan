@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
 <div class="problem">
     <form method="POST">
         {% csrf_token %}
@@ -20,7 +21,7 @@
         {% endfor %}
         <div class="button">
             <input class="btn btn-primary" type="submit" value="{% trans '送信' %}" />
-            <a href="{% url 'scan.views.contests.index' contest_id %}" class="btn">{% trans '終了' %}</a>
+            <a href="{% url 'scan.views.contests.index' contest.id %}" class="btn">{% trans '終了' %}</a>
         </div>
     </form>
 </div>

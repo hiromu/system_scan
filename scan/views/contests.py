@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render_to_response, Re
 def index(request, contest_id):
     contest = get_object_or_404(Contest, pk = contest_id)
 
-    context = {'subtitles': [contest.name], 'contest_id': contest_id, 'genres': contest.genres.all(), 'users': contest.users.all()}
+    context = {'subtitles': [contest.name], 'contest': contest, 'genres': contest.genres.all(), 'users': contest.users.all()}
     return render_to_response('contests/index.html', context, RequestContext(request))
 
 @login_required
@@ -56,7 +56,7 @@ def answer(request, contest_id, genre_id, problem_id):
     else:
         form = AnswerForm(problems[problem_id], instance = answer)
 
-    context = {'contest_id': contest_id, 'form': form, 'problem_id': problem_id + 1}
+    context = {'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1}
     return render_to_response('contests/answer.html', context, RequestContext(request))
 
 @login_required
@@ -66,5 +66,5 @@ def finish(request, contest_id, genre_id):
     if request.user in contest.users.all():
         return redirect('scan.views.contests.index', contest_id)
 
-    context = {'contest_id': contest_id, 'genre': genre}
+    context = {'contest': contest, 'genre': genre}
     return render_to_response('contests/finish.html', context, RequestContext(request))

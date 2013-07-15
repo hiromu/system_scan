@@ -9,7 +9,7 @@
         </li>
         {% else %}
         <li>
-            <a href="{% url 'scan.views.settings.settings' contest_id tab.0 %}">{{ tab.1.1 }}</a>
+            <a href="{% url 'scan.views.settings.settings' contest.id tab.0 %}">{{ tab.1.1 }}</a>
         </li>
         {% endifequal %}
     {% endfor %}
