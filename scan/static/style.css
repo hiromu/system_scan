@@ -32,6 +32,29 @@ header>ul>li {
     padding: 0;
 }
 
+#user-info>a>p {
+    display: block;
+    margin-top: 2px;
+    margin-left: 5px;
+    margin-right: 2px;
+    padding: 8px 12px;;
+    line-height: 14px;
+    border-radius: 5px;
+}
+
+#user-info>a:hover, #user-info>a:focus {
+    background: none;
+}
+
+#user-info>a:hover>p, #user-info>a:focus>p {
+    background-color: #eeeeee;
+}
+
+#user-info>a>* {
+    float: left;
+}
+
+
 #big-icon {
     float: left;
     margin-right: 20px;
