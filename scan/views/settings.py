@@ -97,10 +97,6 @@ def user_del(request, contest_id, user_id):
 
     return redirect('scan.views.settings.settings', contest_id, 'user')
 
-@login_required
-def problem(request, contest_id, genre_id):
-    return redirect('scan.views.index')
-
 tabs = (
     ('contest'   ,(contest_settings,    _(u"一般設定"))),
     ('genre'     ,(genre_settings,      _(u"問題設定"))),

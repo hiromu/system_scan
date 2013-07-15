@@ -13,7 +13,7 @@
         <td>{{ genre.name }}</td>
         {% if request.user.is_staff or request.user in users %}
         <td>
-            <a href="{% url 'scan.views.settings.problem' contest_id genre.id %}">{% trans "問題設定" %}</a>
+            <a href="{% url 'scan.views.problems.index' contest_id genre.id %}">{% trans "問題設定" %}</a>
         </td>
         {% else %}
         <td>

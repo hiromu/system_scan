@@ -1,0 +1,36 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<table class="table table-striped">
+    <tr>
+        <th>{% trans "問題" %}</th>
+        <th>{% trans "タイプ" %}</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for problem in problems %}
+    <tr>
+        <td>{{ problem.title }}</td>
+        {% if problem.type == 0 %}
+        <td>{% trans 'ラジオボタン' %}</td>
+        {% elif problem.type == 1 %}
+        <td>{% trans 'チェックボックス' %}</td>
+        {% elif problem.type == 2 %}
+        <td>{% trans 'テキスト' %}</td>
+        {% elif problem.type == 3 %}
+        <td>{% trans 'テキストエリア' %}</td>
+        {% endif %}
+        <td>
+            <a class="btn" href="{% url 'scan.views.problems.edit' contest.id genre.id problem.id %}">{% trans '編集' %}</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{% url 'scan.views.problems.delete' contest.id genre.id problem.id %}">{% trans '削除' %}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="btn btn-primary" href="{% url 'scan.views.problems.add' contest.id genre.id %}">{% trans '追加' %}</a>
+{% endblock %}
