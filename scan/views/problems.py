@@ -32,7 +32,7 @@ def edit(request, contest_id, genre_id, problem_id):
     problem = get_object_or_404(Problem, pk = problem_id)
     form = ProblemEditForm(contest, problem)
     context = {'contest_id': contest_id, 'form': form}
-    return render_to_response('contests/edit_problem.html', context, RequestContext(request))
+    return render_to_response('problems/edit.html', context, RequestContext(request))
 
 @login_required
 def delete(request, contest_id, genre_id, problem_id):
