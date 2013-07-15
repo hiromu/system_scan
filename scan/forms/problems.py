@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.forms import CharField, CheckboxSelectMultiple, Form, ChoiceField, RadioSelect, TextInput, Textarea, IntegerField
+from scan.models import *
+
+from django.forms import CharField, CheckboxSelectMultiple, ModelForm, Form, ChoiceField, RadioSelect, TextInput, Textarea, IntegerField
 from django.utils.translation import ugettext_lazy as _
 
 problem_types = (
@@ -10,7 +12,10 @@ problem_types = (
     _(u"テキストエリア"),
 )
 
-class ProblemEditForm(Form):
+class ProblemEditForm(ModelForm):
+    class Meta:
+        model = Problem
+
     type = ChoiceField(label = _(u"タイプ"), choices = [(i, problem_types[i]) for i in range(len(problem_types))], widget = RadioSelect)
     title = CharField(label = _(u"タイトル"), widget = TextInput)
     statement = CharField(label = _(u"問題文"), widget = Textarea)
