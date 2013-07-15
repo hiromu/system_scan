@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from scan.models import *
-from scan.forms.problem import *
+from scan.forms.problems import *
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render_to_response
