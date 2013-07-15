@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from scan.forms.contests import *
+from scan.forms.problems import *
 from scan.models import Contest, Genre, Problem
 
 from django.contrib.auth.decorators import login_required
@@ -79,4 +80,10 @@ def problem_manage(request, contest_id):
 
 @login_required
 def edit_problem(request, contest_id, problem_id):
-    return redirect('scan.views.index')
+    contest = get_object_or_404(Contest, pk = contest_id)
+    if not request.user.is_staff:
+        return redirect('scan.views.index')
+    problem = get_object_or_404(Problem, pk = problem_id)
+    form = ProblemEditForm(contest, problem)
+    context = {'contest_id': contest_id, 'form': form}
+    return render_to_response('contests/edit_problem.html', context, RequestContext(request))
