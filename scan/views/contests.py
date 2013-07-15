@@ -67,3 +67,16 @@ def finish(request, contest_id, genre_id):
 
     context = {'contest_id': contest_id, 'genre': genre}
     return render_to_response('contests/finish.html', context, RequestContext(request))
+
+@login_required
+def problem_manage(request, contest_id):
+    contest = get_object_or_404(Contest, pk = contest_id)
+    if not request.user.is_staff:
+        return redirect('scan.views.index')
+    problems = Problem.objects.filter(contest = contest)
+    context = {'contest_id': contest_id, 'problems': problems}
+    return render_to_response('contests/problem_manage.html', context, RequestContext(request))
+
+@login_required
+def edit_problem(request, contest_id, problem_id):
+    return redirect('scan.views.index')

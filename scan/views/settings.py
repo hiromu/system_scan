@@ -18,7 +18,7 @@ def add(request):
         form = ContestForm(request.POST)
         if form.is_valid():
             contest = form.save()
-            return redirect('scan.views.settings.contest', contest_id = contest.id)
+            return redirect('scan.views.settings.index', contest_id = contest.id)
     else:
         form = ContestForm()
 

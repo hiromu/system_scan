@@ -1,0 +1,24 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<table class="table table-striped">
+    <tr>
+        <th>{% trans "問題" %}</th>
+        <th>{% trans "ジャンル" %}</th>
+        <th>{% trans "タイプ" %}</th>
+        <th></th>
+    </tr>
+    {% for problem in problems %}
+    <tr>
+        <td>{{ problem.title }}</td>
+        <td>{{ problem.genre }}</td>
+        <td>{{ problem.type }}</td>
+        <td>
+            <a href="{% url 'scan.views.contests.edit_problem' contest_id problem.id %}">編集</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
