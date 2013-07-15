@@ -11,16 +11,18 @@ urlpatterns = patterns('',
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.contests.problem'),
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/(?P<problem_id>\d+)/$', 'scan.views.contests.answer'),
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/finish/$', 'scan.views.contests.finish'),
-    (r'^contests/(?P<contest_id>\d+)/problem_manage/$', 'scan.views.contests.problem_manage'),
-    (r'^contests/(?P<contest_id>\d+)/problem_manage/(?P<problem_id>\d+)/edit/$', 'scan.views.contests.edit_problem'),
 #   (r'^contests/(?P<contest_id>\d+)/score/$', 'scan.views.score'),
 
     (r'^contests/add/$', 'scan.views.settings.add'),
     (r'^contests/(?P<contest_id>\d+)/settings/$', 'scan.views.settings.index'),
-    (r'^contests/(?P<contest_id>\d+)/settings/(?P<genre_id>\d+)/$', 'scan.views.settings.problem'),
     (r'^contests/(?P<contest_id>\d+)/settings/user/add/$', 'scan.views.settings.user_add'),
     (r'^contests/(?P<contest_id>\d+)/settings/user/(?P<user_id>\d+)/del/$', 'scan.views.settings.user_del'),
     (r'^contests/(?P<contest_id>\d+)/settings/(?P<tab>\w*)/$', 'scan.views.settings.settings'),
+
+    (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/$', 'scan.views.problems.index'),
+    (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/add/$', 'scan.views.problems.add'),
+    (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/edit/(?P<problem_id>\d+)/$', 'scan.views.problems.edit'),
+    (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/del/(?P<problem_id>\d+)/$', 'scan.views.problems.delete'),
 
 #   (r'^contests/(?P<contest_id>\d+)/mark/$', 'scan.views.mark'),
 
