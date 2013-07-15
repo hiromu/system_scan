@@ -25,10 +25,8 @@
                     <li id="user-info">
                         <a href="{% url 'scan.views.accounts.profile' %}">
                             <img alt="icon" width="40" height="40" src="{% gravatar_url user.email %}" />
+                            <p>{{ user.username }}</p>
                         </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'scan.views.accounts.profile' %}">{{ user.username }}</a>
                     </li>
                     {% if request.user.is_staff %}
                     <li>
