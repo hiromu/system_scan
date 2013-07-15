@@ -26,8 +26,9 @@ class Problem(Model):
     contest = ForeignKey(Contest)
     genre = ForeignKey(Genre)
     type = PositiveIntegerField()
+    title = TextField()
     statement = TextField()
-    option = TextField()
+    option = TextField(blank = True)
     result = TextField()
     point = PositiveIntegerField()
 
@@ -38,7 +39,7 @@ class Answer(Model):
     user = ForeignKey('auth.User')
     problem = ForeignKey(Problem)
     answer = TextField()
-    point = PositiveIntegerField()
+    point = PositiveIntegerField(null = True)
 
     def __unicode__(self):
         return self.answer

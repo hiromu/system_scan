@@ -14,8 +14,8 @@ class ContestForm(ModelForm):
         model = Contest
         fields = ('name', 'start', 'end')
 
-    def clean(self):
-        cleaned_data = super(ContestForm, self).clean()
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(ContestForm, self).clean(*args, **kwargs)
         start = cleaned_data.get('start')
         end = cleaned_data.get('end')
 
@@ -51,8 +51,8 @@ class ContestUserForm(Form):
 
         self.fields['user'].help_text = '<script>$(\'#%s\').autocomplete({source:%s});</script>' % (html_id, json.dumps(choices))
 
-    def clean(self):
-        cleaned_data = super(ContestUserForm, self).clean()
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(ContestUserForm, self).clean(*args, **kwargs)
         user = cleaned_data.get('user')
 
         if not user or not User.objects.filter(username = user):

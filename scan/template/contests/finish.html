@@ -1,0 +1,9 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>回答完了: {{ genre.name }}</h2>
+<p>以上で{{ genre.name }}ジャンルの回答は終了です。お疲れ様でした。</p>
+<a href="{% url 'scan.views.contests.index' contest_id %}" class="btn btn-primary">{% trans '戻る' %}</a>
+{% endblock %}

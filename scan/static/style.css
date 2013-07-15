@@ -82,3 +82,49 @@ a.btn {
 .form th {
     padding: 12px;
 }
+
+.problem {
+}
+
+.problem {
+    padding: 5px;
+}
+
+.problem .statement p {
+    font-size: 20px;
+}
+
+.problem .statement pre {
+    margin: 10px;
+}
+
+.problem .answer {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.problem .answer ul {
+    list-style: none;
+    margin: 0;
+}
+
+.problem .answer ul.errorlist {
+    list-style: disc;
+}
+
+.problem .answer li {
+    margin-bottom: 10px;
+}
+
+.problem .answer input[type="radio"], input[type="checkbox"] {
+    vertical-align: 2px;
+}
+
+.problem .answer textarea {
+    width: 600px;
+}
+
+.problem .button {
+    margin-left: 10px;
+    margin-top: 20px;
+}
