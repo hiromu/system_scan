@@ -78,6 +78,31 @@ header>ul>li {
     clear: both;
 }
 
+#edit-problem ul {
+    list-style-type: none;
+}
+
+#edit-problem #id_option, #edit-problem #id_result,
+#edit-problem label[for="id_option"], #edit-problem label[for="id_result"] {
+    display: none;
+}
+
+#choices>li>* {
+    float: left;
+}
+
+#choices>li>label {
+    line-height: 14px;
+    margin-right: 2px;
+    padding: 8px 9px;
+}
+
+#choices>li>input[type="radio"], #choices>li>input[type="checkbox"] {
+    display: block;
+    line-height: 14px;
+    margin: 8px 9px;
+}
+
 a.disabled {
     pointer-events: none;
     cursor: default;

@@ -3,12 +3,13 @@
 {% load i18n %}
 
 {% block main %}
-<form action="/contact/" method="POST">
+<script type="text/javascript" src="{{ STATIC_URL }}problems/edit.js"></script>
+<form action="/contact/" method="POST" id="edit-problem">
     {% csrf_token %}
     {{ form.as_p }}
-    <ul class="horizontal clearfix">
-        <li><input type='submit' class='btn btn-primary' value='{% trans '変更' %}' /></li>
-        <li><a href='{% url 'scan.views.admin.admin' 'user' %}' class='btn'>{% trans '戻る' %}</a></li>
+    <ul id="action-buttons" class="horizontal clearfix">
+        <li><input type="submit" class="btn btn-primary disabled" value="{% trans '変更' %}" /></li>
+        <li><a href="{% url 'scan.views.admin.admin' 'user' %}" class="btn">{% trans '戻る' %}</a></li>
     </ul>
 </form>
 
