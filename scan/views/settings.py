@@ -41,7 +41,6 @@ def settings(request, contest_id, tab):
     else:
         raise Http404
 
-@login_required
 def contest_settings(request, contest_id, contest):
     if request.method == 'POST':
         form = ContestForm(request.POST, instance = contest)
@@ -52,7 +51,6 @@ def contest_settings(request, contest_id, contest):
     context = {'subtitles': [contest.name, _(u"一般設定")], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
     return render_to_response('settings/contest.html', context, RequestContext(request))
 
-@login_required
 def genre_settings(request, contest_id, contest):
     if request.method == 'POST':
         form = ContestGenreForm(request.POST, instance = contest)
@@ -63,7 +61,6 @@ def genre_settings(request, contest_id, contest):
     context = {'subtitles': [contest.name, _(u"問題設定")], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('settings/genre.html', context, RequestContext(request))
 
-@login_required
 def user_settings(request, contest_id, contest):
     context = {'subtitles': [contest.name, _(u"ユーザー設定")], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
     return render_to_response('settings/user.html', context, RequestContext(request))

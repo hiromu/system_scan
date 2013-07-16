@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/edit/(?P<problem_id>\d+)/$', 'scan.views.problems.edit'),
     (r'^contests/(?P<contest_id>\d+)/problems/(?P<genre_id>\d+)/del/(?P<problem_id>\d+)/$', 'scan.views.problems.delete'),
 
-#   (r'^contests/(?P<contest_id>\d+)/mark/$', 'scan.views.mark'),
+    (r'^contests/(?P<contest_id>\d+)/marks/(?P<genre_id>\d+)/$', 'scan.views.marks.index'),
 
     (r'^accounts/login/$', 'scan.views.accounts.login'),
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),

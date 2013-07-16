@@ -25,17 +25,14 @@ def admin(request, tab):
     else:
         raise Http404
 
-@login_required
 def general_settings(request):
     context = {'subtitles': [_(u"サイト設定"), _(u"一般設定")], 'page': 'general', 'tabs': tabs}
     return render_to_response('admin/general.html', context, RequestContext(request))
 
-@login_required
 def genre_settings(request):
     context = {'subtitles': [_(u"サイト設定"), _(u"ジャンル設定")], 'page': 'genre', 'tabs': tabs, 'genres': Genre.objects.all()}
     return render_to_response('admin/genre.html', context, RequestContext(request))
 
-@login_required
 def user_settings(request):
     context = {'subtitles': [_(u"サイト設定"), _(u"ユーザー設定")], 'page': 'user', 'tabs': tabs, 'users': User.objects.all()}
     return render_to_response('admin/user.html', context, RequestContext(request))

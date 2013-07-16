@@ -13,13 +13,23 @@
     <tr>
         <td>{{ genre.name }}</td>
         {% if request.user.is_staff or request.user in users %}
+        {% if now > contest.end %}
         <td>
-            <a href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans "問題設定" %}</a>
+            <a href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans "採点" %}</a>
         </td>
         {% else %}
         <td>
+            <a href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans "問題設定" %}</a>
+        </td>
+        {% endif %}
+        {% else %}
+        {% if now > contest.start %}
+        <td>
             <a href="{% url 'scan.views.contests.problem' contest.id genre.id %}">{% trans "進む" %}</a>
         </td>
+        {% else %}
+        <td></td>
+        {% endif %}
         {% endif %}
     </tr>
     {% endfor %}
