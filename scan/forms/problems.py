@@ -25,3 +25,8 @@ class ProblemEditForm(ModelForm):
     class Meta:
         model = Problem
         fields = ('title', 'statement', 'point', 'type', 'option', 'result')
+
+class ProblemDeleteForm(ModelForm):
+    class Meta:
+        model = Problem
+        fields = ()
