@@ -87,6 +87,10 @@ header>ul>li {
     display: none;
 }
 
+#choices {
+    margin-bottom: 0;
+}
+
 #choices>li>* {
     float: left;
 }
@@ -101,6 +105,10 @@ header>ul>li {
     display: block;
     line-height: 14px;
     margin: 8px 9px;
+}
+
+#add-choice {
+    margin-left: 60px;
 }
 
 a.disabled {

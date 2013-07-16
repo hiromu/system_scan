@@ -20,7 +20,21 @@ def index(request, contest_id, genre_id):
 
 @login_required
 def add(request, contest_id, genre_id):
-    return redirect('scan.views.index')
+    contest = get_object_or_404(Contest, pk = contest_id)
+    genre = get_object_or_404(Genre, pk = genre_id)
+    if not request.user in contest.users.all():
+        return redirect('scan.views.index')
+    if request.method == 'POST':
+        form = ProblemEditForm(request.POST)
+        if form.is_valid():
+            problem = form.save(commit=False)
+            problem.contest = contest
+            problem.genre = genre
+            problem.save()
+            return redirect('scan.views.problems.index', contest_id, genre_id)
+    form = ProblemEditForm()
+    context = {'contest_id': contest_id, 'form': form}
+    return render_to_response('problems/edit.html', context, RequestContext(request))
 
 @login_required
 def edit(request, contest_id, genre_id, problem_id):
