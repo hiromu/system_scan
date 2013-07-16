@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}contest_datetime.js"></script>
 <h2>{{ contest.name }}: {% trans '設定' %}</h2>
 <div class="tabbable">
     {% include 'settings/tab.html' %}
