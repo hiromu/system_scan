@@ -21,10 +21,10 @@ class ContestForm(ModelForm):
         end = cleaned_data.get('end')
 
         if start and start < datetime.datetime.now():
-            self._errors['start'] = self.error_class([_(u"開始日時を現在時刻より前に設定することはできません。")])
+            self._errors['start'] = self.error_class([_(u'開始日時を現在時刻より前に設定することはできません。')])
             del cleaned_data['start']
         if end and end < start:
-            self._errors['end'] = self.error_class([_(u"終了日時を開始日時より前に設定することはできません。")])
+            self._errors['end'] = self.error_class([_(u'終了日時を開始日時より前に設定することはできません。')])
             del cleaned_data['end']
 
         return cleaned_data
@@ -41,7 +41,7 @@ class ContestGenreForm(ModelForm):
         self.fields['genres'].queryset = Genre.objects.all()
 
 class ContestUserForm(Form):
-    user = CharField(label = _(u"ユーザー名"))
+    user = CharField(label = _(u'ユーザー名'))
 
     def __init__(self, contest, *args, **kwargs):
         self.contest = contest
@@ -57,10 +57,10 @@ class ContestUserForm(Form):
         user = cleaned_data.get('user')
 
         if not user or not User.objects.filter(username = user):
-            self._errors['user'] = self.error_class([_(u"存在しないユーザーです。")])
+            self._errors['user'] = self.error_class([_(u'存在しないユーザーです。')])
             del cleaned_data['user']
         elif User.objects.get(username = user) in self.contest.users.all():
-            self._errors['user'] = self.error_class([_(u"ユーザーはすでに追加されています。")])
+            self._errors['user'] = self.error_class([_(u'ユーザーはすでに追加されています。')])
             del cleaned_data['user']
 
         return cleaned_data

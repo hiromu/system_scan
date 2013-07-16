@@ -4,21 +4,21 @@
 {% load gravatar %}
 
 {% block main %}
-<h2>{% if user.last_name or user.first_name %}{{ user.last_name }} {{ user.first_name }}{% else %}<span class="light">{% trans "未設定" %}</span>{% endif %} ({{ user.username }})</h2>
+<h2>{% if user.last_name or user.first_name %}{{ user.last_name }} {{ user.first_name }}{% else %}<span class="light">{% trans '未設定' %}</span>{% endif %} ({{ user.username }})</h2>
 <img id="big-icon" alt="icon" width="300" height="300" src="{% big_gravatar_url user.email %}" />
-<h3>{% trans "プロフィール" %}</h3>
+<h3>{% trans 'プロフィール' %}</h3>
 <ul id="profile_list">
-    <li>{% trans "ユーザー名" %}: {{ user.username }}</li>
+    <li>{% trans 'ユーザー名' %}: {{ user.username }}</li>
     {% if user.last_name or user.first_name %}
-    <li>{% trans "名前" %}: {{ user.last_name }} {{ user.first_name }}</li>
+    <li>{% trans '名前' %}: {{ user.last_name }} {{ user.first_name }}</li>
     {% else %}
-    <li>{% trans "名前" %}: <span class="light">{% trans "未設定" %}</span></li>
+    <li>{% trans '名前' %}: <span class="light">{% trans '未設定' %}</span></li>
     {% endif %}
     {% if user.email %}
-    <li>{% trans "メールアドレス" %}: {{ user.email }}</li>
+    <li>{% trans 'メールアドレス' %}: {{ user.email }}</li>
     {% else %}
-    <li>{% trans "メールアドレス" %}: <span class="light">{% trans "未設定" %}</span></li>
+    <li>{% trans 'メールアドレス' %}: <span class="light">{% trans '未設定' %}</span></li>
     {% endif %}
 </ul>
-<p id="icon-message">{% trans "このサイトではメールアドレスを元に<a href=\"http://gravatar.com/\">Gravatar</a>のアイコンを使用しています。アイコンの変更は<a href=\"http://gravatar.com/\">Gravatar</a>で行ってください。" %}</p>
+<p id="icon-message">{% trans 'このサイトではメールアドレスを元に<a href="http://gravatar.com/">Gravatar</a>のアイコンを使用しています。アイコンの変更は<a href="http://gravatar.com/">Gravatar</a>で行ってください。' %}</p>
 {% endblock %}

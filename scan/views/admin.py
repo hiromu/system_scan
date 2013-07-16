@@ -26,15 +26,15 @@ def admin(request, tab):
         raise Http404
 
 def general_settings(request):
-    context = {'subtitles': [_(u"サイト設定"), _(u"一般設定")], 'page': 'general', 'tabs': tabs}
+    context = {'subtitles': [_(u'サイト設定'), _(u'一般設定')], 'page': 'general', 'tabs': tabs}
     return render_to_response('admin/general.html', context, RequestContext(request))
 
 def genre_settings(request):
-    context = {'subtitles': [_(u"サイト設定"), _(u"ジャンル設定")], 'page': 'genre', 'tabs': tabs, 'genres': Genre.objects.all()}
+    context = {'subtitles': [_(u'サイト設定'), _(u'ジャンル設定')], 'page': 'genre', 'tabs': tabs, 'genres': Genre.objects.all()}
     return render_to_response('admin/genre.html', context, RequestContext(request))
 
 def user_settings(request):
-    context = {'subtitles': [_(u"サイト設定"), _(u"ユーザー設定")], 'page': 'user', 'tabs': tabs, 'users': User.objects.all()}
+    context = {'subtitles': [_(u'サイト設定'), _(u'ユーザー設定')], 'page': 'user', 'tabs': tabs, 'users': User.objects.all()}
     return render_to_response('admin/user.html', context, RequestContext(request))
 
 @login_required
@@ -48,7 +48,7 @@ def genre_add(request):
             return redirect('scan.views.admin.admin', tab = 'genre')
     else:
         form = GenreAddForm()
-    context = {'subtitles': [_(u"サイト設定"), _(u"ジャンル追加")], 'form': form, 'page': 'genre', 'tabs': tabs}
+    context = {'subtitles': [_(u'サイト設定'), _(u'ジャンル追加')], 'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('admin/genre_add.html', context, RequestContext(request))
 
 @login_required
@@ -64,11 +64,11 @@ def user_edit(request, user_id):
             return redirect('scan.views.admin.admin', tab = 'user')
     else:
         form = UserEditForm(instance = user)
-    context = {'subtitles': [_(u"サイト設定"), _(u"ユーザー設定"), user.username], 'form': form, 'page': 'user', 'tabs': tabs}
+    context = {'subtitles': [_(u'サイト設定'), _(u'ユーザー設定'), user.username], 'form': form, 'page': 'user', 'tabs': tabs}
     return render_to_response('admin/user_edit.html', context, RequestContext(request))
 
 tabs = (
-    ('general'  ,(general_settings, _(u"一般設定"))),
-    ('genre'    ,(genre_settings,   _(u"ジャンル設定"))),
-    ('user'     ,(user_settings,    _(u"ユーザー設定"))),
+    ('general'  ,(general_settings, _(u'一般設定'))),
+    ('genre'    ,(genre_settings,   _(u'ジャンル設定'))),
+    ('user'     ,(user_settings,    _(u'ユーザー設定'))),
 )

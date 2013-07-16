@@ -10,8 +10,8 @@
         <div class="tab-pane active" id="generic">
             <table class="table table-striped">
                 <tr>
-                    <th>{% trans "ユーザー名" %}</th>
-                    <th>{% trans "名前" %}</th>
+                    <th>{% trans 'ユーザー名' %}</th>
+                    <th>{% trans '名前' %}</th>
                     <th></th>
                 </tr>
                 {% for user in users %}
@@ -19,12 +19,12 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.last_name }} {{ user.first_name }}</td>
                     <td>
-                        <a href="{% url 'scan.views.settings.user_del' contest.id user.id %}" class="btn btn-danger">{% trans "削除" %}</a>
+                        <a href="{% url 'scan.views.settings.user_del' contest.id user.id %}" class="btn btn-danger">{% trans '削除' %}</a>
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'scan.views.settings.user_add' contest.id %}" class="btn btn-primary">{% trans "追加" %}</a>
+            <a href="{% url 'scan.views.settings.user_add' contest.id %}" class="btn btn-primary">{% trans '追加' %}</a>
         </div>
     </div>
 </div>
