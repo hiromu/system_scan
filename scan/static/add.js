@@ -4,7 +4,7 @@ $(function() {
         dateFormat: 'yy-mm-dd',
         timeFormat: 'hh:mm:ss'
     });
-    $('#end_start').datetimepicker({
+    $('#id_end').datetimepicker({
         controlType: 'select',
         dateFormat: 'yy-mm-dd',
         timeFormat: 'hh:mm:ss'
