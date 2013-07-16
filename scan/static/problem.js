@@ -3,28 +3,15 @@ $(function(){
         $('#autoform').remove();
         switch($(this).val()){
             case '0': // RadioButton
-                var li = function(num){
-                    return $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+num))
-                    .append($('<input>').attr({type:'radio',name:'radio-result'}))
-                    .append($('<input>').attr({type:'text'}))
-                    .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+num+')'}))
-                }
                 var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
-                    .append($('<ul>').attr({id:'choices'})
-                        .append(li(1)).append(li(2)))
-                        .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'radio\')'})));
+                    .append(generateChoiceTable('radio'))
+                    .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'radio\')'})));
                 break;
             case '1': // CheckBox
-                var li = function(num){
-                    return $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+num))
-                    .append($('<input>').attr({type:'checkbox',name:'checkbox-result'}))
-                    .append($('<input>').attr({type:'text'}))
-                    .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+num+')'}))
-                }
                 var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
-                    .append($('<ul>').attr({id:'choices'})
-                        .append(li(1)).append(li(2)))
-                        .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'checkbox\')'})));
+                    .append(generateChoiceTable('checkbox'))
+                    .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'radio\')'})));
+                break;
                 break;
             case '2': // Text
                 var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('正解:'))
@@ -43,24 +30,33 @@ $(function(){
     });
 });
 
+function generateChoiceTable(input_type){
+    return $('<table>').attr({id:'choices'})
+            .append($('<thead>').append($('<tr>').append($('<th>').text('番号')).append($('<th>').text('正解')).append($('<th>').text('選択肢')).append($('<th>').text('削除'))))
+            .append($('<tbody>').append(generateChoiceRow(input_type,1)).append(generateChoiceRow(input_type,2)));
+}
+
+function generateChoiceRow(input_type, num){
+    return $('<tr>')
+            .append($('<td>').text('#'+num))
+            .append($('<td>').append($('<input>').attr({type:input_type,name:input_type+'-result'})))
+            .append($('<td>').append($('<input>').attr({type:'text'})))
+            .append($('<td>').append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+(num)+')'})));
+}
+
 function addChoice(input_type){
-    var len = $('#autoform ul').children().length;
-    $('#choices').append(
-        $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+(len+1)))
-            .append($('<input>').attr({type:input_type,name:input_type+'-result'}))
-            .append($('<input>').attr({type:'text'}))
-            .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+(len+1)+')'}))
-    );
+    var len = $('#choices>tbody').children().length;
+    $('#choices>tbody').append(generateChoiceRow(input_type,len+1));
 }
 
 function removeChoice(num) {
-    $('#choices').children()[num-1].remove();
+    $('#choices>tbody').children()[num-1].remove();
     renumber();
 }
 
 function renumber() {
-    $('#choices>li').each(function(i){
-        $(this).find('label').text('#'+(i+1));
+    $('#choices>tbody>tr').each(function(i){
+        $(this).children('td:first').text('#'+(i+1));
         $(this).find('input.remove-choice').attr('onclick','removeChoice('+(i+1)+')');
     });
 }

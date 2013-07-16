@@ -88,23 +88,21 @@ header>ul>li {
 }
 
 #choices {
-    margin-bottom: 0;
+    margin-bottom: 3px;
 }
 
-#choices>li>* {
-    float: left;
+#choices>thead {
+    margin-bottom: 2px;
 }
 
-#choices>li>label {
-    line-height: 14px;
-    margin-right: 2px;
-    padding: 8px 9px;
+#choices input {
+    margin: 0;
 }
 
-#choices>li>input[type="radio"], #choices>li>input[type="checkbox"] {
-    display: block;
-    line-height: 14px;
-    margin: 8px 9px;
+#choices td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 3px;
 }
 
 #add-choice {
