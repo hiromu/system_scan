@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block main %}
-<script type="text/javascript" src="{{ STATIC_URL }}problems/edit.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
 <form method="POST" id="edit-problem">
     {% csrf_token %}
     {{ form.as_p }}
