@@ -66,7 +66,7 @@ def edit(request, contest_id, genre_id, problem_id):
     else:
         form = ProblemEditForm(instance = problem)
 
-    context = {'contest': contest, 'genre': genre, 'form': form}
+    context = {'contest': contest, 'genre': genre, 'form': form, 'is_edit': True}
     return render_to_response('problems/edit.html', context, RequestContext(request))
 
 @login_required
