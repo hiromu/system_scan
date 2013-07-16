@@ -19,10 +19,10 @@ class ContestForm(ModelForm):
         start = cleaned_data.get('start')
         end = cleaned_data.get('end')
 
-        if start < datetime.datetime.now():
+        if start and start < datetime.datetime.now():
             self._errors['start'] = self.error_class([_(u"開始日時を現在時刻より前に設定することはできません。")])
             del cleaned_data['start']
-        if end < start:
+        if end and end < start:
             self._errors['end'] = self.error_class([_(u"終了日時を開始日時より前に設定することはできません。")])
             del cleaned_data['end']
 
