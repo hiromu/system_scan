@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}add.js"></script>
 <form method="post">
     {% csrf_token %}
     <table class="form">

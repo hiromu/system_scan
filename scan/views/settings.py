@@ -48,7 +48,7 @@ def contest_settings(request, contest_id, contest):
             contest = form.save()
     else:
         form = ContestForm(instance = contest)
-    context = {'subtitles': [contest.name, _(u"一般設定")], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
+    context = {'subtitles': [contest.name, _(u'一般設定')], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
     return render_to_response('settings/contest.html', context, RequestContext(request))
 
 def genre_settings(request, contest_id, contest):
@@ -58,11 +58,11 @@ def genre_settings(request, contest_id, contest):
             contest = form.save()
     else:
         form = ContestGenreForm(instance = contest)
-    context = {'subtitles': [contest.name, _(u"問題設定")], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
+    context = {'subtitles': [contest.name, _(u'問題設定')], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('settings/genre.html', context, RequestContext(request))
 
 def user_settings(request, contest_id, contest):
-    context = {'subtitles': [contest.name, _(u"ユーザー設定")], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
+    context = {'subtitles': [contest.name, _(u'ユーザー設定')], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
     return render_to_response('settings/user.html', context, RequestContext(request))
 
 @login_required
@@ -80,7 +80,7 @@ def user_add(request, contest_id):
             return redirect('scan.views.settings.settings', contest_id, 'user')
     else:
         form = ContestUserForm(contest)
-    context = {'subtitles': [contest.name, _(u"ユーザー追加")], 'contest': contest, 'form': form, 'page': 'user', 'tabs': tabs}
+    context = {'subtitles': [contest.name, _(u'ユーザー追加')], 'contest': contest, 'form': form, 'page': 'user', 'tabs': tabs}
     return render_to_response('settings/user_add.html', context, RequestContext(request))
 
 @login_required
@@ -95,7 +95,7 @@ def user_del(request, contest_id, user_id):
     return redirect('scan.views.settings.settings', contest_id, 'user')
 
 tabs = (
-    ('contest'   ,(contest_settings,    _(u"一般設定"))),
-    ('genre'     ,(genre_settings,      _(u"問題設定"))),
-    ('user'      ,(user_settings,       _(u"ユーザー設定"))),
+    ('contest'   ,(contest_settings,    _(u'一般設定'))),
+    ('genre'     ,(genre_settings,      _(u'問題設定'))),
+    ('user'      ,(user_settings,       _(u'ユーザー設定'))),
 )
