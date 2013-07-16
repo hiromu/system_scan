@@ -2,8 +2,8 @@
 
 import datetime
 
-from scan.models import *
-from scan.forms.problems import *
+from scan.forms.problems import ProblemEditForm, ProblemDeleteForm
+from scan.models import Contest, Genre, Problem
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render_to_response

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from scan.forms.admin import *
+from scan.forms.admin import GenreAddForm, UserEditForm
 from scan.models import Genre
 
 from django.contrib.auth.models import User

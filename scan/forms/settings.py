@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from scan.models import *
-
+import datetime
 import json
+
+from scan.models import Contest, Genre
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError

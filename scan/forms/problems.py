@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from scan.models import *
-
 import json
 
-from django.forms import CharField, CheckboxSelectMultiple, ModelForm, Form, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField
+from scan.models import Problem
+
+from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField
 from django.utils.translation import ugettext_lazy as _
 
 problem_types = (
