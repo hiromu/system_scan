@@ -54,7 +54,6 @@ header>ul>li {
     float: left;
 }
 
-
 #big-icon {
     float: left;
     margin-right: 20px;
@@ -82,9 +81,22 @@ header>ul>li {
     list-style-type: none;
 }
 
+#edit-problem ul.errorlist {
+    list-style: disc;
+}
+
+#edit-problem #action-buttons {
+    margin-top: 20px;
+    margin-left: 0;
+}
+
 #edit-problem #id_option, #edit-problem #id_result,
 #edit-problem label[for="id_option"], #edit-problem label[for="id_result"] {
     display: none;
+}
+
+#edit-problem textarea {
+    width: 600px;
 }
 
 #choices {

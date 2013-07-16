@@ -27,7 +27,7 @@ function remakeAutoForm(){
             break;
         case '3': // Textarea
             var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('正解:'))
-                .append($('<p>').append($('<textarea>')));
+                .append($('<p>').append($('<textarea>').attr({rows:'5'})));
             break;
     }
     $('#action-buttons').before($(elm));
