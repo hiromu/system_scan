@@ -15,15 +15,18 @@ problem_types = (
 )
 
 class ProblemEditForm(ModelForm):
-    class Meta:
-        model = Problem
-        fields = ('title', 'statement', 'point', 'type', 'option', 'result')
-
     type = ChoiceField(label = _(u'タイプ'), choices = [(i, problem_types[i]) for i in range(len(problem_types))], widget = RadioSelect)
     title = CharField(label = _(u'タイトル'), widget = TextInput)
     statement = CharField(label = _(u'問題文'), widget = Textarea)
     option = CharField(label = _(u'オプション'), widget = Textarea)
     result = CharField(label = _(u'正解'), widget = Textarea)
     point = IntegerField(label = _(u'配点'))
-#    def __init__(self, contest, problem, *args, **kwargs):
-#        super(ProblemEditForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Problem
+        fields = ('title', 'statement', 'point', 'type', 'option', 'result')
+
+class ProblemDeleteForm(ModelForm):
+    class Meta:
+        model = Problem
+        fields = ()

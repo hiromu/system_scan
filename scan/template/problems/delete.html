@@ -1,0 +1,15 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<form method="POST" id="edit-problem">
+    {% csrf_token %}
+    <p>本当に「{{ problem.title }}」を削除してもいいですか？</p>
+    {{ form }}
+    <input type="submit" class="btn btn-danger" value="{% trans '削除' %}" />
+    <a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a>
+</form>
+{% endblock %}

@@ -4,6 +4,7 @@
 
 {% block main %}
 <script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
 <form method="POST" id="edit-problem">
     {% csrf_token %}
     {{ form.as_p }}
@@ -13,8 +14,7 @@
         {% else %}
         <li><input type="submit" class="btn btn-primary" value="{% trans '追加' %}" /></li>
         {% endif %}
-        <li><a href="{% url 'scan.views.problems.index' contest_id genre_id %}" class="btn">{% trans '戻る' %}</a></li>
+        <li><a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a></li>
     </ul>
 </form>
-
 {% endblock %}
