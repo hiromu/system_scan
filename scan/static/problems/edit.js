@@ -5,8 +5,9 @@ $(function(){
             case '0': // RadioButton
                 var li = function(num){
                     return $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+num))
-                    .append($('<input>').attr({type:'text'}))
                     .append($('<input>').attr({type:'radio',name:'radio-result'}))
+                    .append($('<input>').attr({type:'text'}))
+                    .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+num+')'}))
                 }
                 var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
                     .append($('<ul>').attr({id:'choices'})
@@ -16,8 +17,9 @@ $(function(){
             case '1': // CheckBox
                 var li = function(num){
                     return $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+num))
-                    .append($('<input>').attr({type:'text'}))
                     .append($('<input>').attr({type:'checkbox',name:'checkbox-result'}))
+                    .append($('<input>').attr({type:'text'}))
+                    .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+num+')'}))
                 }
                 var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
                     .append($('<ul>').attr({id:'choices'})
@@ -43,11 +45,24 @@ $(function(){
 
 function addChoice(input_type){
     var len = $('#autoform ul').children().length;
-    $('#autoform ul').append(
+    $('#choices').append(
         $('<li>').attr({class:'clearfix'}).append($('<label>').text('#'+(len+1)))
-            .append($('<input>').attr({type:'text'}))
             .append($('<input>').attr({type:input_type,name:input_type+'-result'}))
+            .append($('<input>').attr({type:'text'}))
+            .append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+(len+1)+')'}))
     );
+}
+
+function removeChoice(num) {
+    $('#choices').children()[num-1].remove();
+    renumber();
+}
+
+function renumber() {
+    $('#choices>li').each(function(i){
+        $(this).find('label').text('#'+(i+1));
+        $(this).find('input.remove-choice').attr('onclick','removeChoice('+(i+1)+')');
+    });
 }
 
 function setOption() {

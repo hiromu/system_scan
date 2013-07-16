@@ -9,7 +9,7 @@
     {{ form.as_p }}
     <ul id="action-buttons" class="horizontal clearfix">
         <li><input type="submit" class="btn btn-primary" value="{% trans '変更' %}" /></li>
-        <li><a href="{% url 'scan.views.admin.admin' 'user' %}" class="btn">{% trans '戻る' %}</a></li>
+        <li><a href="{% url 'scan.views.problems.index' contest_id genre_id %}" class="btn">{% trans '戻る' %}</a></li>
     </ul>
 </form>
 
