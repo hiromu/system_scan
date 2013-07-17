@@ -3,7 +3,7 @@
 import datetime
 
 from scan.forms.contests import AnswerForm
-from scan.models import Contest, Genre, Problem
+from scan.models import Contest, Genre, Problem, Answer
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
