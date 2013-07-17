@@ -8,6 +8,7 @@
         <th>{% trans "名前" %}</th>
         <th>{% trans "開始日時" %}</th>
         <th>{% trans "終了日時" %}</th>
+        <th>{% trans "状態" %}</th>
         <th></th>
         {% if request.user.is_staff %}
         <th></th>
@@ -18,6 +19,7 @@
         <td>{{ contest.name }}</td>
         <td>{{ contest.start }}</td>
         <td>{{ contest.end }}</td>
+        <td>{{ contest.state }}</td>
         <td>
             <a href="{% url 'scan.views.contests.index' contest.id %}">{% trans "進む" %}</a>
         </td>

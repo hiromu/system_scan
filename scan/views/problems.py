@@ -17,7 +17,7 @@ def check(request, contest_id, genre_id):
     if datetime.datetime.now() > contest.end:
         return redirect('scan.views.marks.index', contest_id, genre_id)
     return contest, genre
-    
+
 @login_required
 def index(request, contest_id, genre_id):
     result = check(request, contest_id, genre_id)
