@@ -3,6 +3,34 @@
 {% load i18n %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}jquery/easySlider1.7.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}index.js"></script>
+{% if contests_in_progress|length > 0 or scheduled_contests|length > 0 %}
+<div id="top-slider">
+    <ul>
+{% for contest in contests_in_progress %}
+        <li>
+            <div class="hero-unit">
+                <h1>{{ contest.name }}</h1>
+                <h2>{% trans '現在開催中' %}</h2>
+                <p>{{ contest.state }}</p>
+                <p><a href="{% url 'scan.views.contests.index' contest.id %}" class="btn btn-primary btn-large">{% trans '参加する' %}</a></p>
+            </div>
+        </li>
+{% endfor %}
+{% for contest in scheduled_contests %}
+        <li>
+            <div class="hero-unit">
+                <h1>{{ contest.name }}</h1>
+                <h2>{% trans '開催予定' %}</h2>
+                <p>{{ contest.state }}</p>
+                <p><a class="btn btn-primary btn-large disabled">{% trans '現在準備中' %}</a></p>
+            </div>
+        </li>
+{% endfor %}
+    </ul>
+</div>
+{% endif %}
 <table class="table table-striped">
     <tr>
         <th>{% trans '名前' %}</th>

@@ -25,7 +25,7 @@ def index(request, contest_id):
     for genre in genres:
         genre.number_of_problems = Problem.objects.filter(contest = contest, genre = genre).count()
         genre.number_of_answered_problems = Answer.objects.filter(user = request.user, problem__contest = contest, problem__genre = genre).count()
-    context = {'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all()}
+    context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all()}
     return render_to_response('contests/index.html', context, RequestContext(request))
 
 @login_required
@@ -68,7 +68,7 @@ def answer(request, contest_id, genre_id, problem_id):
     else:
         form = AnswerForm(problems[problem_id], instance = answer)
 
-    context = {'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1}
+    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1}
     return render_to_response('contests/answer.html', context, RequestContext(request))
 
 @login_required

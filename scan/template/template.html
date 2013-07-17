@@ -21,6 +21,9 @@
         <div class="container">
             <header class="head clearfix">
                 <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans 'System Scan' %}</a></h1>
+                {% if subtitles %}
+                <h2>{{ subtitles.0 }}</h2>
+                {% endif %}
                 <ul class="nav nav-pills pull-right">
                     {% if request.user.is_authenticated %}
                     <li id="user-info">
