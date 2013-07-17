@@ -213,3 +213,7 @@ a.btn {
     border: 1px solid #fbeed5;
     border-radius: 4px;
 }
+
+.table td {
+    vertical-align: middle;
+}

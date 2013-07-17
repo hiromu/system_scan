@@ -7,11 +7,21 @@
 <table class="table table-striped">
     <tr>
         <th>{% trans 'ジャンル' %}</th>
+        {% if request.user.is_staff or request.user in users %}
+        <th>{% trans '問題数' %}</th>
+        {% else %}{% if now > contest.start %}
+        <th>{% trans '回答済み/全問題' %}</th>
+        {% endif %}{% endif %}
         <th></th>
     </tr>
     {% for genre in genres %}
     <tr>
         <td>{{ genre.name }}</td>
+        {% if request.user.is_staff or request.user in users%}
+        <td>{{ genre.number_of_problems }}</td>
+        {% else %}{% if now > contest.start %}
+        <td>{{ genre.number_of_answered_problems }}/{{ genre.number_of_problems }}</td>
+        {% endif %}{% endif %}
         {% if request.user.is_staff or request.user in users %}
         {% if now > contest.end %}
         <td>

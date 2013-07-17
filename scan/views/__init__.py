@@ -15,7 +15,7 @@ def index(request):
         if now < contest.start:
             contest.state = _(u'あと%(period)sで開始') % {'period': (contest.start - datetime.datetime.now()) // 1000000 * 1000000}
         if now >= contest.start and now < contest.end:
-            contest.state = _(u'開催中')
+            contest.state = _(u'あと%(period)sで終了') % {'period': (contest.end - datetime.datetime.now()) // 1000000 * 1000000}
         if now >= contest.end:
             contest.state = _(u'終了')
 
