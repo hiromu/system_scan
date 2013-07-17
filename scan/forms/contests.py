@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from scan.models import *
-
 import json
 
-from django.core.exceptions import ValidationError
+from scan.models import Answer
+
 from django.forms import CharField, CheckboxSelectMultiple, ChoiceField, ModelForm, MultipleChoiceField, RadioSelect, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 

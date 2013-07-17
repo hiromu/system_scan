@@ -12,7 +12,7 @@
         <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery-ui-1.10.3.min.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery-ui-timepicker-addon.js"></script>
         <script type="text/javascript" src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
-        <title>{% trans "System Scan" %}{% if subtitles %}{% for subtitle in subtitles %} - {{ subtitle }}{% endfor %}{% endif %}</title>
+        <title>{% trans 'System Scan' %}{% if subtitles %}{% for subtitle in subtitles %} - {{ subtitle }}{% endfor %}{% endif %}</title>
         <!--[if lt IE 9]>
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -20,7 +20,7 @@
     <body>
         <div class="container">
             <header class="head clearfix">
-                <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans "System Scan" %}</a></h1>
+                <h1><a class="logo" href="{% url 'scan.views.index' %}">{% trans 'System Scan' %}</a></h1>
                 <ul class="nav nav-pills pull-right">
                     {% if request.user.is_authenticated %}
                     <li id="user-info">
@@ -31,15 +31,15 @@
                     </li>
                     {% if request.user.is_staff %}
                     <li>
-                        <a href="{% url 'scan.views.admin.index' %}">{% trans "サイト設定" %}</a>
+                        <a href="{% url 'scan.views.admin.index' %}">{% trans 'サイト設定' %}</a>
                     </li>
                     {% endif %}
                     <li class="active">
-                        <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans "ログアウト" %}</a>
+                        <a href="{% url 'django.contrib.auth.views.logout' %}">{% trans 'ログアウト' %}</a>
                     </li>
                     {% else %}
                     <li class="active">
-                        <a href="{% url 'scan.views.accounts.login' %}">{% trans "ログイン" %}</a>
+                        <a href="{% url 'scan.views.accounts.login' %}">{% trans 'ログイン' %}</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from scan.models import *
+from scan.models import Genre
 
 from django.contrib.auth.models import User
 from django.forms import BooleanField, CharField, ModelForm

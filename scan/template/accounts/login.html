@@ -4,7 +4,7 @@
 
 {% block main %}
 {% if form.errors %}
-<div class="alert alert-error">{% trans "ログインに失敗しました。" %}</div>
+<div class="alert alert-error">{% trans 'ログインに失敗しました。' %}</div>
 {% endif %}
 <form method="post">
     {% csrf_token %}
@@ -20,7 +20,7 @@
         <tr>
             <th></th>
             <td>
-                <input type="submit" class="btn btn-primary" value="{% trans "ログイン" %}" />
+                <input type="submit" class="btn btn-primary" value="{% trans 'ログイン' %}" />
             </td>
         </tr>
     </table>
