@@ -13,6 +13,7 @@
             <div class="hero-unit">
                 <h1>{{ contest.name }}</h1>
                 <h2>{% trans '現在開催中' %}</h2>
+                <h3>{{ contest.end }} 終了</h3>
                 <p>{{ contest.state }}</p>
                 <p><a href="{% url 'scan.views.contests.index' contest.id %}" class="btn btn-primary btn-large">{% trans '参加する' %}</a></p>
             </div>
@@ -23,6 +24,7 @@
             <div class="hero-unit">
                 <h1>{{ contest.name }}</h1>
                 <h2>{% trans '開催予定' %}</h2>
+                <h3>{{ contest.start }} 開始</h3>
                 <p>{{ contest.state }}</p>
                 <p><a class="btn btn-primary btn-large disabled">{% trans '現在準備中' %}</a></p>
             </div>
