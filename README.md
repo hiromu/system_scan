@@ -12,10 +12,11 @@
 
 1. Python 2.7
 2. Django 1.4.5
+3. Pillow or PIL(Python Imaging Library)
 
 You can install these packages as below in Ubuntu.
 
-    apt-get install python2.7 python-django
+    apt-get install python2.7 python-django python-pillow
 
 And according to your environments, please install database drivers or django plugins.
 
