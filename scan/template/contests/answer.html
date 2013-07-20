@@ -12,6 +12,20 @@
             <p>Q{{ problem_id }}: {{field.label}}</p>
             <pre>{{ field.help_text }}</pre>
         </div>
+        {% if figures|length > 0 %}
+        <div class="figures">
+            <ul id="figure-list" class="clearfix">
+                {% for figure in figures %}
+                <li>
+                    <figure>
+                        <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+                        <figcaption>{{ figure.caption }}</figcaption>
+                    </figure>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <div class="answer">
             {% if field.errors %}
             {{ field.errors }}

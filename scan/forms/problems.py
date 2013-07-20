@@ -2,9 +2,9 @@
 
 import json
 
-from scan.models import Problem
+from scan.models import Problem, Figure
 
-from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField
+from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField, ImageField
 from django.utils.translation import ugettext_lazy as _
 
 problem_types = (
@@ -25,6 +25,14 @@ class ProblemEditForm(ModelForm):
     class Meta:
         model = Problem
         fields = ('title', 'statement', 'point', 'type', 'option', 'result')
+
+class FigureAddForm(ModelForm):
+    graphics = ImageField(label = _(u'画像'))
+    caption = CharField(label = _(u'見出し'), widget = TextInput)
+
+    class Meta:
+        model = Figure
+        fields = ('graphics', 'caption')
 
 class ProblemDeleteForm(ModelForm):
     class Meta:

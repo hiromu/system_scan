@@ -3,7 +3,7 @@
 import datetime
 
 from scan.forms.contests import AnswerForm
-from scan.models import Contest, Genre, Problem, Answer
+from scan.models import Contest, Genre, Problem, Answer, Figure
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -68,7 +68,8 @@ def answer(request, contest_id, genre_id, problem_id):
     else:
         form = AnswerForm(problems[problem_id], instance = answer)
 
-    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1}
+    figures = Figure.objects.filter(problem = problems[problem_id]).order_by('sequence_number')
+    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1, 'figures': figures}
     return render_to_response('contests/answer.html', context, RequestContext(request))
 
 @login_required

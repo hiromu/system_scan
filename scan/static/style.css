@@ -153,6 +153,37 @@ header>ul>li {
     margin-left: 5px;
 }
 
+#figure-list {
+    list-style: none;
+}
+
+#figure-list>li {
+    float: left;
+    display: block;
+    max-width: 200px;
+}
+
+#figure-list figcaption {
+    text-align: center;
+    margin-top: 10px;
+}
+
+#figure-list>li {
+    text-align: center;
+}
+
+#figure-manage>input {
+    margin-left: 60px;
+}
+
+#figure-manage>a {
+    display: none;
+}
+
+#delete-figure li {
+    margin: 5px;
+}
+
 a.disabled {
     pointer-events: none;
     cursor: default;

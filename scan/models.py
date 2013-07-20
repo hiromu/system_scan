@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 from django.contrib import admin
-from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField
+from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField, ImageField
 from django.utils.translation import ugettext_lazy as _
 
 class Genre(Model):
@@ -32,6 +34,18 @@ class Problem(Model):
 
     def __unicode__(self):
         return self.statement
+
+def get_upload_path(instance, filename):
+    return os.path.join('figures', str(instance.problem.id), filename)
+
+class Figure(Model):
+    problem = ForeignKey(Problem)
+    graphics = ImageField(upload_to = get_upload_path)
+    caption = TextField()
+    sequence_number = PositiveIntegerField()
+
+    def __unicode__(self):
+        return self.caption
 
 class Answer(Model):
     user = ForeignKey('auth.User')

@@ -5,6 +5,9 @@
 {% block main %}
 <script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
+{% if not is_edit %}
+<p>{% trans '図の挿入は一度問題を作成した後、再度編集した時に可能になります。' %}</p>
+{% endif %}
 <form method="POST" id="edit-problem">
     {% csrf_token %}
     {{ form.as_p }}
@@ -17,4 +20,34 @@
         <li><a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a></li>
     </ul>
 </form>
+{% if is_edit %}
+<div id="figure-manage">
+    <p>{% trans '図' %}:</p>
+    <ul id="figure-list" class="clearfix">
+        {% for figure in figures %}
+        <li>
+            <figure>
+                <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+                <figcaption>{{ figure.caption }}</figcaption>
+            </figure>
+            <input class="btn btn-danger" type="button" onclick="openDeleteFigureDialog('{% url 'scan.views.problems.delete_figure' contest.id genre.id problem.id figure.id %}')" value="{% trans '削除' %}" />
+        </li>
+        {% endfor %}
+    </ul>
+    <input class="btn" type="button" onclick="openAddFigureDialog()" value="{% trans '図を追加する' %}" />
+    <a href="{% url 'scan.views.problems.get_figures' contest.id genre.id problem.id %}">図の読み込み(JSON)</a>
+</div>
+<form action="{% url 'scan.views.problems.add_figure' contest.id genre.id problem.id %}" enctype="multipart/form-data" method="POST" id="add-figure">
+    {% csrf_token %}
+    {{ figure_form.as_p }}
+    <input type="submit" class="btn btn-primary" value="{% trans '追加' %}" />
+</form>
+<div id="delete-figure">
+    <p>本当に画像を消していいですか？</p>
+    <ul class="horizontal clearfix">
+        <li><input type="button" class="btn btn-danger" id="delete-figure-button" value="{% trans '削除' %}" /></li>
+        <li><input type="button" class="btn" onclick="closeDeleteFigureDialog()" value="{% trans '戻る' %}" /><li>
+    </ul>
+</div>
+{% endif %}
 {% endblock %}

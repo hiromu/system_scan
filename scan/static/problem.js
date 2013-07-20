@@ -1,4 +1,38 @@
 $(function(){
+    $('#figure-manage').appendTo($('#id_statement').parent());
+    $('#add-figure').dialog({
+        autoOpen: false,
+        title: $('#figure-manage>input').val(),
+        closeOnEscape: false,
+        modal: true,
+    });
+    $('#delete-figure').dialog({
+        autoOpen: false,
+        title: $('#delete-figure-button').val(),
+        closeOnEscape: false,
+        modal: true,
+    });
+    $('#add-figure').submit(function(event){
+        event.preventDefault();
+        $.ajax({
+            url:    $(this).attr('action'),
+            type:   $(this).attr('method'),
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            data: new FormData($(this)[0]),
+            success: function(data){
+                if(data.status=='success'){
+                    reloadFigures();
+                    closeAddFigureDialog();
+                }else if(data.status=='error'){
+                    alert('エラー');
+                }else{
+                    alert('不明なエラー');
+                }
+            }
+        });
+    });
     $('input[name="type"]:radio').change(remakeAutoForm);
     $('#edit-problem').submit(function(){
         setOption();
@@ -146,4 +180,48 @@ function restoreResult(){
             $('#autoform textarea').val($('textarea[name="result"]').val());
             break;
     }
+}
+
+function openAddFigureDialog(){
+    $('#add-figure').dialog('open');
+}
+
+function closeAddFigureDialog(){
+    $('#add-figure').dialog('close');
+}
+
+function openDeleteFigureDialog(url){
+    $('#delete-figure-button').attr('onclick', 'deleteFigure(\'' + url + '\')');
+    $('#delete-figure').dialog('open');
+}
+
+function closeDeleteFigureDialog(){
+    $('#delete-figure').dialog('close');
+}
+
+function deleteFigure(url){
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        success: function(data){
+            if(data.status=='success'){
+                reloadFigures();
+                closeDeleteFigureDialog();
+            }
+        }
+    });
+}
+
+function reloadFigures(){
+    var url = $('#figure-manage>a').attr('href');
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        success: function(data){
+            $('#figure-list').children().remove();
+            for(var i = 0; i < data.length; i++){
+                $('#figure-list').append($('<li>').append($('<figure>').append($('<img>').attr({src:data[i].url,alt:data[i].caption})).append($('<figcaption>').text(data[i].caption))).append($('<input>').attr({class:'btn btn-danger',type:'button',onclick:'openDeleteFigureDialog(\''+data[i].delete+'\')',value:'削除'})))
+            }
+        }
+    });
 }

@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+import datetime, json
 
-from scan.forms.problems import ProblemEditForm, ProblemDeleteForm
-from scan.models import Contest, Genre, Problem
+from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm
+from scan.models import Contest, Genre, Problem, Figure
+from scan.libs import error_as_json_response
 
+from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 def check(request, contest_id, genre_id):
     contest = get_object_or_404(Contest, pk = contest_id)
@@ -66,8 +69,10 @@ def edit(request, contest_id, genre_id, problem_id):
             return redirect('scan.views.problems.index', contest_id, genre_id)
     else:
         form = ProblemEditForm(instance = problem)
+    figure_form = FigureAddForm()
 
-    context = {'subtitles': [contest.name, _(u'問題編集')], 'contest': contest, 'genre': genre, 'form': form, 'is_edit': True}
+    figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
+    context = {'subtitles': [contest.name, _(u'問題編集')], 'contest': contest, 'genre': genre, 'form': form, 'is_edit': True, 'problem': problem, 'figure_form': figure_form, 'figures':figures}
     return render_to_response('problems/edit.html', context, RequestContext(request))
 
 @login_required
@@ -88,3 +93,48 @@ def delete(request, contest_id, genre_id, problem_id):
 
     context = {'contest': contest, 'genre': genre, 'form': form, 'problem': problem}
     return render_to_response('problems/delete.html', context, RequestContext(request))
+
+@login_required
+def add_figure(request, contest_id, genre_id, problem_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+    problem = get_object_or_404(Problem, pk = problem_id)
+    if request.method == 'POST':
+        form = FigureAddForm(request.POST, request.FILES)
+        if form.is_valid():
+            figure = form.save(commit = False)
+            figure.problem = problem
+            figure.sequence_number = 1
+            figure.save()
+            return HttpResponse(json.dumps({'status': 'success'}) , mimetype = 'application/json')
+        else:
+            return error_as_json_response(form)
+    else:
+        return HttpResponseNotAllowed(['POST'])
+
+@login_required
+def delete_figure(request, contest_id, genre_id, problem_id, figure_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+    problem = get_object_or_404(Problem, pk = problem_id)
+    figure = get_object_or_404(Figure, pk = figure_id)
+    figure.graphics.delete()
+    figure.delete()
+    return HttpResponse(json.dumps({'status': 'success'}), mimetype = 'application/json')
+
+@login_required
+def get_figures(request, contest_id, genre_id, problem_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+    problem = get_object_or_404(Problem, pk = problem_id)
+    figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
+    figure_list = []
+    for figure in figures:
+        figure_list.append({'url': figure.graphics.url, 'caption': figure.caption, 'delete': reverse('scan.views.problems.delete_figure', args=[contest_id, genre_id, problem_id, figure.id])})
+    return HttpResponse(json.dumps(figure_list), mimetype = 'application/json')
