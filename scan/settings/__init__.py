@@ -134,8 +134,19 @@ LOGGING = {
             'class':'logging.StreamHandler',
             'formatter': 'simple'
         },
+        'error_log': {
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'filename': 'log/error.log'
+        },
     },
     'loggers': {
+        'django': {
+            'handlers': ['error_log'],
+            'propagate': True,
+            'level': 'ERROR'
+        },
         'django.request': {
             'handlers': ['mail_admins'],
             'level': 'ERROR',

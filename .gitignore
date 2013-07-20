@@ -3,6 +3,9 @@
 # C extensions
 *.so
 
+# Log Files
+log/*.log
+
 # Django
 django/
 django_auth_ldap/
