@@ -138,7 +138,9 @@ LOGGING = {
             'level': 'ERROR',
             'class': 'logging.handlers.RotatingFileHandler',
             'formatter': 'verbose',
-            'filename': 'log/error.log'
+            'filename': 'log/error.log',
+            'maxBytes': 1024 * 1024,
+            'backupCount': 20,
         },
     },
     'loggers': {
