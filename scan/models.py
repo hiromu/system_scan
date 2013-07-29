@@ -30,7 +30,7 @@ class Problem(Model):
     statement = TextField()
     option = TextField(blank = True)
     result = TextField()
-    point = PositiveIntegerField()
+    point = PositiveIntegerField(_(u'点数'))
 
     def __unicode__(self):
         return self.statement

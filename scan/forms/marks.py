@@ -5,6 +5,7 @@ import json
 from scan.models import Answer
 
 from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField
+from django.utils.translation import ugettext_lazy as _
 
 class AnswerForm(ModelForm):
     class Meta:
@@ -29,3 +30,17 @@ class AnswerForm(ModelForm):
         self.fields['answer'].label = problem.title
         self.fields['answer'].help_text = problem.statement
         self.fields['answer'].widget.attrs['readonly'] = True
+        self.fields['answer'].required = False
+
+    def clean(self, *args, **kwargs):
+        cleaned_data = super(AnswerForm, self).clean(*args, **kwargs)
+
+        if 'answer' in cleaned_data:
+            del cleaned_data['answer']
+
+        point = cleaned_data.get('point')
+        if point > self.problem.point:
+                self._errors['point'] = self.error_class([_(u'満点は%d点です。' % self.problem.point)])
+                del cleaned_data['point']
+
+        return cleaned_data

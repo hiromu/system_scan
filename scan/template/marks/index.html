@@ -13,23 +13,23 @@
     </tr>
     {% for problem in problems %}
     <tr>
-        <td>{{ problem.title }}</td>
-        {% if problem.type == 0 %}
+        <td>{{ problem.problem.title }}</td>
+        {% if problem.problem.type == 0 %}
         <td>{% trans 'ラジオボタン' %}</td>
-        {% elif problem.type == 1 %}
+        {% elif problem.problem.type == 1 %}
         <td>{% trans 'チェックボックス' %}</td>
-        {% elif problem.type == 2 %}
+        {% elif problem.problem.type == 2 %}
         <td>{% trans 'テキスト' %}</td>
-        {% elif problem.type == 3 %}
+        {% elif problem.problem.type == 3 %}
         <td>{% trans 'テキストエリア' %}</td>
         {% endif %}
-        {% if problem.id in marked %}
+        {% if problem.problem.id in marked %}
         <td>{% trans '採点済み' %}</td>
         {% else %}
         <td></td>
         {% endif %}
         <td>
-            <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.id %}">{% trans '進む' %}</a>
+            <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.index %}">{% trans '進む' %}</a>
         </td>
     </tr>
     {% endfor %}

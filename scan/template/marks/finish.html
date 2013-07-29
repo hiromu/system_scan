@@ -1,0 +1,9 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<p>以上で Q{{ problem_index }}: {{ problem.title }} の採点は終了です。お疲れ様でした。</p>
+<a href="{% url 'scan.views.marks.problem' contest.id genre.id problem_id %}" class="btn btn-primary">{% trans '戻る' %}</a>
+{% endblock %}

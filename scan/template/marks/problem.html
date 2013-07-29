@@ -1,0 +1,27 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }} / Q{{ problem_index }}: {{ problem.title }}</h2>
+<table class="table table-striped">
+    <tr>
+        <th>{% trans "ユーザー名" %}</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for answer in answers %}
+    <tr>
+        <td>{{ answer.user }}</td>
+        {% if answer.point == None %}
+        <td>{% trans '未採点' %}</td>
+        {% else %}
+        <td>{{ answer.point }} / {{ problem.point }}</td>
+        {% endif %}
+        <td>
+            <a href="{% url 'scan.views.marks.mark' contest.id genre.id problem_id answer.id %}">{% trans '進む' %}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

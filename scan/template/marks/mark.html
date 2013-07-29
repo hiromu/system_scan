@@ -1,0 +1,47 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<div class="problem">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="statement">
+            <p>Q{{ problem_index }}: {{ form.fields.answer.label }}</p>
+            <pre>{{ form.fields.answer.help_text }}</pre>
+        </div>
+        {% if figures|length > 0 %}
+        <div class="figures">
+            <ul id="figure-list" class="clearfix">
+                {% for figure in figures %}
+                <li>
+                    <figure>
+                        <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+                        <figcaption>{{ figure.caption }}</figcaption>
+                    </figure>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="answer">
+            {% if form.answer.errors %}
+            {{ form.answer.errors }}
+            {% endif %}
+            {{ form.answer }}
+        </div>
+        <div class="point">
+            <p>{{ form.point.label }}</p>
+            {% if form.point.errors %}
+            {{ form.point.errors }}
+            {% endif %}
+            {{ form.point }}
+        </div>
+        <div class="button">
+            <input class="btn btn-primary" type="submit" value="{% trans '送信' %}" />
+            <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem_id %}" class="btn">{% trans '終了' %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
