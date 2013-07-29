@@ -4,7 +4,7 @@ import json
 
 from scan.models import Answer
 
-from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField
+from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField, MultipleChoiceField
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 class AnswerForm(ModelForm):
