@@ -91,7 +91,7 @@ def delete(request, contest_id, genre_id, problem_id):
     else:
         form = ProblemDeleteForm()
 
-    context = {'contest': contest, 'genre': genre, 'form': form, 'problem': problem}
+    context = {'subtitles': [contest.name, _(u'問題削除')], 'contest': contest, 'genre': genre, 'form': form, 'problem': problem}
     return render_to_response('problems/delete.html', context, RequestContext(request))
 
 @login_required
@@ -100,6 +100,7 @@ def add_figure(request, contest_id, genre_id, problem_id):
     if not isinstance(result, tuple):
         return result
     contest, genre = result
+
     problem = get_object_or_404(Problem, pk = problem_id)
     if request.method == 'POST':
         form = FigureAddForm(request.POST, request.FILES)
@@ -111,8 +112,8 @@ def add_figure(request, contest_id, genre_id, problem_id):
             return HttpResponse(json.dumps({'status': 'success'}) , mimetype = 'application/json')
         else:
             return error_as_json_response(form)
-    else:
-        return HttpResponseNotAllowed(['POST'])
+
+    return HttpResponseNotAllowed(['POST'])
 
 @login_required
 def delete_figure(request, contest_id, genre_id, problem_id, figure_id):
@@ -120,10 +121,12 @@ def delete_figure(request, contest_id, genre_id, problem_id, figure_id):
     if not isinstance(result, tuple):
         return result
     contest, genre = result
+
     problem = get_object_or_404(Problem, pk = problem_id)
     figure = get_object_or_404(Figure, pk = figure_id)
     figure.graphics.delete()
     figure.delete()
+
     return HttpResponse(json.dumps({'status': 'success'}), mimetype = 'application/json')
 
 @login_required
@@ -132,9 +135,12 @@ def get_figures(request, contest_id, genre_id, problem_id):
     if not isinstance(result, tuple):
         return result
     contest, genre = result
+
     problem = get_object_or_404(Problem, pk = problem_id)
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
+
     figure_list = []
     for figure in figures:
         figure_list.append({'url': figure.graphics.url, 'caption': figure.caption, 'delete': reverse('scan.views.problems.delete_figure', args=[contest_id, genre_id, problem_id, figure.id])})
+
     return HttpResponse(json.dumps(figure_list), mimetype = 'application/json')

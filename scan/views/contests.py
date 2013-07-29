@@ -25,6 +25,7 @@ def index(request, contest_id):
     for genre in genres:
         genre.number_of_problems = Problem.objects.filter(contest = contest, genre = genre).count()
         genre.number_of_answered_problems = Answer.objects.filter(user = request.user, problem__contest = contest, problem__genre = genre).count()
+
     context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all()}
     return render_to_response('contests/index.html', context, RequestContext(request))
 
