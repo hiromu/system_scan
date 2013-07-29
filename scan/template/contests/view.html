@@ -40,11 +40,23 @@
         {% endfor %}
         <div class="pagination">
             <ul>
+                {% ifequal problem_id 0 %}
+                <li class="disabled"><a href="#">&#171;</a></li>
+                {% else %}
                 <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id|add:"-1" %}">&#171;</a></li>
+                {% endifequal %}
                 {% for prob_id in problems_id %}
+                {% ifequal prob_id problem_id %}
+                <li class="disabled"><a href="#">{{ prob_id|add:"1" }}</a></li>
+                {% else %}
                 <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id prob_id %}">{{ prob_id|add:"1" }}</a></li>
+                {% endifequal %}
                 {% endfor %}
+                {% ifequal problem_id|add:"1" problems_id|length %}
+                <li class="disabled"><a href="#">&#187;</a></li>
+                {% else %}
                 <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id|add:"1" %}">&#187;</a></li>
+                {% endifequal %}
             </ul>
         </div>
         <div class="button">
