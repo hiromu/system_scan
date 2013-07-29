@@ -29,7 +29,7 @@
         <td></td>
         {% endif %}
         <td>
-            <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.index %}">{% trans '進む' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.marks.problem' contest.id genre.id problem.index %}">{% trans '進む' %}</a>
         </td>
     </tr>
     {% endfor %}

@@ -19,7 +19,7 @@
         <td>{{ answer.point }} / {{ problem.point }}</td>
         {% endif %}
         <td>
-            <a href="{% url 'scan.views.marks.mark' contest.id genre.id problem_id answer.id %}">{% trans '進む' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.marks.mark' contest.id genre.id problem_id answer.id %}">{% trans '進む' %}</a>
         </td>
     </tr>
     {% endfor %}

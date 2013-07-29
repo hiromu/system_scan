@@ -79,5 +79,5 @@ def finish(request, contest_id, genre_id):
         return result
     contest, genre = result
 
-    context = {'contest': contest, 'genre': genre}
+    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre}
     return render_to_response('contests/finish.html', context, RequestContext(request))

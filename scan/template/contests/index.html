@@ -9,9 +9,9 @@
         <th>{% trans 'ジャンル' %}</th>
         {% if request.user.is_staff or request.user in users %}
         <th>{% trans '問題数' %}</th>
-        {% else %}{% if now > contest.start %}
+        {% elif now > contest.start %}
         <th>{% trans '回答済み/全問題' %}</th>
-        {% endif %}{% endif %}
+        {% endif %}
         <th></th>
     </tr>
     {% for genre in genres %}
@@ -19,23 +19,23 @@
         <td>{{ genre.name }}</td>
         {% if request.user.is_staff or request.user in users%}
         <td>{{ genre.number_of_problems }}</td>
-        {% else %}{% if now > contest.start %}
+        {% elif now > contest.start %}
         <td>{{ genre.number_of_answered_problems }}/{{ genre.number_of_problems }}</td>
-        {% endif %}{% endif %}
+        {% endif %}
         {% if request.user.is_staff or request.user in users %}
         {% if now > contest.end %}
         <td>
-            <a href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans '採点' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans '採点' %}</a>
         </td>
         {% else %}
         <td>
-            <a href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '問題設定' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '問題設定' %}</a>
         </td>
         {% endif %}
         {% else %}
         {% if now > contest.start %}
         <td>
-            <a href="{% url 'scan.views.contests.problem' contest.id genre.id %}">{% trans '進む' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.contests.problem' contest.id genre.id %}">{% trans '進む' %}</a>
         </td>
         {% else %}
         <td></td>
