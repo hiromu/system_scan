@@ -37,33 +37,33 @@ def settings(request, contest_id, tab):
             if not request.user.is_staff:
                 return redirect('scan.views.index')
             contest = get_object_or_404(Contest, pk = contest_id)
-            return value[1][0](request, contest_id, contest)
+            return value[1][0](request, contest_id, contest, value)
             break
     else:
         raise Http404
 
-def contest_settings(request, contest_id, contest):
+def contest_settings(request, contest_id, contest, tab):
     if request.method == 'POST':
         form = ContestForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
     else:
         form = ContestForm(instance = contest)
-    context = {'subtitles': [contest.name, _(u'一般設定')], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
+    context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
     return render_to_response('settings/contest.html', context, RequestContext(request))
 
-def genre_settings(request, contest_id, contest):
+def genre_settings(request, contest_id, contest, tab):
     if request.method == 'POST':
         form = ContestGenreForm(request.POST, instance = contest)
         if form.is_valid():
             contest = form.save()
     else:
         form = ContestGenreForm(instance = contest)
-    context = {'subtitles': [contest.name, _(u'問題設定')], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
+    context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
     return render_to_response('settings/genre.html', context, RequestContext(request))
 
-def user_settings(request, contest_id, contest):
-    context = {'subtitles': [contest.name, _(u'ユーザー設定')], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
+def user_settings(request, contest_id, contest, tab):
+    context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
     return render_to_response('settings/user.html', context, RequestContext(request))
 
 @login_required
@@ -97,6 +97,6 @@ def user_del(request, contest_id, user_id):
 
 tabs = (
     ('contest'   ,(contest_settings,    _(u'一般設定'))),
-    ('genre'     ,(genre_settings,      _(u'問題設定'))),
-    ('user'      ,(user_settings,       _(u'ユーザー設定'))),
+    ('genre'     ,(genre_settings,      _(u'分野設定'))),
+    ('user'      ,(user_settings,       _(u'担当者設定'))),
 )

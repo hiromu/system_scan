@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os
+import os, datetime
 
 from django.contrib import admin
 from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField, ImageField
@@ -21,6 +21,15 @@ class Contest(Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_state(self):
+        now = datetime.datetime.now()
+        if now < self.start:
+            return _(u'あと%(period)sで開始') % {'period': (self.start - now) // 1000000 * 1000000}
+        if now >= self.start and now < self.end:
+            return _(u'あと%(period)sで終了') % {'period': (self.end - now) // 1000000 * 1000000}
+        if now >= self.end:
+            return _(u'終了しました')
 
 class Problem(Model):
     contest = ForeignKey(Contest)
