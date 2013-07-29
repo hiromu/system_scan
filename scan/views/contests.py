@@ -77,7 +77,7 @@ def answer(request, contest_id, genre_id, problem_id):
     if datetime.datetime.now() > contest.end:
         form = AnswerForm(problems[problem_id], instance = answer, disable = True)
         figures = Figure.objects.filter(problem = problems[problem_id]).order_by('sequence_number')
-        context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'figures': figures, 'problem': problems[problem_id], 'answer': answer, 'problem_id': problem_id + 1}
+        context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'figures': figures, 'problem': problems[problem_id],'problems_id': range(len(problems)), 'answer': answer, 'problem_id': problem_id}
         return render_to_response('contests/view.html', context, RequestContext(request))
     else:
         if request.method == 'POST':

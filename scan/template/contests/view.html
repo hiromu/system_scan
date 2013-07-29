@@ -14,7 +14,7 @@
                 <p class="result">{% trans '得点' %}: {{ answer.point }} / {{ problem.point }}</p>
             </div>
             {% endif %}
-            <p>Q{{ problem_id }}: {{field.label}}</p>
+            <p>Q{{ problem_id|add:"1" }}: {{ field.label }}</p>
             <pre>{{ field.help_text }}</pre>
         </div>
         {% if figures|length > 0 %}
@@ -38,8 +38,16 @@
             {{ field }}
         </div>
         {% endfor %}
+        <div class="pagination">
+            <ul>
+                <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id|add:"-1" %}">&#171;</a></li>
+                {% for prob_id in problems_id %}
+                <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id prob_id %}">{{ prob_id|add:"1" }}</a></li>
+                {% endfor %}
+                <li><a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id|add:"1" %}">&#187;</a></li>
+            </ul>
+        </div>
         <div class="button">
-            <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id %}" class="btn btn-primary">{% trans '次へ' %}</a>
             <a href="{% url 'scan.views.contests.problem' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a>
         </div>
     </form>
