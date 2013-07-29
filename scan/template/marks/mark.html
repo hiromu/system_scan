@@ -8,8 +8,8 @@
     <form method="POST">
         {% csrf_token %}
         <div class="statement">
-            <p>Q{{ problem_index }}: {{ form.fields.answer.label }}</p>
-            <pre>{{ form.fields.answer.help_text }}</pre>
+            <p>Q{{ problem_index }}: {{ form.answer.label }}</p>
+            <pre>{{ form.answer.help_text }}</pre>
         </div>
         {% if figures|length > 0 %}
         <div class="figures">
@@ -32,7 +32,7 @@
             {{ form.answer }}
         </div>
         <div class="point">
-            <p>{{ form.point.label }}</p>
+            <p>{{ form.point.label }} {{ form.point.help_text }}</p>
             {% if form.point.errors %}
             {{ form.point.errors }}
             {% endif %}
