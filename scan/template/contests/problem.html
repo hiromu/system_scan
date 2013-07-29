@@ -3,6 +3,9 @@
 {% load i18n %}
 
 {% block main %}
+<div class="pull-right">
+    <h3>{% trans '合計' %}: {{ total }}{% trans '点' %}</h3>
+</div>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 <table class="table table-striped">
     <tr>
@@ -18,7 +21,7 @@
         {% elif not problem.point %}
         <td>{% trans '未採点' %}</td>
         {% else %}
-        <td>{{ problem.point }}</td>
+        <td>{{ problem.point }} / {{ problem.problem.point }}</td>
         {% endif %}
         <td>
             <a class="btn btn-primary" href="{% url 'scan.views.contests.answer' contest.id genre.id problem.index %}">{% trans '進む' %}</a>

@@ -7,6 +7,7 @@ from scan.models import Contest, Genre, Problem, Answer, Figure
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404, redirect, render_to_response, RequestContext
 
 def check(request, contest_id, genre_id):
@@ -22,11 +23,38 @@ def check(request, contest_id, genre_id):
 def index(request, contest_id):
     contest = get_object_or_404(Contest, pk = contest_id)
     genres = contest.genres.all()
-    for genre in genres:
-        genre.number_of_problems = Problem.objects.filter(contest = contest, genre = genre).count()
-        genre.number_of_answered_problems = Answer.objects.filter(user = request.user, problem__contest = contest, problem__genre = genre).count()
+    total = 0
 
-    context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all()}
+    data = {}
+    for genre in genres:
+        data[genre.id] = {'genre': genre}
+
+    problems = Problem.objects.filter(contest = contest).values('genre').annotate(count = Count('id'))
+    for problem in problems:
+        data[problem['genre']]['problem'] = problem['count']
+
+    answers = Answer.objects.filter(problem__contest = contest, user = request.user).values('problem__genre').annotate(count = Count('id'))
+    for answer in answers:
+        data[answer['problem__genre']]['answer'] = answer['count']
+
+    if datetime.datetime.now() > contest.end:
+        problems = Problem.objects.filter(contest = contest).values('genre').annotate(total = Sum('point'))
+        for problem in problems:
+            data[problem['genre']]['total'] = problem['total']
+
+        answers = Answer.objects.filter(user = request.user, problem__contest = contest).values('problem__genre').annotate(total = Sum('point'))
+        for answer in answers:
+            data[answer['problem__genre']]['point'] = answer['total']
+            total += answer['total']
+
+    genres = []
+    for i in sorted(data.keys()):
+        for key in ['answer', 'point', 'problem', 'total']:
+            if not key in data[i]:
+                data[i][key] = 0
+        genres.append(data[i])
+    
+    context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all(), 'total': total}
     return render_to_response('contests/index.html', context, RequestContext(request))
 
 @login_required
@@ -42,17 +70,20 @@ def problem(request, contest_id, genre_id):
     problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
     answers = Answer.objects.filter(user = request.user, problem__contest = contest, problem__genre = genre)
 
+    total = 0
     points = {}
     for problem in problems:
         points[problem.id] = -1
     for answer in answers:
         points[answer.problem.id] = answer.point
+        if answer.point:
+            total += answer.point
 
     data = []
     for i in range(len(problems)):
         data.append({'index': i, 'point': points[problems[i].id], 'problem': problems[i]})
 
-    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre, 'problems': data}
+    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre, 'problems': data, 'total': total}
     return render_to_response('contests/problem.html', context, RequestContext(request))
 
 @login_required

@@ -3,6 +3,11 @@
 {% load i18n %}
 
 {% block main %}
+{% if now > contest.end %}
+<div class="pull-right">
+    <h3>{% trans '合計' %}: {{ total }}{% trans '点' %}</h3>
+</div>
+{% endif %}
 <h2>{{ contest.name }}</h2>
 <table class="table table-striped">
     <tr>
@@ -10,22 +15,28 @@
         {% if request.user.is_staff or request.user in users %}
         <th>{% trans '問題数' %}</th>
         {% elif now > contest.start %}
-        <th>{% trans '回答済み/全問題' %}</th>
+        <th>{% trans '回答済み'%} / {% trans '全問題' %}</th>
+        {% endif %}
+        {% if now > contest.end %}
+        <th>合計得点</th>
         {% endif %}
         <th></th>
     </tr>
     {% for genre in genres %}
     <tr>
-        <td>{{ genre.name }}</td>
+        <td>{{ genre.genre.name }}</td>
         {% if request.user.is_staff or request.user in users%}
-        <td>{{ genre.number_of_problems }}</td>
+        <td>{{ genre.problem }}</td>
         {% elif now > contest.start %}
-        <td>{{ genre.number_of_answered_problems }}/{{ genre.number_of_problems }}</td>
+        <td>{{ genre.answer }} / {{ genre.problem }}</td>
+        {% endif %}
+        {% if now > contest.end %}
+        <td>{{ genre.point }} / {{ genre.total }}</td>
         {% endif %}
         {% if request.user.is_staff or request.user in users %}
         {% if now > contest.end %}
         <td>
-            <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans '採点' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id contest.id %}">{% trans '採点' %}</a>
         </td>
         {% else %}
         <td>
@@ -35,7 +46,7 @@
         {% else %}
         {% if now > contest.start %}
         <td>
-            <a class="btn btn-primary" href="{% url 'scan.views.contests.problem' contest.id genre.id %}">{% trans '進む' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.contests.problem' contest.id contest.id %}">{% trans '進む' %}</a>
         </td>
         {% else %}
         <td></td>
