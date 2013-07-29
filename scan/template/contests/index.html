@@ -41,17 +41,17 @@
         {% if request.user in users %}
         {% if now > contest.end %}
         <td>
-            <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id contest.id %}">{% trans '採点' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id genre.genre.id %}">{% trans '採点' %}</a>
         </td>
         {% else %}
         <td>
-            <a class="btn btn-primary" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '問題設定' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.problems.index' contest.id genre.genre.id %}">{% trans '問題設定' %}</a>
         </td>
         {% endif %}
         {% else %}
         {% if now > contest.start %}
         <td>
-            <a class="btn btn-primary" href="{% url 'scan.views.contests.problem' contest.id contest.id %}">{% trans '進む' %}</a>
+            <a class="btn btn-primary" href="{% url 'scan.views.contests.problem' contest.id genre.genre.id %}">{% trans '進む' %}</a>
         </td>
         {% else %}
         <td></td>
