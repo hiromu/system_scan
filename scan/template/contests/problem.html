@@ -1,0 +1,30 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<table class="table table-striped">
+    <tr>
+        <th>{% trans '問題' %}</th>
+        <th>{% trans '得点' %}</th>
+        <th></th>
+    </tr>
+    {% for problem in problems %}
+    <tr>
+        <td>{{ problem.problem.title }}</td>
+        {% if problem.point == -1 %}
+        <td>{% trans '未回答' %}</td>
+        {% elif not problem.point %}
+        <td>{% trans '未採点' %}</td>
+        {% else %}
+        <td>{{ problem.point }}</td>
+        {% endif %}
+        <td>
+            <a class="btn btn-primary" href="{% url 'scan.views.contests.answer' contest.id genre.id problem.index %}">{% trans '進む' %}</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="btn" href="{% url 'scan.views.contests.index' contest.id %}">{% trans '戻る' %}</a>
+{% endblock %}

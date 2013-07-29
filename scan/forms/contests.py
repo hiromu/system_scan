@@ -13,7 +13,14 @@ class AnswerForm(ModelForm):
         fields = ('answer', 'point')
 
     def __init__(self, problem, *args, **kwargs):
-        super(AnswerForm, self).__init__(*args, **kwargs)
+        disable = False
+        if 'disable' in kwargs:
+            disable = True
+            del kwargs['disable']
+            super(AnswerForm, self).__init__(*args, **kwargs)
+        else:
+            super(AnswerForm, self).__init__(*args, **kwargs)
+
         self.problem = problem
         del self.fields['point']
 
@@ -30,6 +37,8 @@ class AnswerForm(ModelForm):
 
         self.fields['answer'].label = problem.title
         self.fields['answer'].help_text = problem.statement
+        if disable:
+            self.fields['answer'].widget.attrs['disabled'] = 'disabled'
 
     def clean(self, *args, **kwargs):
         cleaned_data = super(AnswerForm, self).clean(*args, **kwargs)

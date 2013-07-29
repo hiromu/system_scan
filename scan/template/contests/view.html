@@ -1,0 +1,47 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<div class="problem">
+    <form method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="statement">
+            {% if answer.point %}
+            <div class="pull-right">
+                <p class="result">{% trans '得点' %}: {{ answer.point }} / {{ problem.point }}</p>
+            </div>
+            {% endif %}
+            <p>Q{{ problem_id }}: {{field.label}}</p>
+            <pre>{{ field.help_text }}</pre>
+        </div>
+        {% if figures|length > 0 %}
+        <div class="figures">
+            <ul id="figure-list" class="clearfix">
+                {% for figure in figures %}
+                <li>
+                    <figure>
+                        <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+                        <figcaption>{{ figure.caption }}</figcaption>
+                    </figure>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="answer">
+            {% if field.errors %}
+            {{ field.errors }}
+            {% endif %}
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div class="button">
+            <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem_id %}" class="btn btn-primary">{% trans '次へ' %}</a>
+            <a href="{% url 'scan.views.contests.problem' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

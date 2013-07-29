@@ -77,6 +77,7 @@ header>ul>li {
     display: block;
     width: 900px;
     height: 410px;
+    margin: 0 auto;
     overflow: hidden;
 }
 
