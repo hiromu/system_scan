@@ -250,6 +250,10 @@ a.btn {
     margin-bottom: 10px;
 }
 
+.problem .answer li.suggested {
+    color: #ff0000;
+}
+
 .problem .answer input[type="radio"], input[type="checkbox"] {
     vertical-align: 2px;
 }

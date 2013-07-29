@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}mark.js"></script>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 <div class="problem">
     <form method="POST">
@@ -25,12 +26,30 @@
             </ul>
         </div>
         {% endif %}
+        <input type="hidden" id="id_type" name="type" value="{{ problem.type }}" />
         <div class="answer">
             {% if form.answer.errors %}
             {{ form.answer.errors }}
             {% endif %}
+            <label>{% trans '回答' %}</label>
             {{ form.answer }}
+            {% if problem.type = 0 or problem.type = 1 %}
+            <p>{% trans '赤い文字の選択肢が模範解答です。' %}</p>
+            <input type="hidden" id="id_result" name="result" value="{{ problem.result }}" />
+            {% endif %}
         </div>
+        {% if problem.type = 2 or problem.type = 3 %}
+        <div class="answer">
+            {% ifequal problem.type 2 %}
+            <label for="id_suggested_answer">{% trans '模範回答' %}</label>
+            <input disabled="True" name="suggested_answer" value="{{ suggested_answer }}" id="id_suggested_answer" type="text" />
+            {% endifequal %}
+            {% ifequal problem.type 3 %}
+            <label for="id_suggested_answer">{% trans '模範回答' %}</label>
+            <textarea disabled="True" name="suggested_answer" id="id_suggested_answer" cols="40" rows="10">{{ suggested_answer }}</textarea>
+            {% endifequal %}
+        </div>
+        {% endif %}
         <div class="point">
             <p>{{ form.point.label }} {{ form.point.help_text }}</p>
             {% if form.point.errors %}
