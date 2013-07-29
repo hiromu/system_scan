@@ -4,6 +4,11 @@
 
 {% block main %}
 <h2>{{ contest.name }}</h2>
+{% if request.user.is_staff %}
+<p class="float-right"><a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans 'コンテスト設定' %}</a></p>
+{% endif %}
+<h3>{{ contest.start }} - {{ contest.end }}</h3>
+<h4>{{ contest.get_state }}</h4>
 <table class="table table-striped">
     <tr>
         <th>{% trans 'ジャンル' %}</th>
@@ -22,7 +27,7 @@
         {% elif now > contest.start %}
         <td>{{ genre.number_of_answered_problems }}/{{ genre.number_of_problems }}</td>
         {% endif %}
-        {% if request.user.is_staff or request.user in users %}
+        {% if request.user in users %}
         {% if now > contest.end %}
         <td>
             <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans '採点' %}</a>
