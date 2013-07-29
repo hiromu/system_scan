@@ -24,4 +24,5 @@
     </tr>
     {% endfor %}
 </table>
+<a class="btn" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{% trans '戻る' %}</a>
 {% endblock %}
