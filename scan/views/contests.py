@@ -6,6 +6,7 @@ from scan.forms.contests import AnswerForm
 from scan.models import Contest, Genre, Problem, Answer, Figure
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Sum
 from django.shortcuts import get_object_or_404, redirect, render_to_response, RequestContext
@@ -137,3 +138,37 @@ def finish(request, contest_id, genre_id):
 
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre}
     return render_to_response('contests/finish.html', context, RequestContext(request))
+
+@login_required
+def ranking(request, contest_id):
+    contest = get_object_or_404(Contest, pk = contest_id)
+    users = Answer.objects.filter(problem__contest = contest).values('user').annotate(total = Sum('point')).order_by('-total')
+    answers = Answer.objects.filter(problem__contest = contest).values('user', 'problem__genre').annotate(total = Sum('point'))
+
+    genre_id = []
+    genre_name = []
+    for genre in contest.genres.all():
+        genre_id.append(genre.id)
+        genre_name.append(genre.name)
+
+    score = {}
+    for answer in answers:
+        if answer['user'] not in score:
+            score[answer['user']] = {}
+        score[answer['user']][answer['problem__genre']] = answer['total']
+
+    ranking = []
+    for i in range(len(users)):
+        result = []
+        for genre in genre_id:
+            if genre in score[users[i]['user']]:
+                result.append((genre, score[users[i]['user']][genre]))
+            else:
+                result.append((genre, 0))
+        ranking.append({'index': i + 1, 'user': User.objects.get(pk = users[i]['user']), 'total': users[i]['total'], 'score': result})
+
+        if len(ranking) > 1 and ranking[-2]['total'] == ranking[-1]['total']:
+            ranking[-1]['index'] = ranking[-2]['index']
+
+    context = {'contest': contest, 'genre_id': genre_id, 'genre_name': genre_name, 'ranking': ranking}
+    return render_to_response('contests/ranking.html', context, RequestContext(request))

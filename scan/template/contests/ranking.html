@@ -1,0 +1,32 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{{ contest.name }}: {% trans 'ランキング' %}</h2>
+<h3>{{ contest.start }} - {{ contest.end }}</h3>
+<table class="table table-striped">
+    <tr>
+        <th>{% trans '順位' %}</th>
+        <th>{% trans '名前' %}</th>
+        {% for name in genre_name %}
+        <th>{{ name }}</th>
+        {% endfor %}
+        <th>{% trans '合計' %}</td>
+    </tr>
+    {% for rank in ranking %}
+    <tr>
+        <td>{{ rank.index }}</td>
+        <td>{{ rank.user.last_name }} {{ rank.user.first_name }}</td>
+        {% for id in genre_id %}
+        {% for score in rank.score %}
+        {% if score.0 == id %}
+        <td>{{ score.1 }}</td>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        <td>{{ rank.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

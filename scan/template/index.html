@@ -40,6 +40,7 @@
         <th>{% trans '終了日時' %}</th>
         <th>{% trans '状態' %}</th>
         <th></th>
+        <th></th>
         {% if request.user.is_staff %}
         <th></th>
         {% endif %}
@@ -53,6 +54,11 @@
         <td>
             <a href="{% url 'scan.views.contests.index' contest.id %}" class="btn btn-primary">{% trans '進む' %}</a>
         </td>
+        {% if now > contest.end %}
+        <td>
+            <a href="{% url 'scan.views.contests.ranking' contest.id %}" class="btn btn-info">{% trans 'ランキング' %}</a>
+        </td>
+        {% endif %}
         {% if request.user.is_staff %}
         <td>
             <a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans '設定' %}</a>
