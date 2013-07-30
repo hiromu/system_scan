@@ -145,8 +145,12 @@ def finish(request, contest_id, genre_id):
 @login_required
 def ranking(request, contest_id):
     contest = get_object_or_404(Contest, pk = contest_id)
+    if not datetime.datetime.now() > contest.end:
+        return redirect('scan.views.contests.index', contest_id)
+
     users = Answer.objects.filter(problem__contest = contest).values('user').annotate(total = Sum('point')).order_by('-total')
     answers = Answer.objects.filter(problem__contest = contest).values('user', 'problem__genre').annotate(total = Sum('point'))
+    unmarked = Answer.objects.filter(problem__contest = contest, point = None).count()
 
     genre_id = []
     genre_name = []
@@ -158,7 +162,8 @@ def ranking(request, contest_id):
     for answer in answers:
         if answer['user'] not in score:
             score[answer['user']] = {}
-        score[answer['user']][answer['problem__genre']] = answer['total']
+        if answer['total'] != None:
+            score[answer['user']][answer['problem__genre']] = answer['total']
 
     ranking = []
     for i in range(len(users)):
@@ -173,5 +178,5 @@ def ranking(request, contest_id):
         if len(ranking) > 1 and ranking[-2]['total'] == ranking[-1]['total']:
             ranking[-1]['index'] = ranking[-2]['index']
 
-    context = {'contest': contest, 'genre_id': genre_id, 'genre_name': genre_name, 'ranking': ranking}
+    context = {'contest': contest, 'genre_id': genre_id, 'genre_name': genre_name, 'ranking': ranking, 'unmarked': unmarked}
     return render_to_response('contests/ranking.html', context, RequestContext(request))
