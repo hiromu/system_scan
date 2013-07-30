@@ -42,11 +42,11 @@
         <div class="answer">
             {% ifequal problem.type 2 %}
             <label for="id_suggested_answer">{% trans '模範回答' %}</label>
-            <input disabled="True" name="suggested_answer" value="{{ suggested_answer }}" id="id_suggested_answer" type="text" />
+            <input disabled="True" name="suggested_answer" value="{{ problem.result }}" id="id_suggested_answer" type="text" />
             {% endifequal %}
             {% ifequal problem.type 3 %}
             <label for="id_suggested_answer">{% trans '模範回答' %}</label>
-            <textarea disabled="True" name="suggested_answer" id="id_suggested_answer" cols="40" rows="10">{{ suggested_answer }}</textarea>
+            <textarea disabled="True" name="suggested_answer" id="id_suggested_answer" cols="40" rows="10">{{ problem.result }}</textarea>
             {% endifequal %}
         </div>
         {% endif %}

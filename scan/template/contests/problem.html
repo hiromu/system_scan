@@ -18,7 +18,7 @@
         <td>{{ problem.problem.title }}</td>
         {% if problem.point == -1 %}
         <td>{% trans '未回答' %}</td>
-        {% elif not problem.point %}
+        {% elif problem.point == None %}
         <td>{% trans '未採点' %}</td>
         {% else %}
         <td>{{ problem.point }} / {{ problem.problem.point }}</td>

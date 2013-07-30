@@ -89,7 +89,7 @@ def mark(request, contest_id, genre_id, problem_id, answer_id):
         form = AnswerForm(problem, instance = answer)
 
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
-    context = {'subtitles': [contest.name, genre.name], 'answer': answer, 'suggested_answer': problem.result, 'contest': contest, 'genre': genre, 'figures': figures, 'form': form, 'problem': problem, 'problem_id': int(problem_id), 'problem_index': int(problem_id) + 1}
+    context = {'subtitles': [contest.name, genre.name], 'answer': answer, 'contest': contest, 'genre': genre, 'figures': figures, 'form': form, 'problem': problem, 'problem_id': int(problem_id), 'problem_index': int(problem_id) + 1}
     return render_to_response('marks/mark.html', context, RequestContext(request))
 
 @login_required

@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block main %}
-{% if now > contest.end %}
+{% if now > contest.end and request.user not in users %}
 <div class="pull-right">
     <h3>{% trans '合計' %}: {{ total }}{% trans '点' %}</h3>
 </div>
@@ -17,12 +17,12 @@
 <table class="table table-striped">
     <tr>
         <th>{% trans 'ジャンル' %}</th>
-        {% if request.user.is_staff or request.user in users %}
+        {% if request.user in users %}
         <th>{% trans '問題数' %}</th>
         {% elif now > contest.start %}
         <th>{% trans '回答済み'%} / {% trans '全問題' %}</th>
         {% endif %}
-        {% if now > contest.end %}
+        {% if now > contest.end and request.user not in users %}
         <th>合計得点</th>
         {% endif %}
         <th></th>
@@ -30,15 +30,15 @@
     {% for genre in genres %}
     <tr>
         <td>{{ genre.genre.name }}</td>
-        {% if request.user.is_staff or request.user in users%}
+        {% if request.user in users %}
         <td>{{ genre.problem }}</td>
         {% elif now > contest.start %}
         <td>{{ genre.answer }} / {{ genre.problem }}</td>
         {% endif %}
-        {% if now > contest.end %}
+        {% if now > contest.end and request.user not in users %}
         <td>{{ genre.point }} / {{ genre.total }}</td>
         {% endif %}
-        {% if request.user in users %}
+        {% if request.user in users%}
         {% if now > contest.end %}
         <td>
             <a class="btn btn-primary" href="{% url 'scan.views.marks.index' contest.id genre.genre.id %}">{% trans '採点' %}</a>

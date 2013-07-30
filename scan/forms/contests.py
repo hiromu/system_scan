@@ -17,9 +17,8 @@ class AnswerForm(ModelForm):
         if 'disable' in kwargs:
             disable = True
             del kwargs['disable']
-            super(AnswerForm, self).__init__(*args, **kwargs)
-        else:
-            super(AnswerForm, self).__init__(*args, **kwargs)
+
+        super(AnswerForm, self).__init__(*args, **kwargs)
 
         self.problem = problem
         del self.fields['point']
@@ -31,7 +30,7 @@ class AnswerForm(ModelForm):
             option = json.loads(problem.option)
             self.fields['answer'] = MultipleChoiceField(choices = [(i, option[i]) for i in range(len(option))], widget = CheckboxSelectMultiple)
         elif problem.type == 2:
-            self.fields['answer'] = CharField(widget = TextInput)
+            self.fields['answer'] = CharField(label = _(u'回答'), widget = TextInput)
         elif problem.type == 3:
             self.fields['answer'] = CharField(widget = Textarea)
 
