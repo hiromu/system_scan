@@ -46,7 +46,8 @@ def index(request, contest_id):
         answers = Answer.objects.filter(user = request.user, problem__contest = contest).values('problem__genre').annotate(total = Sum('point'))
         for answer in answers:
             data[answer['problem__genre']]['point'] = answer['total']
-            total += answer['total']
+            if answer['total']:
+                total += answer['total']
 
     genres = []
     for i in sorted(data.keys()):

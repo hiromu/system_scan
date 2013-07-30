@@ -38,7 +38,11 @@
         <td>{{ genre.answer }} / {{ genre.problem }}</td>
         {% endif %}
         {% if now > contest.end and request.user not in users %}
+        {% if genre.point %}
         <td>{{ genre.point }} / {{ genre.total }}</td>
+        {% else %}
+        <td>0 / {{ genre.total }}</td>
+        {% endif %}
         {% endif %}
         {% if request.user in users%}
         {% if now > contest.end %}
