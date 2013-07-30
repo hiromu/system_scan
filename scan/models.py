@@ -65,17 +65,7 @@ class Answer(Model):
     def __unicode__(self):
         return self.answer
 
-class Score(Model):
-    user = ForeignKey('auth.User')
-    contest = ForeignKey(Contest)
-    genre = ForeignKey(Genre)
-    score = PositiveIntegerField()
-
-    def __unicode__(self):
-        return self.score
-
 admin.site.register(Contest)
 admin.site.register(Genre)
 admin.site.register(Problem)
 admin.site.register(Answer)
-admin.site.register(Score)
