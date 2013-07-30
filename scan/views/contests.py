@@ -116,12 +116,13 @@ def answer(request, contest_id, genre_id, problem_id):
         if request.method == 'POST':
             form = AnswerForm(problems[problem_id], request.POST, instance = answer)
             if form.is_valid():
-                answer = form.save(commit = False)
-                answer.contest = contest
-                answer.genre = genre
-                answer.user = request.user
-                answer.problem = problems[problem_id]
-                answer.save()
+                new_answer = form.save(commit = False)
+                if new_answer.answer:
+                    new_answer.user = request.user
+                    new_answer.problem = problems[problem_id]
+                    new_answer.save()
+                elif answer:
+                    answer.delete()
                 return redirect('scan.views.contests.answer', contest_id, genre_id, problem_id + 1)
         else:
             form = AnswerForm(problems[problem_id], instance = answer)
