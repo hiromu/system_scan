@@ -4,6 +4,11 @@
 
 {% block main %}
 <h2>{{ contest.name }}: {% trans 'ランキング' %}</h2>
+{% if unmarked != 0 %}
+<div class="pull-right">
+    <h4>{% trans '採点中' %}</h4>
+</div>
+{% endif %}
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
 <table class="table table-striped">
     <tr>
