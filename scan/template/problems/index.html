@@ -33,4 +33,5 @@
     {% endfor %}
 </table>
 <a class="btn btn-primary" href="{% url 'scan.views.problems.add' contest.id genre.id %}">{% trans '追加' %}</a>
+<a class="btn" href="{% url 'scan.views.contests.index' contest.id %}">{% trans '戻る' %}</a>
 {% endblock %}
