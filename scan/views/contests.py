@@ -127,6 +127,9 @@ def answer(request, contest_id, genre_id, problem_id):
 
         figures = Figure.objects.filter(problem = problems[problem_id]).order_by('sequence_number')
         context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem_id': problem_id + 1, 'figures': figures}
+
+        if problem_id > 0:
+            context['previous'] = problem_id - 1
         return render_to_response('contests/answer.html', context, RequestContext(request))
 
 @login_required
