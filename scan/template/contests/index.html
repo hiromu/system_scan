@@ -10,7 +10,9 @@
 {% endif %}
 <h2>{{ contest.name }}</h2>
 {% if request.user.is_staff %}
-<p class="float-right"><a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans 'コンテスト設定' %}</a></p>
+<p class="pull-right">
+    <a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans 'コンテスト設定' %}</a>
+</p>
 {% endif %}
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
 <h4>{{ contest.get_state }}</h4>
