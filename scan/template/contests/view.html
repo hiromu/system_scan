@@ -10,7 +10,7 @@
         {% csrf_token %}
         {% for field in form %}
         <div class="statement">
-            {% if answer.point %}
+            {% if answer.point != None %}
             <div class="pull-right">
                 <p class="result">{% trans '得点' %}: {{ answer.point }} / {{ problem.point }}</p>
             </div>
