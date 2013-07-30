@@ -44,10 +44,10 @@ class Problem(Model):
     def __unicode__(self):
         return self.statement
 
-def get_upload_path(instance, filename):
-    return os.path.join('figures', str(instance.problem.id), filename)
-
 class Figure(Model):
+    def get_upload_path(instance, filename):
+        return os.path.join('figures', str(instance.problem.id), filename)
+
     problem = ForeignKey(Problem)
     graphics = ImageField(upload_to = get_upload_path)
     caption = TextField()
@@ -68,4 +68,5 @@ class Answer(Model):
 admin.site.register(Contest)
 admin.site.register(Genre)
 admin.site.register(Problem)
+admin.site.register(Figure)
 admin.site.register(Answer)
