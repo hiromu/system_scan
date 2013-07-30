@@ -14,6 +14,7 @@ $(function(){
     });
     $('#add-figure').submit(function(event){
         event.preventDefault();
+        $('#add-figure input[type="submit"]').prop('disabled', true);
         $.ajax({
             url:    $(this).attr('action'),
             type:   $(this).attr('method'),
@@ -22,6 +23,7 @@ $(function(){
             contentType: false,
             data: new FormData($(this)[0]),
             success: function(data){
+                $('#add-figure input[type="submit"]').prop('disabled', false);
                 if(data.status=='success'){
                     reloadFigures();
                     closeAddFigureDialog();
@@ -30,7 +32,11 @@ $(function(){
                 }else{
                     alert('不明なエラー');
                 }
-            }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){
+                $('#add-figure input[type="submit"]').prop('disabled', false);
+                alert('エラー:'+textStatus);
+            },
         });
     });
     $('input[name="type"]:radio').change(remakeAutoForm);

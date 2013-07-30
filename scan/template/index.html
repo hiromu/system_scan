@@ -58,6 +58,8 @@
         <td>
             <a href="{% url 'scan.views.contests.ranking' contest.id %}" class="btn btn-info">{% trans 'ランキング' %}</a>
         </td>
+        {% else %}
+        <td></td>
         {% endif %}
         {% if request.user.is_staff %}
         <td>
