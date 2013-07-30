@@ -36,6 +36,7 @@ class AnswerForm(ModelForm):
 
         self.fields['answer'].label = problem.title
         self.fields['answer'].help_text = problem.statement
+        self.fields['answer'].required = False
         if disable:
             self.fields['answer'].widget.attrs['disabled'] = 'disabled'
 
