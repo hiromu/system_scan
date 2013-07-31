@@ -198,7 +198,7 @@ def detail(request, contest_id):
 
     summary = {}
     if users:
-        summary['average'] = float(reduce(lambda a,b: {'total': a.total + b.total}, users)['total']) / len(users)
+        summary['average'] = float(sum([user.total for user in users])) / len(users)
         summary['standard_deviation'] = math.sqrt(sum([(float(user.total) - summary['average'])**2 for user in users]) / len(users))
         summary['max_score'] = Problem.objects.filter(contest = contest).aggregate(max_score = Sum('point'))['max_score']
 
