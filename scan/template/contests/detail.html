@@ -64,7 +64,13 @@
         {% for problem in genre.problems %}
             <tr>
                 <td>Q.{{ problem.0|add:'1' }}</td>
-                <td>{{ problem.1.title }}</td>
+                <td>
+                    {% if is_writer %}
+                    <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                    {% else %}
+                    <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                    {% endif %}
+                </td>
                 <td>
                     <div class="progress" style="width: 300px">
                         <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>

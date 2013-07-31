@@ -190,6 +190,7 @@ def detail(request, contest_id):
         return redirect('scan.views.contests.index', contest_id)
     if Answer.objects.filter(problem__contest = contest).count() == 0 or Answer.objects.filter(problem__contest = contest, point = None).count() > 0:
         return redirect('scan.views.contests.ranking', contest_id)
+
     users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('-total')
     ranking = [(i + 1 , users[i]) for i in xrange(len(users))]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
@@ -212,12 +213,10 @@ def detail(request, contest_id):
         summary['standard_deviation'] = math.sqrt(sum([(float(user.total) - summary['average'])**2 for user in users]) / len(users))
         summary['max_score'] = Problem.objects.filter(contest = contest).aggregate(max_score = Sum('point'))['max_score']
 
-    ranking_svg = {}
-    ranking_svg['width'] = 300
-    ranking_svg['height'] = 800
-    ranking_svg['offset'] = 40
+    ranking_svg = {'offset': 40, 'height': 800, 'width': 300}
     ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - (i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in xrange(summary['max_score'] / 10 - 1)]
     ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - i * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
 
-    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres}
+    is_writer = request.user in contest.users.all()
+    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres, 'is_writer': is_writer}
     return render_to_response('contests/detail.html', context, RequestContext(request))
