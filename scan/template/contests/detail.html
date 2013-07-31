@@ -51,7 +51,7 @@ json_param = {{ json_param|safe }};
     <ul>
         <li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
         <li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
-        <li>{% trans '最優秀者' %}: <img alt="icon" width="50" height="50" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
+        <li>{% trans '最優秀者' %}: <img alt="icon" width="40" height="40" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
     </ul>
 </div>
 <div class="percentage-of-correct-answers">
@@ -69,7 +69,13 @@ json_param = {{ json_param|safe }};
         {% for problem in genre.problems %}
             <tr>
                 <td>Q.{{ problem.0|add:'1' }}</td>
-                <td>{{ problem.1.title }}</td>
+                <td>
+                    {% if is_writer %}
+                    <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                    {% else %}
+                    <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                    {% endif %}
+                </td>
                 <td>
                     <div class="progress" style="width: 300px">
                         <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
