@@ -277,6 +277,65 @@ a.btn {
     margin-top: 10px;
 }
 
+.score-distribution {
+    position: relative;
+    margin-left: -100px;
+    float: left;
+    width: 350px;
+}
+
+.score-distribution>svg {
+    position: absolute;
+}
+
+.score-distribution>table {
+    display: block;
+    position: absolute;
+    height: 900px;
+    width: 300px;
+}
+
+.score-distribution>table>thead {
+    display: none;
+}
+
+.score-distribution>table>tbody>tr {
+    display: block;
+    height: 40px;
+    min-width: 150px;
+    position: absolute;
+    margin-left: 100px;
+    background-image: url('img/detail-ranking-bg.svg');
+    padding-left: 15px;
+}
+
+.score-distribution>table>tbody>tr>td {
+    padding: 0 5px;
+}
+
+.contest-result-summary, .percentage-of-correct-answers {
+    margin-left: 280px;
+}
+
+.contest-result-summary>ul{
+    margin-top: 20px;
+    list-style: none;
+}
+
+.contest-result-summary>ul>li {
+    margin-top: 20px;
+    font-size: 2em;
+    line-height: 2em;
+}
+
+.contest-result-summary>ul>li>img {
+    vertical-align: middle;
+}
+
+.big-2em {
+    font-size: 2em;
+}
+
 .horizontal>* {
     float: left;
     list-style-type: none;

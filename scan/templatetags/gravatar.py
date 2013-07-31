@@ -38,3 +38,13 @@ def big_gravatar_url(parser, token):
         raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
 
     return GravatarUrlNode(email, 300)
+
+@register.tag
+def middle_gravatar_url(parser, token):
+    try:
+        tag_name, email = token.split_contents()
+
+    except ValueError:
+        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
+
+    return GravatarUrlNode(email, 100)

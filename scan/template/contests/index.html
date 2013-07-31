@@ -9,12 +9,15 @@
 </div>
 {% endif %}
 <h2>{{ contest.name }}</h2>
+<h3>{{ contest.start }} - {{ contest.end }}</h3>
 {% if request.user.is_staff %}
 <p class="pull-right">
     <a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans 'コンテスト設定' %}</a>
 </p>
 {% endif %}
-<h3>{{ contest.start }} - {{ contest.end }}</h3>
+{% if now > contest.end %}
+<p class="pull-right"><a href="{% url 'scan.views.contests.ranking' contest.id %}" class="btn btn-info">{% trans 'ランキング' %}</a></p>
+{% endif %}
 <h4>{{ contest.get_state }}</h4>
 <table class="table table-striped">
     <tr>

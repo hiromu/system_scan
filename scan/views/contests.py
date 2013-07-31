@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+import datetime, math
 
 from scan.forms.contests import AnswerForm
 from scan.models import Contest, Genre, Problem, Answer, Figure
@@ -55,7 +55,7 @@ def index(request, contest_id):
             if not key in data[i]:
                 data[i][key] = 0
         genres.append(data[i])
-    
+
     context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all(), 'total': total}
     return render_to_response('contests/index.html', context, RequestContext(request))
 
@@ -155,10 +155,10 @@ def ranking(request, contest_id):
     unmarked = Answer.objects.filter(problem__contest = contest, point = None).count()
 
     genre_id = []
-    genre_name = []
-    for genre in contest.genres.all():
+    genres = []
+    for genre in contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point')):
         genre_id.append(genre.id)
-        genre_name.append(genre.name)
+        genres.append({'name': genre.name, 'max_score': genre.max_score})
 
     score = {}
     for answer in answers:
@@ -180,5 +180,34 @@ def ranking(request, contest_id):
         if len(ranking) > 1 and ranking[-2]['total'] == ranking[-1]['total']:
             ranking[-1]['index'] = ranking[-2]['index']
 
-    context = {'contest': contest, 'genre_id': genre_id, 'genre_name': genre_name, 'ranking': ranking, 'unmarked': unmarked}
+    context = {'contest': contest, 'genre_id': genre_id, 'genres': genres, 'ranking': ranking, 'unmarked': unmarked}
     return render_to_response('contests/ranking.html', context, RequestContext(request))
+
+@login_required
+def detail(request, contest_id):
+    contest = get_object_or_404(Contest, pk = contest_id)
+    if not datetime.datetime.now() > contest.end:
+        return redirect('scan.views.contests.index', contest_id)
+    if Answer.objects.filter(problem__contest = contest).count() == 0 or Answer.objects.filter(problem__contest = contest, point = None).count() > 0:
+        return redirect('scan.views.contests.ranking', contest_id)
+    users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('-total')
+    ranking = [(i + 1 , users[i]) for i in xrange(len(users))]
+    problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
+    for problem in problems:
+        problem.percentage = problem.point_sum / (problem.point * len(users))
+
+    summary = {}
+    if users:
+        summary['average'] = float(reduce(lambda a,b: {'total': a.total + b.total}, users)['total']) / len(users)
+        summary['standard_deviation'] = math.sqrt(sum([(float(user.total) - summary['average'])**2 for user in users]) / len(users))
+        summary['max_score'] = Problem.objects.filter(contest = contest).aggregate(max_score = Sum('point'))['max_score']
+
+    ranking_svg = {}
+    ranking_svg['width'] = 300
+    ranking_svg['height'] = 800
+    ranking_svg['offset'] = 40
+    ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - (i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 100) for i in xrange(summary['max_score'] / 10 - 1)]
+    ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - i * 100 * ranking_svg['height'] / summary['max_score'], 100, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
+
+    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'problems': problems}
+    return render_to_response('contests/detail.html', context, RequestContext(request))

@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/(?P<problem_id>\d+)/$', 'scan.views.contests.answer'),
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/finish/$', 'scan.views.contests.finish'),
     (r'^contests/(?P<contest_id>\d+)/ranking/$', 'scan.views.contests.ranking'),
+    (r'^contests/(?P<contest_id>\d+)/ranking/detail/$', 'scan.views.contests.detail'),
 
     (r'^contests/add/$', 'scan.views.settings.add'),
     (r'^contests/(?P<contest_id>\d+)/settings/$', 'scan.views.settings.index'),

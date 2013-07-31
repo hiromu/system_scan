@@ -1,12 +1,14 @@
 {% extends 'template.html' %}
 {% load url from future %}
 {% load i18n %}
+{% load gravatar %}
 
 {% block main %}
 <h2>{{ contest.name }}: {% trans 'ランキング' %}</h2>
 <div class="pull-right">
     {% if unmarked == 0 %}
     <h4>{% trans '採点終了' %}</h4>
+    <p><a class="btn btn-info" href="{% url 'scan.views.contests.detail' contest.id %}">{% trans '結果詳細' %}</a></p>
     {% else %}
     <h4>{% trans '採点中' %}</h4>
     {% endif %}
@@ -16,8 +18,8 @@
     <tr>
         <th>{% trans '順位' %}</th>
         <th>{% trans '名前' %}</th>
-        {% for name in genre_name %}
-        <th>{{ name }}</th>
+        {% for genre in genres %}
+        <th>{{ genre.name }}({% trans '配点' %}:{{ genre.max_score }})</th>
         {% endfor %}
         <th>{% trans '合計' %}</td>
     </tr>
