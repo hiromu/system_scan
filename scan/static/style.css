@@ -34,6 +34,13 @@ header>ul>li {
     margin-left: 5px;
 }
 
+footer {
+    clear: both;
+    text-align: center;
+    margin-left: -300px;
+    width: 100%;
+}
+
 #user-info>a {
     display: block;
     height: 40px;

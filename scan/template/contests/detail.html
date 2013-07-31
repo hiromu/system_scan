@@ -5,11 +5,16 @@
 
 {% block main %}
 <script type="text/javascript" src="{{ STATIC_URL }}detail.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+json_param = {{ json_param|safe }};
+//]]>
+</script>
 <h2>{{ contest.name }}: {% trans '結果詳細' %}</h2>
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
-<div class="score-distribution">
+<div class="score-distribution" style="height: {{ ranking_svg.height|add:ranking_svg.offset }}px">
     <input id="summary-max-score" type="hidden" value="{{ summary.max_score }}" />
-    <svg width="300" height="900" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <svg width="300" height="{{ ranking_svg.height|add:ranking_svg.offset|add:'2' }}" version="1.1" xmlns="http://www.w3.org/2000/svg">
         {% for line in ranking_svg.lines %}
         <line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#888888" stroke-width="0.5px" />
         {% endfor %}

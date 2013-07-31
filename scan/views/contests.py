@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime, math
+import datetime, math, json
 
 from scan.forms.contests import AnswerForm
 from scan.models import Contest, Genre, Problem, Answer, Figure
@@ -213,11 +213,16 @@ def detail(request, contest_id):
         summary['max_score'] = Problem.objects.filter(contest = contest).aggregate(max_score = Sum('point'))['max_score']
 
     ranking_svg = {}
-    ranking_svg['width'] = 300
-    ranking_svg['height'] = 800
+    ranking_svg['height'] = 1000
     ranking_svg['offset'] = 40
     ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - (i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in xrange(summary['max_score'] / 10 - 1)]
     ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - i * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
 
-    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres}
+    json_param = {
+        'scale_height': ranking_svg['height'],
+        'scale_offset': ranking_svg['offset'],
+        'max_score': summary['max_score']
+    }
+
+    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres, 'json_param': json.dumps(json_param)}
     return render_to_response('contests/detail.html', context, RequestContext(request))
