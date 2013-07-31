@@ -32,9 +32,9 @@
 <div class="contest-result-summary">
 <h4>{% trans '概要' %}</h4>
 <ul>
-<li>{% trans '平均点' %}: <span class="big-2em">{{ summary.average|floatformat:2 }} {% trans '点' %}/</span>{{ summary.max_score }}{% trans '点満点' %}</li>
-<li>{% trans '標準偏差' %}: <span class="big-2em">{{ summary.standard_deviation|floatformat:2 }}</span></li>
-<li>{% trans '最優秀者' %}: <span class="big-2em"><img alt="icon" width="100" height="100" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }}</span> {{ ranking.0.1.total }}{% trans '点' %}</li>
+<li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
+<li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
+<li>{% trans '最優秀者' %}: <img alt="icon" width="50" height="50" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
 </ul>
 </div>
 <div class="percentage-of-correct-answers">

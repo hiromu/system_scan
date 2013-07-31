@@ -361,10 +361,6 @@ a.btn {
     margin: 5px;
 }
 
-.big-2em {
-    font-size: 2em;
-}
-
 .horizontal>* {
     float: left;
     list-style-type: none;
