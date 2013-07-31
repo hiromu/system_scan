@@ -350,6 +350,7 @@ a.btn {
 
 .category-summary>table {
     vertical-align: middle;
+    width: 1000px;
 }
 
 .category-summary>table tr>td {
