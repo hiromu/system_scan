@@ -1,5 +1,6 @@
 $(function(){
-    $('.score-distribution>table>tbody>tr').each(function(){
+    $('.score-distribution>table>tbody>tr').each(function(i){
+        $(this).css('z-index', $('.score-distribution>table>tbody>tr').size() - parseInt($(this).find('td:nth-of-type(1)').text()));
         $(this).animate({
             top: (json_param['scale_height'] + json_param['scale_offset'] - parseFloat($(this).find('td:nth-of-type(4)').text()) * json_param['scale_height'] / parseFloat(json_param['max_score']) - 20.0) + 'px'
         }, 1000);
