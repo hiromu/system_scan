@@ -8,49 +8,73 @@
 <h2>{{ contest.name }}: {% trans '結果詳細' %}</h2>
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
 <div class="score-distribution">
-<input id="summary-max-score" type="hidden" value="{{ summary.max_score }}" />
-<svg width="300" height="900" version="1.1" xmlns="http://www.w3.org/2000/svg">
-{% for line in ranking_svg.lines %}
-<line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#888888" stroke-width="0.5px" />
-{% endfor %}
-{% for line in ranking_svg.bold_lines %}
-<line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#111111" stroke-width="1px" />
-<text x="10" y="{{ line.1 }}">{{ line.3 }}</text>
-{% endfor %}
-</svg>
-<table>
-<thead>
-<tr><th>{% trans '順位' %}</th><th>{% trans 'アイコン' %}</th><th>{% trans '名前' %}</th><th>{% trans '点数' %}</th></tr>
-</thead>
-<tbody>
-{% for user in ranking %}
-<tr><td>{{ user.0 }}</td><td><img alt="icon" width="40" height="40" src="{% gravatar_url user.1.email %}" /></td><td>{{ user.1.last_name }} {{ user.1.first_name }}</td><td>{{ user.1.total }}</td></tr>
-{% endfor %}
-</tbody>
-</table>
+    <input id="summary-max-score" type="hidden" value="{{ summary.max_score }}" />
+    <svg width="300" height="900" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        {% for line in ranking_svg.lines %}
+        <line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#888888" stroke-width="0.5px" />
+        {% endfor %}
+        {% for line in ranking_svg.bold_lines %}
+        <line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#111111" stroke-width="1px" />
+        <text x="10" y="{{ line.1 }}">{{ line.3 }}</text>
+        {% endfor %}
+    </svg>
+    <table>
+        <thead>
+            <tr>
+                <th>{% trans '順位' %}</th>
+                <th>{% trans 'アイコン' %}</th>
+                <th>{% trans '名前' %}</th>
+                <th>{% trans '点数' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in ranking %}
+            <tr>
+                <td>{{ user.0 }}</td>
+                <td>
+                    <img alt="icon" width="40" height="40" src="{% gravatar_url user.1.email %}" />
+                </td>
+                <td>{{ user.1.last_name }} {{ user.1.first_name }}</td>
+                <td>{{ user.1.total }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 <div class="contest-result-summary">
-<h4>{% trans '概要' %}</h4>
-<ul>
-<li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
-<li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
-<li>{% trans '最優秀者' %}: <img alt="icon" width="50" height="50" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
-</ul>
+    <h4>{% trans '概要' %}</h4>
+    <ul>
+        <li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
+        <li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
+        <li>{% trans '最優秀者' %}: <img alt="icon" width="50" height="50" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
+    </ul>
 </div>
 <div class="percentage-of-correct-answers">
-<h4>{% trans '正答率' %}</h4>
-{% for genre in genres %}
-<h5>{{ genre.name }}</h5>
-<div class="progress" style="width: 300px">
-<div class="bar bar-success" style="width: {{ genre.percentage|floatformat:2 }}%">
-</div>
-</div>
-<p>{{ genre.percentage|floatformat:2 }}%</p>
-<table>
-{% for problem in genre.problems %}
-<tr><td>Q.{{ problem.0|add:'1' }}</td><td>{{ problem.1.title }}</td><td><div class="progress" style="width: 300px"><div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div></div></td><td>{{ problem.1.percentage|floatformat:2 }}%</td></tr>
-{% endfor %}
-</table>
-{% endfor %}
+    <h4>{% trans '正答率' %}</h4>
+    {% for genre in genres %}
+    <div class="category-summary">
+        <h5><i class="icon-chevron-up category"></i>{{ genre.name }}</h5>
+        <div class="percentage-of-category">
+            <div class="progress" style="width: 300px">
+                <div class="bar bar-success" style="width: {{ genre.percentage|floatformat:2 }}%"></div>
+            </div>
+            <p>{{ genre.percentage|floatformat:2 }}%</p>
+        </div>
+        <table>
+        {% for problem in genre.problems %}
+            <tr>
+                <td>Q.{{ problem.0|add:'1' }}</td>
+                <td>{{ problem.1.title }}</td>
+                <td>
+                    <div class="progress" style="width: 300px">
+                        <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
+                    </div>
+                </td>
+                <td>{{ problem.1.percentage|floatformat:2 }}%</td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

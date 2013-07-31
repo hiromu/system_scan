@@ -361,6 +361,14 @@ a.btn {
     margin: 5px;
 }
 
+.percentage-of-correct-answers i.category {
+    margin-right: 5px;
+}
+
+.percentage-of-category {
+    margin-left: 10px;
+}
+
 .horizontal>* {
     float: left;
     list-style-type: none;
