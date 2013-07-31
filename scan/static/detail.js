@@ -14,7 +14,7 @@ $(function(){
     $('.category-summary').click(function(data, handler){
         if ($(this).find('table').has(data.target).length == 0) {
             if ($(this).find('table').is(':hidden')) {
-                $(this).find('table').css('display','block');
+                $(this).find('table').css('display','inline-block');
                 $(this).find('i.category').removeClass('icon-chevron-down');
                 $(this).find('i.category').addClass('icon-chevron-up');
             } else {
