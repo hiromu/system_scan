@@ -32,18 +32,25 @@
 <div class="contest-result-summary">
 <h4>{% trans '概要' %}</h4>
 <ul>
-<li>{% trans '平均点' %}: <span class="big-2em">{{ summary.average }} {% trans '点' %}/</span>{{ summary.max_score }}{% trans '点満点' %}</li>
-<li>{% trans '標準偏差' %}: <span class="big-2em">{{ summary.standard_deviation }}</span></li>
-<li>{% trans '最優秀者' %}: <span class="big-2em"><img alt="icon" width="100" height="100" src="{% middle_gravatar_url user.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }}</span> {{ ranking.0.1.total }}{% trans '点' %}</li>
+<li>{% trans '平均点' %}: <span class="big-2em">{{ summary.average|floatformat:2 }} {% trans '点' %}/</span>{{ summary.max_score }}{% trans '点満点' %}</li>
+<li>{% trans '標準偏差' %}: <span class="big-2em">{{ summary.standard_deviation|floatformat:2 }}</span></li>
+<li>{% trans '最優秀者' %}: <span class="big-2em"><img alt="icon" width="100" height="100" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }}</span> {{ ranking.0.1.total }}{% trans '点' %}</li>
 </ul>
 </div>
 <div class="percentage-of-correct-answers">
-<h4>{% trans '正答率' %}<h4>
-<p>実装中</p>
-<ul>
-{% for problem in problems %}
-<li>{{ problem.percentage }}</li>
+<h4>{% trans '正答率' %}</h4>
+{% for genre in genres %}
+<h5>{{ genre.name }}</h5>
+<div class="progress" style="width: 300px">
+<div class="bar bar-success" style="width: {{ genre.percentage|floatformat:2 }}%">
+</div>
+</div>
+<p>{{ genre.percentage|floatformat:2 }}%</p>
+<table>
+{% for problem in genre.problems %}
+<tr><td>Q.{{ problem.0|add:'1' }}</td><td>{{ problem.1.title }}</td><td><div class="progress" style="width: 300px"><div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div></div></td><td>{{ problem.1.percentage|floatformat:2 }}%</td></tr>
 {% endfor %}
-</ul>
+</table>
+{% endfor %}
 </div>
 {% endblock %}

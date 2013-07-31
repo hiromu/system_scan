@@ -194,7 +194,17 @@ def detail(request, contest_id):
     ranking = [(i + 1 , users[i]) for i in xrange(len(users))]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
     for problem in problems:
-        problem.percentage = problem.point_sum / (problem.point * len(users))
+        problem.percentage = float(problem.point_sum) / (problem.point * len(users)) * 100
+
+    genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
+    genre_points = dict([(genre['problem__genre'], genre['point_sum']) for genre in Answer.objects.filter(problem__contest = contest).values('problem__genre').annotate(point_sum = Sum('point'))])
+    for genre in genres:
+        genre.problems = []
+        for i in xrange(len(problems)):
+            if problems[i].genre == genre:
+                genre.problems.append((len(genre.problems), problems[i]))
+        genre.point_sum = genre_points[genre.id]
+        genre.percentage = float(genre.point_sum) / (genre.max_score * len(users)) * 100
 
     summary = {}
     if users:
@@ -206,8 +216,8 @@ def detail(request, contest_id):
     ranking_svg['width'] = 300
     ranking_svg['height'] = 800
     ranking_svg['offset'] = 40
-    ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - (i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 100) for i in xrange(summary['max_score'] / 10 - 1)]
-    ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - i * 100 * ranking_svg['height'] / summary['max_score'], 100, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
+    ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - (i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in xrange(summary['max_score'] / 10 - 1)]
+    ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - i * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
 
-    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'problems': problems}
+    context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres}
     return render_to_response('contests/detail.html', context, RequestContext(request))
