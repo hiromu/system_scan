@@ -19,7 +19,7 @@
         <th>{% trans '順位' %}</th>
         <th>{% trans '名前' %}</th>
         {% for genre in genres %}
-        <th>{{ genre.name }}({% trans '配点' %}:{{ genre.max_score }})</th>
+        <th>{{ genre.name }}<br />({% trans '配点' %}:{{ genre.max_score }})</th>
         {% endfor %}
         <th>{% trans '合計' %}</td>
     </tr>
