@@ -279,7 +279,6 @@ a.btn {
 
 .score-distribution {
     position: relative;
-    margin-left: -100px;
     float: left;
     width: 350px;
 }
@@ -314,47 +313,48 @@ a.btn {
 }
 
 .contest-result-summary, .percentage-of-correct-answers {
-    margin-left: 280px;
+    margin-left: 320px;
 }
 
 .contest-result-summary>ul{
     margin-top: 20px;
+    margin-bottom: 20px;
     list-style: none;
 }
 
 .contest-result-summary>ul>li {
     margin-top: 20px;
-    font-size: 2em;
-    line-height: 2em;
+    font-size: 1.5em;
+    line-height: 1.6em;
 }
 
 .contest-result-summary>ul>li>img {
     vertical-align: middle;
 }
 
-.percentage-of-correct-answers>div.progress {
+.category-summary>div.progress {
     float: left;
 }
 
-.percentage-of-correct-answers>div.progress+p {
+.category-summary>div.progress+p {
     text-indent: 1.0em;
     padding: 5px;
 }
 
-.percentage-of-correct-answers>table {
+.category-summary>table {
     vertical-align: middle;
 }
 
-.percentage-of-correct-answers>table tr>td {
+.category-summary>table tr>td {
     padding: 2px 4px;
 }
 
-.percentage-of-correct-answers>table tr>td:nth-of-type(1) {
+.category-summary>table tr>td:nth-of-type(1) {
     width: 35px;
 }
 
-.percentage-of-correct-answers>table tr>td:nth-of-type(2) {
-    min-width: 200px;
+.category-summary>table tr>td:nth-of-type(2) {
+    min-width: 180px;
 }
 
 .percentage-of-correct-answers .progress {

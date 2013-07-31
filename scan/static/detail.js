@@ -22,4 +22,8 @@ $(function(){
             $(this).find('i.category').addClass('icon-chevron-down');
         }
     });
+
+    $('.category-summary>table').click(function(){
+        return false;
+    });
 });
