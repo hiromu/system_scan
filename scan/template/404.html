@@ -1,0 +1,12 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{% trans 'Page Not Found' %}</h2>
+<div class="well">
+    <p>{% trans 'Requested Path' %}: {{ request_path }}</p>
+    <hr />
+    <a class="btn btn-primary" href="{% url 'scan.views.index' %}">Return to Top</a>
+</div>
+{% endblock %}
