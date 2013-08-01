@@ -191,7 +191,7 @@ def detail(request, contest_id):
     if Answer.objects.filter(problem__contest = contest).count() == 0 or Answer.objects.filter(problem__contest = contest, point = None).count() > 0:
         return redirect('scan.views.contests.ranking', contest_id)
 
-    users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('-total')
+    users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('id').order_by('-total')
     ranking = [(i + 1 , users[i]) for i in xrange(len(users))]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
     for problem in problems:

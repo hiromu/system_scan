@@ -1,8 +1,14 @@
 $(function(){
-    $('.score-distribution>table>tbody>tr').each(function(i){
-        $(this).css('z-index', $('.score-distribution>table>tbody>tr').size() - parseInt($(this).find('td:nth-of-type(1)').text()));
+    positions = {}
+    $('.score-distribution').append((function(a){for(var i=0;i<$('.score-distribution>table>tbody>tr').size();i++){a.append($('<li>').text(i).css('z-index', $('.score-distribution>table>tbody>tr').size() - i))}return a})($('<ul class="meter-list">')));
+    $('.score-distribution .meter-list li').each(function(i){
         $(this).animate({
-            top: (json_param['scale_height'] + json_param['scale_offset'] - parseFloat($(this).find('td:nth-of-type(4)').text()) * json_param['scale_height'] / parseFloat(json_param['max_score']) - 20.0) + 'px'
+            top: (json_param['scale_height'] + json_param['scale_offset'] - parseFloat($('.score-distribution>table>tbody>tr').eq(i).find('td:nth-of-type(4)').text()) * json_param['scale_height'] / parseFloat(json_param['max_score']) - 15.0) + 'px'
+        }, 1000);
+    });
+    $($('.score-distribution>table>tbody>tr').get().reverse()).each(function(i){
+        $(this).animate({
+            top: calculatePosition(i,$(this).find('td:nth-of-type(4)').text()) + 'px'
         }, 1000);
     });
 
@@ -26,3 +32,12 @@ $(function(){
         }
     });
 });
+
+function calculatePosition(i,point){
+    target = json_param['scale_height'] + json_param['scale_offset'] - parseFloat(point) * json_param['scale_height'] / parseFloat(json_param['max_score']) - 15.0;
+    if (positions[i-1] && positions[i-1] - target < 42) {
+        target = positions[i-1] - 42;
+    }
+    positions[i] = target;
+    return target;
+}

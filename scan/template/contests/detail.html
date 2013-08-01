@@ -26,8 +26,8 @@ json_param = {{ json_param|safe }};
     <table>
         <thead>
             <tr>
-                <th>{% trans '順位' %}</th>
                 <th>{% trans 'アイコン' %}</th>
+                <th>{% trans '順位' %}</th>
                 <th>{% trans '名前' %}</th>
                 <th>{% trans '点数' %}</th>
             </tr>
@@ -35,12 +35,12 @@ json_param = {{ json_param|safe }};
         <tbody>
         {% for user in ranking %}
             <tr>
-                <td>{{ user.0 }}</td>
                 <td>
                     <img alt="icon" width="40" height="40" src="{% gravatar_url user.1.email %}" />
                 </td>
+                <td>{{ user.0 }}{% trans '位' %}</td>
                 <td>{{ user.1.last_name }} {{ user.1.first_name }}</td>
-                <td>{{ user.1.total }}</td>
+                <td>{{ user.1.total }}{% trans '点' %}</td>
             </tr>
         {% endfor %}
         </tbody>
