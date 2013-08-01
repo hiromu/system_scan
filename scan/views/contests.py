@@ -192,7 +192,10 @@ def detail(request, contest_id):
         return redirect('scan.views.contests.ranking', contest_id)
 
     users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('id').order_by('-total')
-    ranking = [(i + 1 , users[i]) for i in xrange(len(users))]
+    ranking = [[i + 1 , users[i]] for i in xrange(len(users))]
+    for i in xrange(len(ranking)-1):
+        if ranking[i][1].total == ranking[i+1][1].total:
+            ranking[i+1][0] = ranking[i][0]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
     for problem in problems:
         problem.percentage = float(problem.point_sum) / (problem.point * len(users)) * 100
