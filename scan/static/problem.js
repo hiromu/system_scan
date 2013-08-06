@@ -83,7 +83,7 @@ function generateChoiceRow(input_type, num){
     return $('<tr>')
             .append($('<td>').text('#'+num))
             .append($('<td>').append($('<input>').attr({type:input_type,name:input_type+'-result'})))
-            .append($('<td>').append($('<input>').attr({type:'text'})))
+            .append($('<td>').append($('<input>').attr({type:'text',tabindex:num})))
             .append($('<td>').append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+(num)+')'})));
 }
 
