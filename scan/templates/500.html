@@ -1,0 +1,12 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<h2>{% trans 'Internal Server Error' %}</h2>
+<div class="well">
+    <p>{% trans 'The server encountered an internal error or misconfiguration and was unable to complete your request' %}</p>
+    <hr />
+    <a class="btn btn-primary" href="{% url 'scan.views.index' %}">Return to Top</a>
+</div>
+{% endblock %}
