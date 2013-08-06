@@ -419,4 +419,5 @@ a.btn {
 
 .table td {
     vertical-align: middle;
+    white-space: nowrap;
 }
