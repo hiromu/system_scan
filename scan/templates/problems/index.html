@@ -8,6 +8,7 @@
     <tr>
         <th>{% trans "問題" %}</th>
         <th>{% trans "タイプ" %}</th>
+        <th>{% trans "配点" %}</th>
         <th></th>
         <th></th>
     </tr>
@@ -23,6 +24,7 @@
         {% elif problem.type == 3 %}
         <td>{% trans 'テキストエリア' %}</td>
         {% endif %}
+        <td>{{ problem.point }}</td>
         <td>
             <a class="btn" href="{% url 'scan.views.problems.edit' contest.id genre.id problem.id %}">{% trans '編集' %}</a>
         </td>

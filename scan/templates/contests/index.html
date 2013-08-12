@@ -27,9 +27,9 @@
         {% elif now > contest.start %}
         <th>{% trans '回答済み'%} / {% trans '全問題' %}</th>
         {% endif %}
-        <th>配点</th>
+        <th>{% trans '配点' %}</th>
         {% if now > contest.end and request.user not in users %}
-        <th>合計得点</th>
+        <th>{% trans '合計得点' %}</th>
         {% endif %}
         <th></th>
     </tr>
