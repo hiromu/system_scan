@@ -1,5 +1,6 @@
 # Django settings for system_scan project.
 import os
+from settings_local import *
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
@@ -187,4 +188,3 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 from settings_database import *
 from settings_ldap import *
-from settings_local import *
