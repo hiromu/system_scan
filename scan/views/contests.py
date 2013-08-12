@@ -201,7 +201,10 @@ def detail(request, contest_id):
             ranking[i+1][0] = ranking[i][0]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
     for problem in problems:
-        problem.percentage = float(problem.point_sum) / (problem.point * len(users)) * 100
+        if problem.point_sum:
+            problem.percentage = float(problem.point_sum) / (problem.point * len(users)) * 100
+        else:
+            problem.percentage = 0
 
     genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
     genre_points = dict([(genre['problem__genre'], genre['point_sum']) for genre in Answer.objects.filter(problem__contest = contest).values('problem__genre').annotate(point_sum = Sum('point'))])
