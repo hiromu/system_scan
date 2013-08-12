@@ -27,6 +27,7 @@
         {% elif now > contest.start %}
         <th>{% trans '回答済み'%} / {% trans '全問題' %}</th>
         {% endif %}
+        <th>配点</th>
         {% if now > contest.end and request.user not in users %}
         <th>合計得点</th>
         {% endif %}
@@ -36,9 +37,9 @@
     <tr>
         <td>{{ genre.genre.name }}</td>
         {% if request.user in users %}
-        <td>{{ genre.problem }}</td>
+        <td>{{ genre.num_problems }}</td>
         {% elif now > contest.start %}
-        <td>{{ genre.answer }} / {{ genre.problem }}</td>
+        <td>{{ genre.answer }} / {{ genre.num_problems }}</td>
         {% endif %}
         {% if now > contest.end and request.user not in users %}
         {% if genre.point %}
@@ -47,6 +48,7 @@
         <td>0 / {{ genre.total }}</td>
         {% endif %}
         {% endif %}
+        <td>{{ genre.max_score }}</td>
         {% if request.user in users%}
         {% if now > contest.end %}
         <td>

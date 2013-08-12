@@ -8,7 +8,7 @@ from scan.models import Contest, Genre, Problem, Answer, Figure
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
 from django.shortcuts import get_object_or_404, redirect, render_to_response, RequestContext
 
 def check(request, contest_id, genre_id):
@@ -24,15 +24,18 @@ def check(request, contest_id, genre_id):
 def index(request, contest_id):
     contest = get_object_or_404(Contest, pk = contest_id)
     genres = contest.genres.all()
+    #genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
+    #genres = contest.genres.filter(Q(problem__contest = contest)|~Q(problem__contest = contest)).annotate(max_score = Sum('problem__point'))
     total = 0
 
     data = {}
     for genre in genres:
         data[genre.id] = {'genre': genre}
 
-    problems = Problem.objects.filter(contest = contest).values('genre').annotate(count = Count('id'))
+    problems = Problem.objects.filter(contest = contest).values('genre').annotate(count = Count('id'), max_score = Sum('point'))
     for problem in problems:
-        data[problem['genre']]['problem'] = problem['count']
+        data[problem['genre']]['num_problems'] = problem['count']
+        data[problem['genre']]['max_score'] = problem['max_score']
 
     answers = Answer.objects.filter(problem__contest = contest, user = request.user).values('problem__genre').annotate(count = Count('id'))
     for answer in answers:
@@ -51,7 +54,7 @@ def index(request, contest_id):
 
     genres = []
     for i in sorted(data.keys()):
-        for key in ['answer', 'point', 'problem', 'total']:
+        for key in ['answer', 'point', 'num_problems', 'total', 'max_score']:
             if not key in data[i]:
                 data[i][key] = 0
         genres.append(data[i])
