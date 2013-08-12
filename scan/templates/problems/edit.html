@@ -58,7 +58,7 @@
 <img alt="icon" width="50" height="50" src="{% middle_gravatar_url comment.user.email %}" />
 <div>
 <h4>
-<span>{{ comment.user.username }}</span>
+<span>{{ comment.user.last_name }} {{ comment.user.first_name }}</span>
 <span>{{ comment.datetime }}</span>
 </h4>
 <div>{{ comment.body|markdown:"safe" }}</div>
