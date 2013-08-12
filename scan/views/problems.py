@@ -2,8 +2,8 @@
 
 import datetime, json
 
-from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm
-from scan.models import Contest, Genre, Problem, Figure
+from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm, CommentForm
+from scan.models import Contest, Genre, Problem, Figure, Comment
 from scan.libs import error_as_json_response
 
 from django.http import HttpResponse, HttpResponseNotAllowed
@@ -70,9 +70,11 @@ def edit(request, contest_id, genre_id, problem_id):
     else:
         form = ProblemEditForm(instance = problem)
     figure_form = FigureAddForm()
+    comment_form = CommentForm()
 
+    comments = Comment.objects.filter(problem = problem).order_by('datetime')
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
-    context = {'subtitles': [contest.name, _(u'問題編集')], 'contest': contest, 'genre': genre, 'form': form, 'is_edit': True, 'problem': problem, 'figure_form': figure_form, 'figures':figures}
+    context = {'subtitles': [contest.name, _(u'問題編集')], 'contest': contest, 'genre': genre, 'form': form, 'is_edit': True, 'problem': problem, 'figure_form': figure_form, 'figures':figures, 'comment_form': comment_form, 'comments': comments}
     return render_to_response('problems/edit.html', context, RequestContext(request))
 
 @login_required
@@ -144,3 +146,25 @@ def get_figures(request, contest_id, genre_id, problem_id):
         figure_list.append({'url': figure.graphics.url, 'caption': figure.caption, 'delete': reverse('scan.views.problems.delete_figure', args=[contest_id, genre_id, problem_id, figure.id])})
 
     return HttpResponse(json.dumps(figure_list), mimetype = 'application/json')
+
+@login_required
+def post_comment(request, contest_id, genre_id, problem_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+
+    problem = get_object_or_404(Problem, pk = problem_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit = False)
+            comment.problem = problem
+            comment.user = request.user
+            comment.datetime = datetime.datetime.now()
+            comment.save()
+            return redirect('scan.views.problems.edit', contest_id, genre_id, problem_id)
+        else:
+            return redirect('scan.views.problems.edit', contest_id, genre_id, problem_id)
+
+    return HttpResponseNotAllowed(['POST'])

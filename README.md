@@ -13,10 +13,11 @@
 1. Python 2.7
 2. Django 1.4.5
 3. Pillow or PIL(Python Imaging Library)
+4. Python Markdown
 
 You can install these packages as below in Ubuntu.
 
-    apt-get install python2.7 python-django python-pillow
+    apt-get install python2.7 python-django python-pillow python-markdown
 
 And according to your environments, please install database drivers or django plugins.
 

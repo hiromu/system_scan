@@ -44,6 +44,12 @@ class Problem(Model):
     def __unicode__(self):
         return self.statement
 
+class Comment(Model):
+    user = ForeignKey('auth.User')
+    problem = ForeignKey(Problem)
+    datetime = DateTimeField()
+    body = TextField()
+
 class Figure(Model):
     def get_upload_path(instance, filename):
         return os.path.join('figures', str(instance.problem.id), filename)

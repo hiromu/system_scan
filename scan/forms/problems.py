@@ -2,7 +2,7 @@
 
 import json
 
-from scan.models import Problem, Figure
+from scan.models import Problem, Figure, Comment
 
 from django.forms import CharField, CheckboxSelectMultiple, ModelForm, ChoiceField, ModelChoiceField, RadioSelect, TextInput, Textarea, IntegerField, ImageField
 from django.utils.translation import ugettext_lazy as _
@@ -38,3 +38,10 @@ class ProblemDeleteForm(ModelForm):
     class Meta:
         model = Problem
         fields = ()
+
+class CommentForm(ModelForm):
+    body = CharField(widget = Textarea)
+
+    class Meta:
+        model = Comment
+        fields = ('body',)

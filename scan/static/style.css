@@ -403,6 +403,68 @@ a.btn {
     margin-left: 10px;
 }
 
+.comment {
+    margin: 20px 0;
+}
+
+.comment>img {
+    float: left;
+    padding: 2px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+    background: #ffffff;
+}
+
+.comment>div {
+    margin-left: 70px;
+    border: 1px solid #0088cc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+.comment>div>h4 {
+    background: #0088cc;
+    color: #ffffff;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+.comment-block>div>h4>span:nth-of-type(2) {
+    float: right;
+}
+
+.comment-block>div>div {
+    padding: 10px;
+}
+
+.comment-new>div {
+    text-align: right;
+}
+
+.comment-new>div>h4 {
+    text-align: left;
+}
+
+.comment-new>div>div {
+    margin: 10px;
+}
+
+.comment-new>div>div>textarea {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.comment-new>div>p {
+    float: left;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.comment-new>div>input {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 .horizontal>* {
     float: left;
     list-style-type: none;
