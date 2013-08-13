@@ -422,10 +422,12 @@ a.btn {
 .author-box>p {
     line-height: 50px;
     margin: 0;
+    padding-right: 10px;
 }
 
 .author-box>p>img {
     float: left;
+    margin-right: 10px;
 }
 
 .comment {
