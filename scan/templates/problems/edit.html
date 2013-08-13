@@ -12,7 +12,11 @@
 {% else %}
 <div class="author-box">
 <h3>{% trans '作成者' %}</h3>
+{% if problem.author %}
 <p><img alt="icon" width="50" height="50" src="{% middle_gravatar_url problem.author.email %}" /> {{ problem.author.last_name }} {{ problem.author.first_name }} ({{ problem.author.username }})</p>
+{% else %}
+<p class="text-center">{% trans '未設定' %}</p>
+{% endif %}
 </div>
 {% endif %}
 <form method="POST" id="edit-problem">
