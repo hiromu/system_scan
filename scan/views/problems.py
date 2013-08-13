@@ -4,7 +4,7 @@ import datetime, json
 
 from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm, CommentForm
 from scan.models import Contest, Genre, Problem, Figure, Comment
-from scan.libs import error_as_json_response
+from scan.libs import error_as_json_response, send_notification_mail
 
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
@@ -163,6 +163,7 @@ def post_comment(request, contest_id, genre_id, problem_id):
             comment.user = request.user
             comment.datetime = datetime.datetime.now()
             comment.save()
+            send_notification_mail(contest.users.all(), _(u'[%(contest)s - %(genre)s] (新規コメント) %(title)s') % {'contest': contest.name, 'genre': genre.name, 'title': problem.title}, _(u'%(name)s によって問題にコメントが追加されました。\n%(url)s\n---------------------\n%(body)s') % {'name': u'%(last)s %(first)s (%(name)s)' % {'last': request.user.last_name, 'first': request.user.first_name, 'name': request.user.username}, 'url': ('https' if request.is_secure() else 'http') + '://' + request.get_host() + reverse('scan.views.problems.edit', args = [contest_id, genre_id, problem_id]), 'body': comment.body})
             return redirect('scan.views.problems.edit', contest_id, genre_id, problem_id)
         else:
             return redirect('scan.views.problems.edit', contest_id, genre_id, problem_id)
