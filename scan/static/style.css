@@ -425,6 +425,10 @@ a.btn {
     padding-right: 10px;
 }
 
+.author-box>p.text-center {
+    padding-right: 0;
+}
+
 .author-box>p>img {
     float: left;
     margin-right: 10px;
