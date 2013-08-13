@@ -40,6 +40,7 @@ class Problem(Model):
     option = TextField(blank = True)
     result = TextField()
     point = PositiveIntegerField(_(u'点数'))
+    author = ForeignKey('auth.User')
 
     def __unicode__(self):
         return self.statement

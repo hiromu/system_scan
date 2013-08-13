@@ -46,6 +46,7 @@ def add(request, contest_id, genre_id):
             problem = form.save(commit = False)
             problem.contest = contest
             problem.genre = genre
+            problem.author = request.user
             problem.save()
             return redirect('scan.views.problems.index', contest_id, genre_id)
     else:

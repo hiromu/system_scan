@@ -9,6 +9,11 @@
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 {% if not is_edit %}
 <p>{% trans '図の挿入は一度問題を作成した後、再度編集した時に可能になります。' %}</p>
+{% else %}
+<div class="author-box">
+<h3>{% trans '作成者' %}</h3>
+<p><img alt="icon" width="50" height="50" src="{% middle_gravatar_url problem.author.email %}" /> {{ problem.author.last_name }} {{ problem.author.first_name }} ({{ problem.author.username }})</p>
+</div>
 {% endif %}
 <form method="POST" id="edit-problem">
     {% csrf_token %}
@@ -45,7 +50,7 @@
     <input type="submit" class="btn btn-primary" value="{% trans '追加' %}" />
 </form>
 <div id="delete-figure">
-    <p>本当に画像を消していいですか？</p>
+    <p>{% trans '本当に画像を消していいですか?' %}</p>
     <ul class="horizontal clearfix">
         <li><input type="button" class="btn btn-danger" id="delete-figure-button" value="{% trans '削除' %}" /></li>
         <li><input type="button" class="btn" onclick="closeDeleteFigureDialog()" value="{% trans '戻る' %}" /><li>
@@ -66,7 +71,7 @@
 </div>
 {% endfor %}
 {% else %}
-<p>コメントはありません。</p>
+<p>{% trans 'コメントはありません。' %}</p>
 {% endif %}
 <form action="{% url 'scan.views.problems.post_comment' contest.id genre.id problem.id %}" method="POST" class="comment comment-new">
 {% csrf_token %}

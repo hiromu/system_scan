@@ -403,6 +403,31 @@ a.btn {
     margin-left: 10px;
 }
 
+.author-box {
+    float: right;
+    border: 1px solid #0088cc;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+.author-box>h3 {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    background: #0088cc;
+    color: #ffffff;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+.author-box>p {
+    line-height: 50px;
+    margin: 0;
+}
+
+.author-box>p>img {
+    float: left;
+}
+
 .comment {
     margin: 20px 0;
 }
