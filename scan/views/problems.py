@@ -109,6 +109,8 @@ def delete(request, contest_id, genre_id, problem_id):
     contest, genre = result
 
     problem = get_object_or_404(Problem, pk = problem_id)
+    if problem.author != request.user:
+        return redirect('scan.views.problems.index', contest_id, genre_id)
     if request.method == 'POST':
         form = ProblemDeleteForm(request.POST)
         if form.is_valid():
