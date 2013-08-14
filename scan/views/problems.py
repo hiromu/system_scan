@@ -87,7 +87,7 @@ def edit(request, contest_id, genre_id, problem_id):
         form = ProblemEditForm(request.POST, instance = problem)
         if form.is_valid():
             form.save()
-            if request.POST['preview'] and request.POST['preview'] == 'true':
+            if 'preview' in request.POST and request.POST['preview'] == 'true':
                 return redirect('scan.views.problems.preview', contest_id, genre_id, problem_id)
             else:
                 return redirect('scan.views.problems.index', contest_id, genre_id)
