@@ -10,9 +10,7 @@
         <th>{% trans "タイプ" %}</th>
         <th>{% trans "配点" %}</th>
         <th></th>
-        {% ifequal problem.author user %}
         <th></th>
-        {% endifequal %}
     </tr>
     {% for problem in problems %}
     <tr>
@@ -34,6 +32,8 @@
         <td>
             <a class="btn btn-danger" href="{% url 'scan.views.problems.delete' contest.id genre.id problem.id %}">{% trans '削除' %}</a>
         </td>
+        {% else %}
+        <td></td>
         {% endifequal %}
     </tr>
     {% endfor %}
