@@ -496,6 +496,14 @@ a.btn {
     margin-bottom: 10px;
 }
 
+#rearrange-table>tbody>tr {
+    cursor: default;
+}
+
+#rearrange-table>tbody>tr:hover>td {
+    background-color: #cceeff;
+}
+
 .horizontal>* {
     float: left;
     list-style-type: none;

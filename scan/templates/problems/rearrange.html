@@ -1,0 +1,42 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}rearrange.js"></script>
+<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<table class="table table-striped" id="rearrange-table">
+    <thead>
+        <tr>
+            <th>{% trans "問題" %}</th>
+            <th>{% trans "タイプ" %}</th>
+            <th>{% trans "配点" %}</th>
+            <th>ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for problem in problems %}
+        <tr>
+            <td>{{ problem.title }}</td>
+            {% if problem.type == 0 %}
+            <td>{% trans 'ラジオボタン' %}</td>
+            {% elif problem.type == 1 %}
+            <td>{% trans 'チェックボックス' %}</td>
+            {% elif problem.type == 2 %}
+            <td>{% trans 'テキスト' %}</td>
+            {% elif problem.type == 3 %}
+            <td>{% trans 'テキストエリア' %}</td>
+            {% endif %}
+            <td>{{ problem.point }}</td>
+            <td>{{ problem.id }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="POST" id="post-sequence">
+{% csrf_token %}
+<input type="hidden" name="sequence" />
+<input type="submit" class="btn btn-primary" value="{% trans '変更' %}" onclick="postSequence()" />
+<a class="btn" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '戻る' %}</a>
+</form>
+{% endblock %}

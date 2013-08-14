@@ -72,7 +72,7 @@ def problem(request, contest_id, genre_id):
     if not datetime.datetime.now() > contest.end:
         return redirect('scan.views.contests.answer', contest_id, genre_id, 0)
 
-    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
     answers = Answer.objects.filter(user = request.user, problem__contest = contest, problem__genre = genre)
 
     total = 0
@@ -99,7 +99,7 @@ def answer(request, contest_id, genre_id, problem_id):
     contest, genre = result
 
     problem_id = int(problem_id)
-    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
     if problem_id > len(problems):
         return redirect('scan.views.contests.index', contest_id)
     elif problem_id == len(problems):

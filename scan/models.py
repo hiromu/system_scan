@@ -41,6 +41,7 @@ class Problem(Model):
     result = TextField()
     point = PositiveIntegerField(_(u'点数'))
     author = ForeignKey('auth.User')
+    sequence_number = PositiveIntegerField()
 
     def __unicode__(self):
         return self.statement

@@ -20,7 +20,7 @@ def check(request, contest_id, genre_id):
     return contest, genre
 
 def get_problem(contest, genre, problem_id):
-    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
 
     problem_id = int(problem_id)
     if problem_id >= len(problems):
@@ -34,7 +34,7 @@ def index(request, contest_id, genre_id):
         return result
     contest, genre = result
 
-    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
     answers = Answer.objects.filter(problem__in = problems)
 
     array = {}

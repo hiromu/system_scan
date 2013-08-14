@@ -29,9 +29,24 @@ def index(request, contest_id, genre_id):
         return result
     contest, genre = result
 
-    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('id')
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
     context = {'subtitles': [contest.name, _(u'問題設定')], 'contest': contest, 'genre': genre, 'problems': problems}
     return render_to_response('problems/index.html', context, RequestContext(request))
+
+@login_required
+def rearrange(request, contest_id, genre_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+    problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
+    if request.method == 'POST' and request.POST['sequence']:
+        sequence = json.loads(request.POST['sequence'])
+        for problem in problems:
+            problem.sequence_number = sequence[str(problem.id)]
+            problem.save()
+    context = {'subtitles': [contest.name, _(u'問題並べ替え')], 'contest': contest, 'genre': genre, 'problems': problems}
+    return render_to_response('problems/rearrange.html', context, RequestContext(request))
 
 @login_required
 def add(request, contest_id, genre_id):
@@ -47,6 +62,7 @@ def add(request, contest_id, genre_id):
             problem.contest = contest
             problem.genre = genre
             problem.author = request.user
+            problem.sequence_number = Problem.objects.filter(contest = contest, genre = genre).count() + 1
             problem.save()
             return redirect('scan.views.problems.index', contest_id, genre_id)
     else:
@@ -170,3 +186,4 @@ def post_comment(request, contest_id, genre_id, problem_id):
             return redirect('scan.views.problems.edit', contest_id, genre_id, problem_id)
 
     return HttpResponseNotAllowed(['POST'])
+
