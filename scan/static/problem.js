@@ -231,3 +231,8 @@ function reloadFigures(){
         }
     });
 }
+
+function saveAndPreview(){
+    $('#edit-problem').append($('<input>').attr({type:'hidden',name:'preview',value:'true'}));
+    $('#edit-problem').submit();
+}

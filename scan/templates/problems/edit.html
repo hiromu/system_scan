@@ -29,6 +29,7 @@
         <li><input type="submit" class="btn btn-primary" value="{% trans '追加' %}" /></li>
         {% endif %}
         <li><a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a></li>
+        <li><input type="button" class="btn btn-info" value="{% trans '保存してプレビュー' %}" onclick="saveAndPreview()" /></li>
     </ul>
 </form>
 {% if is_edit %}

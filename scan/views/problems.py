@@ -2,6 +2,7 @@
 
 import datetime, json
 
+from scan.forms.contests import AnswerForm
 from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm, CommentForm
 from scan.models import Contest, Genre, Problem, Figure, Comment
 from scan.libs import error_as_json_response, send_notification_mail
@@ -64,7 +65,10 @@ def add(request, contest_id, genre_id):
             problem.author = request.user
             problem.sequence_number = Problem.objects.filter(contest = contest, genre = genre).count() + 1
             problem.save()
-            return redirect('scan.views.problems.index', contest_id, genre_id)
+            if request.POST['preview'] and request.POST['preview'] == 'true':
+                return redirect('scan.views.problems.preview', contest_id, genre_id, problem.id)
+            else:
+                return redirect('scan.views.problems.index', contest_id, genre_id)
     else:
         form = ProblemEditForm()
 
@@ -83,7 +87,10 @@ def edit(request, contest_id, genre_id, problem_id):
         form = ProblemEditForm(request.POST, instance = problem)
         if form.is_valid():
             form.save()
-            return redirect('scan.views.problems.index', contest_id, genre_id)
+            if request.POST['preview'] and request.POST['preview'] == 'true':
+                return redirect('scan.views.problems.preview', contest_id, genre_id, problem_id)
+            else:
+                return redirect('scan.views.problems.index', contest_id, genre_id)
     else:
         form = ProblemEditForm(instance = problem)
     figure_form = FigureAddForm()
@@ -187,3 +194,15 @@ def post_comment(request, contest_id, genre_id, problem_id):
 
     return HttpResponseNotAllowed(['POST'])
 
+@login_required
+def preview(request, contest_id, genre_id, problem_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+
+    problem = get_object_or_404(Problem, pk = problem_id)
+    form = AnswerForm(problem)
+    figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
+    context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem': problem, 'problem_id': 0, 'figures': figures, 'is_preview': True}
+    return render_to_response('contests/answer.html', context, RequestContext(request))
