@@ -83,7 +83,7 @@ function generateChoiceRow(input_type, num){
     return $('<tr>')
             .append($('<td>').text('#'+num))
             .append($('<td>').append($('<input>').attr({type:input_type,name:input_type+'-result'})))
-            .append($('<td>').append($('<input>').attr({type:'text',tabindex:num})))
+            .append($('<td>').append($('<textarea>').attr({tabindex:num})))
             .append($('<td>').append($('<input>').attr({type:'button',value:'-',class:'btn btn-warning remove-choice',onclick:'removeChoice('+(num)+')'})));
 }
 
@@ -109,7 +109,7 @@ function setOption(){
         case '0': // RadioButton
         case '1': // CheckBox
             var param = new Array();
-            $('#choices input[type="text"]').each(function(){param.push($(this).val())});
+            $('#choices textarea').each(function(){param.push($(this).val())});
             $('textarea[name="option"]').val(JSON.stringify(param));
             break;
     }
@@ -147,7 +147,7 @@ function restoreOption(){
             adjustNumberOfOptions('radio',param.length);
         if (type=='1')
             adjustNumberOfOptions('checkbox',param.length);
-        inputs = $('#choices input[type="text"]');
+        inputs = $('#choices textarea');
         for (var i = 0; i < param.length; i++){
             inputs.eq(i).val(param[i]);
         }
