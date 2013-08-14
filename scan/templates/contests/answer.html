@@ -6,14 +6,15 @@
 <script type="text/javascript" src="{{ STATIC_URL }}figure.js"></script>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 <div class="problem">
-    {% if is_preview %}
-    <p>{% trans '問題のプレビューです。問題番号は常に0です。' %}</p>
-    {% endif %}
     <form method="POST">
         {% csrf_token %}
         {% for field in form %}
         <div class="statement">
+            {% if is_preview %}
+            <p>Q: {{field.label}}</p>
+            {% else %}
             <p>Q{{ problem_id }}: {{field.label}}</p>
+            {% endif %}
             <pre>{{ field.help_text }}</pre>
         </div>
         {% if figures|length > 0 %}
