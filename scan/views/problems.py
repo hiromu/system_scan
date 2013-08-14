@@ -46,6 +46,8 @@ def rearrange(request, contest_id, genre_id):
         for problem in problems:
             problem.sequence_number = sequence[str(problem.id)]
             problem.save()
+        problems = sorted(problems, key = lambda x: x.sequence_number)
+
     context = {'subtitles': [contest.name, _(u'問題並べ替え')], 'contest': contest, 'genre': genre, 'problems': problems}
     return render_to_response('problems/rearrange.html', context, RequestContext(request))
 
