@@ -5,6 +5,7 @@
 {% load gravatar %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}figure.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 {% if not is_edit %}
@@ -38,7 +39,7 @@
     <ul id="figure-list" class="clearfix">
         {% for figure in figures %}
         <li>
-            <figure>
+            <figure onclick="showFigureDialog(this)">
                 <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
                 <figcaption>{{ figure.caption }}</figcaption>
             </figure>

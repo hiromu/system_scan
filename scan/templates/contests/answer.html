@@ -3,6 +3,7 @@
 {% load i18n %}
 
 {% block main %}
+<script type="text/javascript" src="{{ STATIC_URL }}figure.js"></script>
 <h2>{{ contest.name }}: {{ genre.name }}</h2>
 <div class="problem">
     {% if is_preview %}
@@ -20,7 +21,7 @@
             <ul id="figure-list" class="clearfix">
                 {% for figure in figures %}
                 <li>
-                    <figure>
+                    <figure onclick="showFigureDialog(this)">
                         <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
                         <figcaption>{{ figure.caption }}</figcaption>
                     </figure>
