@@ -46,8 +46,6 @@ def rearrange(request, contest_id, genre_id):
         for problem in problems:
             problem.sequence_number = sequence[str(problem.id)]
             problem.save()
-        problems = sorted(problems, key = lambda x: x.sequence_number)
-
         return redirect('scan.views.problems.index', contest_id, genre_id)
 
     context = {'subtitles': [contest.name, _(u'問題並べ替え')], 'contest': contest, 'genre': genre, 'problems': problems}
