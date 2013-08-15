@@ -4,7 +4,7 @@ $(function(){
 
 function showFigureDialog(t){
     $('#figure-dialog').empty();
-    $('#figure-dialog').append($('<img>').attr({src:$(t).find('img').attr('src')}));
+    $('#figure-dialog').append($('<img>').attr({src:$(t).find('img').attr('src'),alt:$(t).find('figcaption').text()}));
     $('#figure-dialog').dialog({
         title: $(t).find('figcaption').text(),
         closeOnEscape: true,
