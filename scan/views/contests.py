@@ -24,8 +24,6 @@ def check(request, contest_id, genre_id):
 def index(request, contest_id):
     contest = get_object_or_404(Contest, pk = contest_id)
     genres = contest.genres.all()
-    #genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
-    #genres = contest.genres.filter(Q(problem__contest = contest)|~Q(problem__contest = contest)).annotate(max_score = Sum('problem__point'))
     total = 0
 
     data = {}
