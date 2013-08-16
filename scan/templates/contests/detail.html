@@ -10,7 +10,7 @@
 json_param = {{ json_param|safe }};
 //]]>
 </script>
-<h2>{{ contest.name }}: {% trans '結果詳細' %}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > {% trans '結果詳細' %}</h2>
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
 <div class="score-distribution" style="height: {{ ranking_svg.height|add:ranking_svg.offset }}px">
     <input id="summary-max-score" type="hidden" value="{{ summary.max_score }}" />

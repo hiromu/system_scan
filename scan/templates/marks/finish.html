@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block main %}
-<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > <a class="title" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{{ genre.name }}</a></h2>
 <p>以上で Q{{ problem_index }}: {{ problem.title }} の採点は終了です。お疲れ様でした。</p>
 <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem_id %}" class="btn btn-primary">{% trans '戻る' %}</a>
 {% endblock %}

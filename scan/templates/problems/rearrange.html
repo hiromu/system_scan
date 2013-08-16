@@ -4,7 +4,7 @@
 
 {% block main %}
 <script type="text/javascript" src="{{ STATIC_URL }}rearrange.js"></script>
-<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > <a class="title" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{{ genre.name }}</a></h2>
 <table class="table table-striped" id="rearrange-table">
     <thead>
         <tr>

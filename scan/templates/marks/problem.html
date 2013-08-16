@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block main %}
-<h2>{{ contest.name }}: {{ genre.name }} / Q{{ problem_index }}: {{ problem.title }}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > <a class="title" href="{% url 'scan.views.marks.index' contest.id genre.id %}">{{ genre.name }}</a> / Q{{ problem_index }}: {{ problem.title }}</h2>
 <table class="table table-striped">
     <tr>
         <th>{% trans "ユーザー名" %}</th>

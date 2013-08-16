@@ -7,7 +7,7 @@
 {% block main %}
 <script type="text/javascript" src="{{ STATIC_URL }}figure.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
-<h2>{{ contest.name }}: {{ genre.name }}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > <a class="title" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{{ genre.name }}</a></h2>
 {% if not is_edit %}
 <p>{% trans '図の挿入は一度問題を作成した後、再度編集した時に可能になります。' %}</p>
 {% else %}
