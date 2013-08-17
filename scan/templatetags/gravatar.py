@@ -15,7 +15,11 @@ class GravatarUrlNode(template.Node):
             return ''
         default = "identicon"
         size = self.size
-        gravatar_url = "http://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+        if context['request'].is_secure:
+            gravatar_url = "https://secure.gravatar.com/"
+        else:
+            gravatar_url = "http://www.gravatar.com/"
+        gravatar_url += "avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
         gravatar_url += urllib.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
         return gravatar_url
 
