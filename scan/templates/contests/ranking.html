@@ -4,7 +4,7 @@
 {% load gravatar %}
 
 {% block main %}
-<h2>{{ contest.name }}: {% trans 'ランキング' %}</h2>
+<h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > {% trans 'ランキング' %}</h2>
 <div class="pull-right">
     {% if unmarked == 0 %}
     <h4>{% trans '採点終了' %}</h4>
