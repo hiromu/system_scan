@@ -6,6 +6,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^$', 'scan.views.index'),
+    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.ico'}),
+    (r'^favicon\.svg$', 'django.views.generic.simple.redirect_to', {'url': '/static/img/favicon.svg'}),
 
     (r'^contests/(?P<contest_id>\d+)/$', 'scan.views.contests.index'),
     (r'^contests/(?P<contest_id>\d+)/(?P<genre_id>\d+)/$', 'scan.views.contests.problem'),
