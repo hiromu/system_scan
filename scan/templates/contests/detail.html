@@ -17,7 +17,7 @@ json_param = {{ json_param|safe }};
     <svg width="300" height="{{ ranking_svg.height|add:ranking_svg.offset|add:'2' }}" version="1.1" xmlns="http://www.w3.org/2000/svg">
         {% for border in ranking_svg.level_borders %}
         <rect x="{{ border.0 }}" y="{{ border.1 }}" width="{{ border.2 }}" height="{{ border.3 }}" fill="{{ border.4 }}" stroke-width="5" fill-opacity="0.5" />
-        <text x="0" y="0" transform="translate(40,{{ border.1|add:'2' }}) rotate(90)" font-size="30" fill-opacity="0.5">LEVEL {{ border.5 }}</text>
+        <text x="0" y="0" transform="translate(40,{{ border.1|add:'10' }}) rotate(90)" font-size="30" fill-opacity="0.5">LEVEL {{ border.5 }}</text>
         {% endfor %}
         {% for line in ranking_svg.lines %}
         <line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#888888" stroke-width="0.5px" />
@@ -46,7 +46,7 @@ json_param = {{ json_param|safe }};
                 <td>{{ user.0 }}{% trans '位' %}</td>
                 <td>{{ user.1.last_name }} {{ user.1.first_name }}</td>
                 <td>{{ user.1.total }}{% trans '点' %}</td>
-                <td>{{ user.2.standard_score }}</td>
+                <td>{{ user.2.standard_score|floatformat:2 }}</td>
             </tr>
         {% endfor %}
         </tbody>

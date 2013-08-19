@@ -225,8 +225,14 @@ def detail(request, contest_id):
     ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - float(i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in xrange(summary['max_score'] / 10 - 1)]
     ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - float(i) * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
     level_colors = ['#3fa9f5', '#7ac943', '#ff931e', '#ff1d25', '#ff7bac', '#bdccd4', '#fcee21']
-    ranking_svg['level_borders'] = [(0, ranking_svg['offset'] + (summary['max_score'] - summary['borders'][i]) * ranking_svg['height'] / summary['max_score'], 110, (summary['borders'][i] - (0 if i == 0 else summary['borders'][i-1])) * ranking_svg['height'] / summary['max_score'], level_colors[i],i) for i in xrange(len(summary['borders']))]
-    ranking_svg['level_borders'].append((ranking_svg['level_borders'][0][0], ranking_svg['offset'], ranking_svg['level_borders'][0][2], ranking_svg['level_borders'][5][1] - ranking_svg['offset'], level_colors[6], 6))
+    ranking_svg['level_borders'] = [(0, ranking_svg['offset'] + (summary['max_score'] - summary['borders'][i]) * ranking_svg['height'] / summary['max_score'], 110, (summary['borders'][i] - (0 if i == 0 else summary['borders'][i-1])) * ranking_svg['height'] / summary['max_score'], level_colors[i], i) for i in xrange(len(summary['borders']))]
+    if summary['borders'][5] < summary['max_score']:
+        ranking_svg['level_borders'].append((ranking_svg['level_borders'][0][0], ranking_svg['offset'], ranking_svg['level_borders'][0][2], ranking_svg['level_borders'][5][1] - ranking_svg['offset'], level_colors[6], 6))
+    for border in ranking_svg['level_borders']:
+        if border[1] + border[3] < ranking_svg['offset']:
+            border[3] = 0;
+        elif border[1] < ranking_svg['offset']:
+            border[1] = ranking_svg['offset']
 
     is_writer = request.user in contest.users.all()
 
