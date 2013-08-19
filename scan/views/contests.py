@@ -232,6 +232,7 @@ def detail(request, contest_id):
         if border[1] + border[3] < ranking_svg['offset']:
             border[3] = 0;
         elif border[1] < ranking_svg['offset']:
+            border[3] -= ranking_svg['offset'] - border[1]
             border[1] = ranking_svg['offset']
 
     is_writer = request.user in contest.users.all()
