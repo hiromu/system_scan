@@ -57,7 +57,7 @@ json_param = {{ json_param|safe }};
     <ul>
         <li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
         <li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
-        <li>{% trans '最優秀者' %}: <img alt="icon" width="40" height="40" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %} {% trans '偏差値' %}:{{ ranking.0.2.standard_score }}</li>
+        <li>{% trans '最優秀者' %}: <img alt="icon" width="40" height="40" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %} {% trans '偏差値' %}:{{ ranking.0.2.standard_score|floatformat:2 }}</li>
     </ul>
 </div>
 <div class="percentage-of-correct-answers">
