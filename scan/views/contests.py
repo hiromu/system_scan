@@ -245,7 +245,7 @@ def detail(request, contest_id):
     groups = []
     def delete(x):
         del x[:]
-    genre_most_valuable = dict([(groups[0]['problem__genre'] ,[{'genre_total': i['genre_total'], 'user': userids[i['user']]} for i in groups if i['genre_total'] == max(groups, key = lambda x:x['genre_total'])['genre_total']]) for k, g in groupby(Answer.objects.filter(problem__contest = contest).values('problem__genre', 'user').annotate(genre_total = Sum('point')).order_by('-genre_total'), lambda x:x['problem__genre']) if delete(groups) or groups.extend(list(g)) or True])
+    genre_most_valuable = dict([(groups[0]['problem__genre'] ,[{'genre_total': i['genre_total'], 'user': userids[i['user']]} for i in groups if i['genre_total'] == groups[0]['genre_total']]) for k, g in groupby(Answer.objects.filter(problem__contest = contest).values('problem__genre', 'user').annotate(genre_total = Sum('point')).order_by('problem__genre', '-genre_total'), lambda x:x['problem__genre']) if delete(groups) or groups.extend(list(g)) or True])
     for genre in genres:
         genre.problems = []
         for i in xrange(len(problems)):
