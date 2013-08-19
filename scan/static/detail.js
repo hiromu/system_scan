@@ -19,7 +19,7 @@ $(function(){
     });
 
     $('.category-summary').click(function(data, handler){
-        if ($(this).find('table').has(data.target).length == 0) {
+        if ($(this).find('.genre-information').has(data.target).length == 0) {
             if ($(this).find('.genre-information').is(':hidden')) {
                 $(this).find('.genre-information').show();
                 $(this).find('i.category').removeClass('icon-chevron-down');
