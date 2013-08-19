@@ -2,6 +2,8 @@
 
 import datetime, math, json
 
+from itertools import groupby
+
 from scan.forms.contests import AnswerForm
 from scan.models import Contest, Genre, Problem, Answer, Figure
 
@@ -204,16 +206,6 @@ def detail(request, contest_id):
         else:
             problem.percentage = 0
 
-    genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
-    genre_points = dict([(genre['problem__genre'], genre['point_sum']) for genre in Answer.objects.filter(problem__contest = contest).values('problem__genre').annotate(point_sum = Sum('point'))])
-    for genre in genres:
-        genre.problems = []
-        for i in xrange(len(problems)):
-            if problems[i].genre == genre:
-                genre.problems.append((len(genre.problems), problems[i]))
-        genre.point_sum = genre_points[genre.id]
-        genre.percentage = float(genre.point_sum) / (genre.max_score * len(users)) * 100
-
     summary = {}
     if users:
         summary['average'] = float(sum([user.total for user in users])) / len(users)
@@ -230,7 +222,8 @@ def detail(request, contest_id):
         ranking_svg['level_borders'].append([ranking_svg['level_borders'][0][0], ranking_svg['offset'], ranking_svg['level_borders'][0][2], ranking_svg['level_borders'][5][1] - ranking_svg['offset'], level_colors[6], 6])
     for border in ranking_svg['level_borders']:
         if border[1] + border[3] < ranking_svg['offset']:
-            border[3] = 0;
+            border[3] = 0
+            border[1] = -1000
         elif border[1] < ranking_svg['offset']:
             border[3] -= ranking_svg['offset'] - border[1]
             border[1] = ranking_svg['offset']
@@ -245,6 +238,23 @@ def detail(request, contest_id):
 
     for user in ranking:
         user.append({'standard_score': (float(user[1].total) - summary['average']) * 10 / summary['standard_deviation'] + 50.0})
+    userids = dict([(user.id, user) for user in users])
+
+    genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))
+    genre_points = dict([(genre['problem__genre'], genre['point_sum']) for genre in Answer.objects.filter(problem__contest = contest).values('problem__genre').annotate(point_sum = Sum('point'))])
+    groups = []
+    def delete(x):
+        del x[:]
+    genre_most_valuable = dict([(groups[0]['problem__genre'] ,[{'genre_total': i['genre_total'], 'user': userids[i['user']]} for i in groups if i['genre_total'] == groups[0]['genre_total']]) for k, g in groupby(Answer.objects.filter(problem__contest = contest).values('problem__genre', 'user').annotate(genre_total = Sum('point')).order_by('-genre_total'), lambda x:x['problem__genre']) if delete(groups) or groups.extend(list(g)) or True])
+    for genre in genres:
+        genre.problems = []
+        for i in xrange(len(problems)):
+            if problems[i].genre == genre:
+                genre.problems.append((len(genre.problems), problems[i]))
+        genre.point_sum = genre_points[genre.id]
+        genre.average = float(genre.point_sum) / len(users)
+        genre.percentage = float(genre.point_sum) / (genre.max_score * len(users)) * 100
+        genre.most_valuables = genre_most_valuable[genre.id]
 
     context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres, 'is_writer': is_writer, 'json_param': json.dumps(json_param)}
     return render_to_response('contests/detail.html', context, RequestContext(request))

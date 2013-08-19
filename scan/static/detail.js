@@ -13,19 +13,19 @@ $(function(){
     });
 
     $('.category-summary').each(function(){
-        $(this).find('table').hide();
+        $(this).find('.genre-information').hide();
         $(this).find('i.category').removeClass('icon-chevron-up');
         $(this).find('i.category').addClass('icon-chevron-down');
     });
 
     $('.category-summary').click(function(data, handler){
         if ($(this).find('table').has(data.target).length == 0) {
-            if ($(this).find('table').is(':hidden')) {
-                $(this).find('table').css('display','inline-block');
+            if ($(this).find('.genre-information').is(':hidden')) {
+                $(this).find('.genre-information').show();
                 $(this).find('i.category').removeClass('icon-chevron-down');
                 $(this).find('i.category').addClass('icon-chevron-up');
             } else {
-                $(this).find('table').hide();
+                $(this).find('.genre-information').hide();
                 $(this).find('i.category').removeClass('icon-chevron-up');
                 $(this).find('i.category').addClass('icon-chevron-down');
             }

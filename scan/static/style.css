@@ -384,21 +384,38 @@ a.btn {
     padding: 5px;
 }
 
-.category-summary>table {
+.category-summary table {
     vertical-align: middle;
     width: 100px;
+    display: inline-block;
+    margin: 10px 0;
 }
 
-.category-summary>table tr>td {
+.category-summary table tr>td {
     padding: 2px 4px;
 }
 
-.category-summary>table tr>td:nth-of-type(1) {
+.category-summary table tr>td:nth-of-type(1) {
     width: 35px;
 }
 
-.category-summary>table tr>td:nth-of-type(2) {
+.category-summary table tr>td:nth-of-type(2) {
     min-width: 180px;
+}
+
+.most-valuables {
+    display: table-row;
+}
+
+.most-valuables>ul {
+    display: inline-block;
+    margin: 0 20px;
+    list-style: none;
+}
+
+.most-valuables>span {
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .percentage-of-correct-answers .progress {
