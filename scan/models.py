@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import os, datetime
+import os
 
 from django.contrib import admin
 from django.db.models import CharField, DateTimeField, ForeignKey, ManyToManyField, Model, PositiveIntegerField, TextField, ImageField
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 class Genre(Model):
@@ -23,7 +24,7 @@ class Contest(Model):
         return self.name
 
     def get_state(self):
-        now = datetime.datetime.now()
+        now = timezone.now()
         if now < self.start:
             return _(u'あと%(period)sで開始') % {'period': (self.start - now) // 1000000 * 1000000}
         if now >= self.start and now < self.end:

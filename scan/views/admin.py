@@ -6,8 +6,7 @@ from scan.models import Genre
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 
 @login_required
@@ -27,15 +26,15 @@ def admin(request, tab):
 
 def general_settings(request):
     context = {'subtitles': [_(u'サイト設定'), _(u'一般設定')], 'page': 'general', 'tabs': tabs}
-    return render_to_response('admin/general.html', context, RequestContext(request))
+    return render(request, 'admin/general.html', context)
 
 def genre_settings(request):
     context = {'subtitles': [_(u'サイト設定'), _(u'ジャンル設定')], 'page': 'genre', 'tabs': tabs, 'genres': Genre.objects.all()}
-    return render_to_response('admin/genre.html', context, RequestContext(request))
+    return render(request, 'admin/genre.html', context)
 
 def user_settings(request):
     context = {'subtitles': [_(u'サイト設定'), _(u'ユーザー設定')], 'page': 'user', 'tabs': tabs, 'users': User.objects.all()}
-    return render_to_response('admin/user.html', context, RequestContext(request))
+    return render(request, 'admin/user.html', context)
 
 @login_required
 def genre_add(request):
@@ -49,7 +48,7 @@ def genre_add(request):
     else:
         form = GenreAddForm()
     context = {'subtitles': [_(u'サイト設定'), _(u'ジャンル追加')], 'form': form, 'page': 'genre', 'tabs': tabs}
-    return render_to_response('admin/genre_add.html', context, RequestContext(request))
+    return render(request, 'admin/genre_add.html', context)
 
 @login_required
 def user_edit(request, user_id):
@@ -65,7 +64,7 @@ def user_edit(request, user_id):
     else:
         form = UserEditForm(instance = user)
     context = {'subtitles': [_(u'サイト設定'), _(u'ユーザー設定'), user.username], 'form': form, 'page': 'user', 'tabs': tabs}
-    return render_to_response('admin/user_edit.html', context, RequestContext(request))
+    return render(request, 'admin/user_edit.html', context)
 
 tabs = (
     ('general'  ,(general_settings, _(u'一般設定'))),

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Sum, Q
-from django.shortcuts import get_object_or_404, redirect, render_to_response, RequestContext
+from django.shortcuts import get_object_or_404, redirect, render
 
 def check(request, contest_id, genre_id):
     contest = get_object_or_404(Contest, pk = contest_id)
@@ -58,7 +58,7 @@ def index(request, contest_id):
         genres.append(data[i])
 
     context = {'subtitles': [contest.name], 'contest': contest, 'genres': genres, 'now': datetime.datetime.now(), 'users': contest.users.all(), 'total': total}
-    return render_to_response('contests/index.html', context, RequestContext(request))
+    return render(request, 'contests/index.html', context)
 
 @login_required
 def problem(request, contest_id, genre_id):
@@ -87,7 +87,7 @@ def problem(request, contest_id, genre_id):
         data.append({'index': i, 'point': points[problems[i].id], 'problem': problems[i]})
 
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre, 'problems': data, 'total': total}
-    return render_to_response('contests/problem.html', context, RequestContext(request))
+    return render(request, 'contests/problem.html', context)
 
 @login_required
 def answer(request, contest_id, genre_id, problem_id):
@@ -112,7 +112,7 @@ def answer(request, contest_id, genre_id, problem_id):
         form = AnswerForm(problems[problem_id], instance = answer, disable = True)
         figures = Figure.objects.filter(problem = problems[problem_id]).order_by('sequence_number')
         context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'figures': figures, 'problem': problems[problem_id],'problems_id': range(len(problems)), 'answer': answer, 'problem_id': problem_id}
-        return render_to_response('contests/view.html', context, RequestContext(request))
+        return render(request, 'contests/view.html', context)
     else:
         if request.method == 'POST':
             form = AnswerForm(problems[problem_id], request.POST, instance = answer)
@@ -133,7 +133,7 @@ def answer(request, contest_id, genre_id, problem_id):
 
         if problem_id > 0:
             context['previous'] = problem_id - 1
-        return render_to_response('contests/answer.html', context, RequestContext(request))
+        return render(request, 'contests/answer.html', context)
 
 @login_required
 def finish(request, contest_id, genre_id):
@@ -143,7 +143,7 @@ def finish(request, contest_id, genre_id):
     contest, genre = result
 
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre}
-    return render_to_response('contests/finish.html', context, RequestContext(request))
+    return render(request, 'contests/finish.html', context)
 
 @login_required
 def ranking(request, contest_id):
@@ -182,7 +182,7 @@ def ranking(request, contest_id):
             ranking[-1]['index'] = ranking[-2]['index']
 
     context = {'contest': contest, 'genre_id': genre_id, 'genres': genres, 'ranking': ranking, 'unmarked': unmarked}
-    return render_to_response('contests/ranking.html', context, RequestContext(request))
+    return render(request, 'contests/ranking.html', context)
 
 @login_required
 def detail(request, contest_id):
@@ -233,4 +233,4 @@ def detail(request, contest_id):
     }
 
     context = {'contest': contest, 'ranking': ranking, 'ranking_svg': ranking_svg, 'summary': summary, 'genres': genres, 'is_writer': is_writer, 'json_param': json.dumps(json_param)}
-    return render_to_response('contests/detail.html', context, RequestContext(request))
+    return render(request, 'contests/detail.html', context)

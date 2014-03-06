@@ -9,8 +9,7 @@ from scan.libs import error_as_json_response, send_notification_mail
 
 from django.http import HttpResponse, HttpResponseNotAllowed
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -32,7 +31,7 @@ def index(request, contest_id, genre_id):
 
     problems = Problem.objects.filter(contest = contest, genre = genre).order_by('sequence_number', 'id')
     context = {'subtitles': [contest.name, _(u'問題設定')], 'contest': contest, 'genre': genre, 'problems': problems}
-    return render_to_response('problems/index.html', context, RequestContext(request))
+    return render(request, 'problems/index.html', context)
 
 @login_required
 def rearrange(request, contest_id, genre_id):
@@ -49,7 +48,7 @@ def rearrange(request, contest_id, genre_id):
         return redirect('scan.views.problems.index', contest_id, genre_id)
 
     context = {'subtitles': [contest.name, _(u'問題並べ替え')], 'contest': contest, 'genre': genre, 'problems': problems}
-    return render_to_response('problems/rearrange.html', context, RequestContext(request))
+    return render(request, 'problems/rearrange.html', context)
 
 @login_required
 def add(request, contest_id, genre_id):
@@ -75,7 +74,7 @@ def add(request, contest_id, genre_id):
         form = ProblemEditForm()
 
     context = {'subtitles': [contest.name, _(u'問題追加')], 'contest': contest, 'genre': genre, 'form': form}
-    return render_to_response('problems/edit.html', context, RequestContext(request))
+    return render(request, 'problems/edit.html', context)
 
 @login_required
 def edit(request, contest_id, genre_id, problem_id):
@@ -101,7 +100,7 @@ def edit(request, contest_id, genre_id, problem_id):
     comments = Comment.objects.filter(problem = problem).order_by('datetime')
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
     context = {'subtitles': [contest.name, _(u'問題編集')], 'contest': contest, 'genre': genre, 'form': form, 'is_edit': True, 'problem': problem, 'figure_form': figure_form, 'figures':figures, 'comment_form': comment_form, 'comments': comments}
-    return render_to_response('problems/edit.html', context, RequestContext(request))
+    return render(request, 'problems/edit.html', context)
 
 @login_required
 def delete(request, contest_id, genre_id, problem_id):
@@ -122,7 +121,7 @@ def delete(request, contest_id, genre_id, problem_id):
         form = ProblemDeleteForm()
 
     context = {'subtitles': [contest.name, _(u'問題削除')], 'contest': contest, 'genre': genre, 'form': form, 'problem': problem}
-    return render_to_response('problems/delete.html', context, RequestContext(request))
+    return render(request, 'problems/delete.html', context)
 
 @login_required
 def add_figure(request, contest_id, genre_id, problem_id):
@@ -209,4 +208,4 @@ def preview(request, contest_id, genre_id, problem_id):
     form = AnswerForm(problem)
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'form': form, 'genre': genre, 'problem': problem, 'problem_id': 0, 'figures': figures, 'is_preview': True}
-    return render_to_response('contests/answer.html', context, RequestContext(request))
+    return render(request, 'contests/answer.html', context)

@@ -7,8 +7,7 @@ from scan.models import Answer, Contest, Figure, Genre, Problem
 
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404, redirect, render
 
 def check(request, contest_id, genre_id):
     contest = get_object_or_404(Contest, pk = contest_id)
@@ -50,7 +49,7 @@ def index(request, contest_id, genre_id):
         array.append({'index': i, 'problem': problems[i]})
 
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre, 'marked': marked, 'problems': array}
-    return render_to_response('marks/index.html', context, RequestContext(request))
+    return render(request, 'marks/index.html', context)
 
 @login_required
 def problem(request, contest_id, genre_id, problem_id):
@@ -63,7 +62,7 @@ def problem(request, contest_id, genre_id, problem_id):
     answers = Answer.objects.filter(problem = problem).order_by('id')
 
     context = {'subtitles': [contest.name, genre.name],'answers': answers, 'contest': contest, 'genre': genre, 'problem': problem, 'problem_id': int(problem_id), 'problem_index': int(problem_id) + 1}
-    return render_to_response('marks/problem.html', context, RequestContext(request))
+    return render(request, 'marks/problem.html', context)
 
 @login_required
 def mark(request, contest_id, genre_id, problem_id, answer_id):
@@ -90,7 +89,7 @@ def mark(request, contest_id, genre_id, problem_id, answer_id):
 
     figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
     context = {'subtitles': [contest.name, genre.name], 'answer': answer, 'contest': contest, 'genre': genre, 'figures': figures, 'form': form, 'problem': problem, 'problem_id': int(problem_id), 'problem_index': int(problem_id) + 1}
-    return render_to_response('marks/mark.html', context, RequestContext(request))
+    return render(request, 'marks/mark.html', context)
 
 @login_required
 def finish(request, contest_id, genre_id, problem_id):
@@ -101,4 +100,4 @@ def finish(request, contest_id, genre_id, problem_id):
 
     problem = get_problem(contest, genre, problem_id)
     context = {'subtitles': [contest.name, genre.name], 'contest': contest, 'genre': genre, 'problem': problem, 'problem_id': int(problem_id), 'problem_index': int(problem_id) + 1}
-    return render_to_response('marks/finish.html', context, RequestContext(request))
+    return render(request, 'marks/finish.html', context)

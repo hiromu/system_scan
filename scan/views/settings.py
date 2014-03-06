@@ -6,8 +6,7 @@ from scan.models import Contest
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
 
 @login_required
@@ -24,7 +23,7 @@ def add(request):
         form = ContestForm()
 
     context = {'form': form}
-    return render_to_response('settings/add.html', context, RequestContext(request))
+    return render(request, 'settings/add.html', context)
 
 @login_required
 def index(request, contest_id):
@@ -50,7 +49,7 @@ def contest_settings(request, contest_id, contest, tab):
     else:
         form = ContestForm(instance = contest)
     context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'form': form, 'page': 'contest', 'tabs': tabs}
-    return render_to_response('settings/contest.html', context, RequestContext(request))
+    return render(request, 'settings/contest.html', context)
 
 def genre_settings(request, contest_id, contest, tab):
     if request.method == 'POST':
@@ -60,11 +59,11 @@ def genre_settings(request, contest_id, contest, tab):
     else:
         form = ContestGenreForm(instance = contest)
     context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'form': form, 'page': 'genre', 'tabs': tabs}
-    return render_to_response('settings/genre.html', context, RequestContext(request))
+    return render(request, 'settings/genre.html', context)
 
 def user_settings(request, contest_id, contest, tab):
     context = {'subtitles': [contest.name, tab[1][1]], 'contest': contest, 'page': 'user', 'users': contest.users.all(), 'tabs': tabs}
-    return render_to_response('settings/user.html', context, RequestContext(request))
+    return render(request, 'settings/user.html', context)
 
 @login_required
 def user_add(request, contest_id):
@@ -82,7 +81,7 @@ def user_add(request, contest_id):
     else:
         form = ContestUserForm(contest)
     context = {'subtitles': [contest.name, _(u'ユーザー追加')], 'contest': contest, 'form': form, 'page': 'user', 'tabs': tabs}
-    return render_to_response('settings/user_add.html', context, RequestContext(request))
+    return render(request, 'settings/user_add.html', context)
 
 @login_required
 def user_del(request, contest_id, user_id):
