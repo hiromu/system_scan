@@ -15,6 +15,10 @@ json_param = {{ json_param|safe }};
 <div class="score-distribution" style="height: {{ ranking_svg.height|add:ranking_svg.offset }}px">
     <input id="summary-max-score" type="hidden" value="{{ summary.max_score }}" />
     <svg width="300" height="{{ ranking_svg.height|add:ranking_svg.offset|add:'2' }}" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        {% for border in ranking_svg.level_borders %}
+        <rect x="{{ border.0 }}" y="{{ border.1 }}" width="{{ border.2 }}" height="{{ border.3 }}" fill="{{ border.4 }}" stroke-width="5" fill-opacity="0.5" />
+        <text x="0" y="0" transform="translate(40,{{ border.1|add:'10' }}) rotate(90)" font-size="30" fill-opacity="0.5">LEVEL {{ border.5 }}</text>
+        {% endfor %}
         {% for line in ranking_svg.lines %}
         <line x1="{{ line.0 }}" y1="{{ line.1 }}" x2="{{ line.2 }}" y2="{{ line.1 }}" stroke="#888888" stroke-width="0.5px" />
         {% endfor %}
@@ -30,6 +34,7 @@ json_param = {{ json_param|safe }};
                 <th>{% trans '順位' %}</th>
                 <th>{% trans '名前' %}</th>
                 <th>{% trans '点数' %}</th>
+                <th>{% trans '偏差値' %}</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +46,7 @@ json_param = {{ json_param|safe }};
                 <td>{{ user.0 }}{% trans '位' %}</td>
                 <td>{{ user.1.last_name }} {{ user.1.first_name }}</td>
                 <td>{{ user.1.total }}{% trans '点' %}</td>
+                <td>{{ user.2.standard_score|floatformat:2 }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -51,7 +57,7 @@ json_param = {{ json_param|safe }};
     <ul>
         <li>{% trans '平均点' %}: {{ summary.average|floatformat:2 }}{% trans '点' %} / {{ summary.max_score }}{% trans '点満点' %}</li>
         <li>{% trans '標準偏差' %}: {{ summary.standard_deviation|floatformat:2 }}</li>
-        <li>{% trans '最優秀者' %}: <img alt="icon" width="40" height="40" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %}</li>
+        <li>{% trans '最優秀者' %}: <img alt="icon" width="40" height="40" src="{% middle_gravatar_url ranking.0.1.email %}" /> {{ ranking.0.1.last_name }} {{ ranking.0.1.first_name }} {{ ranking.0.1.total }}{% trans '点' %} {% trans '偏差値' %}:{{ ranking.0.2.standard_score|floatformat:2 }}</li>
     </ul>
 </div>
 <div class="percentage-of-correct-answers">
@@ -65,26 +71,34 @@ json_param = {{ json_param|safe }};
             </div>
             <p>{{ genre.percentage|floatformat:2 }}%</p>
         </div>
-        <table>
-        {% for problem in genre.problems %}
-            <tr>
-                <td>Q.{{ problem.0|add:'1' }}</td>
-                <td>
-                    {% if is_writer %}
-                    <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
-                    {% else %}
-                    <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
-                    {% endif %}
-                </td>
-                <td>
-                    <div class="progress" style="width: 300px">
-                        <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
-                    </div>
-                </td>
-                <td>{{ problem.1.percentage|floatformat:2 }}%</td>
-            </tr>
-        {% endfor %}
-        </table>
+        <div class="genre-information">
+            <p>{% trans '分野平均点' %}: {{ genre.average|floatformat:2 }}{% trans '点' %} / {{ genre.max_score }}{% trans '点満点' %}</p>
+            <div class="most-valuables"><span>{% trans '最優秀者' %}: </span><ul>
+                {% for most_valuable in genre.most_valuables %}
+                <li><img alt="icon" width="30" height="30" src="{% middle_gravatar_url most_valuable.user.email %}" /> {{ most_valuable.user.last_name }} {{ most_valuable.user.first_name }}</li>
+                {% endfor %}
+            </ul><span>{{ genre.most_valuables.0.genre_total }}{% trans '点(分野得点)' %}</span></div>
+            <table>
+            {% for problem in genre.problems %}
+                <tr>
+                    <td>Q.{{ problem.0|add:'1' }}</td>
+                    <td>
+                        {% if is_writer %}
+                        <a href="{% url 'scan.views.marks.problem' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                        {% else %}
+                        <a href="{% url 'scan.views.contests.answer' contest.id genre.id problem.0 %}">{{ problem.1.title }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="progress" style="width: 300px">
+                            <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
+                        </div>
+                    </td>
+                    <td>{{ problem.1.percentage|floatformat:2 }}%</td>
+                </tr>
+            {% endfor %}
+            </table>
+        </div>
     </div>
     {% endfor %}
 </div>
