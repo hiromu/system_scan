@@ -1,5 +1,5 @@
 from django import template
-import urllib.parse, hashlib
+import urllib, hashlib, sys
 
 register = template.Library()
 
@@ -20,7 +20,10 @@ class GravatarUrlNode(template.Node):
         else:
             gravatar_url = "http://www.gravatar.com/"
         gravatar_url += "avatar/" + hashlib.md5(email.lower().encode('ascii')).hexdigest() + "?"
-        gravatar_url += urllib.parse.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
+        if sys.version_info < (3, 0):
+            gravatar_url += urllib.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
+        else:
+            gravatar_url += urllib.parse.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
         return gravatar_url
 
 @register.tag
