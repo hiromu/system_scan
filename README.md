@@ -10,7 +10,7 @@
 ----
 ## Requirements
 
-1. Python 2.7
+1. Python 3.3
 2. Django 1.5.5
 3. Pillow or PIL(Python Imaging Library)
 4. Python Markdown
