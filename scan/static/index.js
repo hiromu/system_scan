@@ -7,6 +7,6 @@ $(function(){
             numeric: true,
         });
         $('#controls').addClass('btn-group');
-        $('#controls').children().each(function(){$(this).addClass('btn')});
+        $('#controls').children().each(function(){$(this).addClass('btn btn-default')});
     }
 });

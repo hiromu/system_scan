@@ -54,12 +54,12 @@ function remakeAutoForm(){
         case '0': // RadioButton
             var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
                 .append(generateChoiceTable('radio'))
-                .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'radio\')'})));
+                .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn btn-default',onclick:'addChoice(\'radio\')'})));
             break;
         case '1': // CheckBox
             var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('選択肢:'))
                 .append(generateChoiceTable('checkbox'))
-                .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn',onclick:'addChoice(\'checkbox\')'})));
+                .append($('<p id="add-choice">').append($('<input>').attr({type:'button',value:'+',class:'btn btn-default',onclick:'addChoice(\'checkbox\')'})));
             break;
         case '2': // Text
             var elm = $('<div>').attr({id:'autoform'}).append($('<p>').text('正解:'))

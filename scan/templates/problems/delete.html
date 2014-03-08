@@ -10,6 +10,6 @@
     <p>本当に「{{ problem.title }}」を削除してもいいですか？</p>
     {{ form }}
     <input type="submit" class="btn btn-danger" value="{% trans '削除' %}" />
-    <a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn">{% trans '戻る' %}</a>
+    <a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn btn-default">{% trans '戻る' %}</a>
 </form>
 {% endblock %}

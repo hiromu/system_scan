@@ -12,7 +12,7 @@
 <h3>{{ contest.start }} - {{ contest.end }}</h3>
 {% if request.user.is_staff %}
 <p class="pull-right">
-    <a href="{% url 'scan.views.settings.index' contest.id %}" class="btn">{% trans 'コンテスト設定' %}</a>
+    <a href="{% url 'scan.views.settings.index' contest.id %}" class="btn btn-default">{% trans 'コンテスト設定' %}</a>
 </p>
 {% endif %}
 {% if now > contest.end %}

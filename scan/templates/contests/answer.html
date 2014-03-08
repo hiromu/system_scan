@@ -44,13 +44,13 @@
         {% endfor %}
         <div class="button">
         {% if is_preview %}
-            <a href="{% url 'scan.views.problems.edit' contest.id genre.id problem.id %}" class="btn">{% trans '編集画面に戻る' %}</a>
+            <a href="{% url 'scan.views.problems.edit' contest.id genre.id problem.id %}" class="btn btn-default">{% trans '編集画面に戻る' %}</a>
         {% else %}
             <input class="btn btn-primary" type="submit" value="{% trans '送信' %}" />
             {% if previous != None %}
             <a class="btn btn-inverse" href="{% url 'scan.views.contests.answer' contest.id genre.id previous %}">{% trans '前の問題に戻る' %}</a>
             {% endif %}
-            <a href="{% url 'scan.views.contests.index' contest.id %}" class="btn">{% trans '一覧に戻る' %}</a>
+            <a href="{% url 'scan.views.contests.index' contest.id %}" class="btn btn-default">{% trans '一覧に戻る' %}</a>
         {% endif %}
         </div>
     </form>

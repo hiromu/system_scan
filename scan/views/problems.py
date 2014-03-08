@@ -66,7 +66,7 @@ def add(request, contest_id, genre_id):
             problem.author = request.user
             problem.sequence_number = Problem.objects.filter(contest = contest, genre = genre).count() + 1
             problem.save()
-            if request.POST['preview'] and request.POST['preview'] == 'true':
+            if 'preview' in request.POST and request.POST['preview'] == 'true':
                 return redirect('scan.views.problems.preview', contest_id, genre_id, problem.id)
             else:
                 return redirect('scan.views.problems.index', contest_id, genre_id)
