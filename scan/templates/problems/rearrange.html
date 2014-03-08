@@ -37,6 +37,6 @@
 {% csrf_token %}
 <input type="hidden" name="sequence" />
 <input type="submit" class="btn btn-primary" value="{% trans '変更' %}" onclick="postSequence()" />
-<a class="btn" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '戻る' %}</a>
+<a class="btn btn-default" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{% trans '戻る' %}</a>
 </form>
 {% endblock %}

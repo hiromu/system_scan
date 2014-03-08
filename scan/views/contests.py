@@ -237,7 +237,10 @@ def detail(request, contest_id):
     }
 
     for user in ranking:
-        user.append({'standard_score': (float(user[1].total) - summary['average']) * 10 / summary['standard_deviation'] + 50.0})
+        if summary['standard_deviation'] > 0.0:
+            user.append({'standard_score': (float(user[1].total) - summary['average']) * 10 / summary['standard_deviation'] + 50.0})
+        else:
+            user.append({'standard_score': 50.0})
     userids = dict([(user.id, user) for user in users])
 
     genres = contest.genres.filter(problem__contest = contest).annotate(max_score = Sum('problem__point'))

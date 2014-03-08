@@ -72,7 +72,6 @@ header>ul>li {
 #top-slider li {
     display: block;
     width: 900px;
-    height: 410px;
     margin: 0 auto;
     overflow: hidden;
 }
@@ -168,6 +167,10 @@ header>ul>li {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#figure-list figure>img {
+    max-width: 380px;
 }
 
 #figure-list figure:hover {
@@ -343,6 +346,7 @@ a.btn {
     list-style: none;
     position: absolute;
     margin: 0;
+    padding: 0;
     z-index: 0;
 }
 

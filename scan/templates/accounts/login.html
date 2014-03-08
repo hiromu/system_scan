@@ -4,7 +4,7 @@
 
 {% block main %}
 {% if form.errors %}
-<div class="alert alert-error">{% trans 'ログインに失敗しました。' %}</div>
+<div class="alert alert-danger">{% trans 'ログインに失敗しました。' %}</div>
 {% endif %}
 <form method="post">
     {% csrf_token %}

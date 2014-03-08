@@ -67,7 +67,7 @@ json_param = {{ json_param|safe }};
         <h5><i class="icon-chevron-up category"></i>{{ genre.name }}</h5>
         <div class="percentage-of-category">
             <div class="progress" style="width: 300px">
-                <div class="bar bar-success" style="width: {{ genre.percentage|floatformat:2 }}%"></div>
+                <div class="progress-bar progress-bar-success" style="width: {{ genre.percentage|floatformat:2 }}%"></div>
             </div>
             <p>{{ genre.percentage|floatformat:2 }}%</p>
         </div>
@@ -91,7 +91,7 @@ json_param = {{ json_param|safe }};
                     </td>
                     <td>
                         <div class="progress" style="width: 300px">
-                            <div class="bar bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
+                            <div class="progress-bar progress-bar-success" style="width: {{ problem.1.percentage|floatformat:2 }}%"></div>
                         </div>
                     </td>
                     <td>{{ problem.1.percentage|floatformat:2 }}%</td>
