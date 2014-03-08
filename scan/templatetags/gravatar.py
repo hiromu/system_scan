@@ -1,5 +1,5 @@
 from django import template
-import urllib, hashlib
+import urllib, hashlib, sys
 
 register = template.Library()
 
@@ -19,8 +19,11 @@ class GravatarUrlNode(template.Node):
             gravatar_url = "https://secure.gravatar.com/"
         else:
             gravatar_url = "http://www.gravatar.com/"
-        gravatar_url += "avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
-        gravatar_url += urllib.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
+        gravatar_url += "avatar/" + hashlib.md5(email.lower().encode('ascii')).hexdigest() + "?"
+        if sys.version_info < (3, 0):
+            gravatar_url += urllib.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
+        else:
+            gravatar_url += urllib.parse.urlencode({'d':default, 's':str(size)}).replace('&', '&#38;')
         return gravatar_url
 
 @register.tag
@@ -29,7 +32,7 @@ def gravatar_url(parser, token):
         tag_name, email = token.split_contents()
 
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError("%r tag requires a single argument" % token.contents.split()[0])
 
     return GravatarUrlNode(email)
 
@@ -39,7 +42,7 @@ def big_gravatar_url(parser, token):
         tag_name, email = token.split_contents()
 
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError("%r tag requires a single argument" % token.contents.split()[0])
 
     return GravatarUrlNode(email, 300)
 
@@ -49,6 +52,6 @@ def middle_gravatar_url(parser, token):
         tag_name, email = token.split_contents()
 
     except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires a single argument" % token.contents.split()[0]
+        raise template.TemplateSyntaxError("%r tag requires a single argument" % token.contents.split()[0])
 
     return GravatarUrlNode(email, 100)
