@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime, math, json
+import datetime, math, json, scan.libs
 
 from itertools import groupby
 
@@ -195,8 +195,8 @@ def detail(request, contest_id):
         return redirect('scan.views.contests.ranking', contest_id)
 
     users = User.objects.filter(answer__problem__contest = contest).annotate(total = Sum('answer__point')).order_by('id').order_by('-total')
-    ranking = [[i + 1 , users[i]] for i in xrange(len(users))]
-    for i in xrange(len(ranking)-1):
+    ranking = [[i + 1 , users[i]] for i in range(len(users))]
+    for i in range(len(ranking)-1):
         if ranking[i][1].total == ranking[i+1][1].total:
             ranking[i+1][0] = ranking[i][0]
     problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
@@ -211,13 +211,13 @@ def detail(request, contest_id):
         summary['average'] = float(sum([user.total for user in users])) / len(users)
         summary['standard_deviation'] = math.sqrt(sum([(float(user.total) - summary['average'])**2 for user in users]) / len(users))
         summary['max_score'] = Problem.objects.filter(contest = contest).aggregate(max_score = Sum('point'))['max_score']
-        summary['borders'] = [summary['average'] + summary['standard_deviation'] * (i - 3)  for i in xrange(1, 7)]
+        summary['borders'] = [summary['average'] + summary['standard_deviation'] * (i - 3)  for i in range(1, 7)]
 
     ranking_svg = {'offset': 40, 'height': 1000}
-    ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - float(i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in xrange(summary['max_score'] / 10 - 1)]
-    ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - float(i) * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in xrange(summary['max_score'] / 100 + 1)]
+    ranking_svg['lines'] = [(50, ranking_svg['height'] + ranking_svg['offset'] - float(i + 1) * 10 * ranking_svg['height'] / summary['max_score'], 110) for i in range(int(summary['max_score'] / 10) - 1)]
+    ranking_svg['bold_lines'] = [(40, ranking_svg['height'] + ranking_svg['offset'] - float(i) * 100 * ranking_svg['height'] / summary['max_score'], 110, i * 100) for i in range(int(summary['max_score'] / 100) + 1)]
     level_colors = ['#3fa9f5', '#7ac943', '#ff931e', '#ff1d25', '#ff7bac', '#bdccd4', '#fcee21']
-    ranking_svg['level_borders'] = [[0, ranking_svg['offset'] + (summary['max_score'] - summary['borders'][i]) * ranking_svg['height'] / summary['max_score'], 110, (summary['borders'][i] - (0 if i == 0 else summary['borders'][i-1])) * ranking_svg['height'] / summary['max_score'], level_colors[i], i] for i in xrange(len(summary['borders']))]
+    ranking_svg['level_borders'] = [[0, ranking_svg['offset'] + (summary['max_score'] - summary['borders'][i]) * ranking_svg['height'] / summary['max_score'], 110, (summary['borders'][i] - (0 if i == 0 else summary['borders'][i-1])) * ranking_svg['height'] / summary['max_score'], level_colors[i], i] for i in range(len(summary['borders']))]
     if summary['borders'][5] < summary['max_score']:
         ranking_svg['level_borders'].append([ranking_svg['level_borders'][0][0], ranking_svg['offset'], ranking_svg['level_borders'][0][2], ranking_svg['level_borders'][5][1] - ranking_svg['offset'], level_colors[6], 6])
     for border in ranking_svg['level_borders']:
@@ -251,7 +251,7 @@ def detail(request, contest_id):
     genre_most_valuable = dict([(groups[0]['problem__genre'] ,[{'genre_total': i['genre_total'], 'user': userids[i['user']]} for i in groups if i['genre_total'] == groups[0]['genre_total']]) for k, g in groupby(Answer.objects.filter(problem__contest = contest).values('problem__genre', 'user').annotate(genre_total = Sum('point')).order_by('problem__genre', '-genre_total'), lambda x:x['problem__genre']) if delete(groups) or groups.extend(list(g)) or True])
     for genre in genres:
         genre.problems = []
-        for i in xrange(len(problems)):
+        for i in range(len(problems)):
             if problems[i].genre == genre:
                 genre.problems.append((len(genre.problems), problems[i]))
         genre.point_sum = genre_points[genre.id]
