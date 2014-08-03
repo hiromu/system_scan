@@ -42,10 +42,12 @@ $(function(){
     $('input[name="type"]:radio').change(remakeAutoForm);
     $('#edit-problem').submit(function(){
         setOption();
+        setFigureSequence();
         setResult();
     });
     remakeAutoForm();
     restoreForm();
+    $('#figure-list').sortable({cursor: "move", opacity: 0.5});
 });
 
 function remakeAutoForm(){
@@ -235,4 +237,12 @@ function reloadFigures(){
 function saveAndPreview(){
     $('#edit-problem').append($('<input>').attr({type:'hidden',name:'preview',value:'true'}));
     $('#edit-problem').submit();
+}
+
+function setFigureSequence() {
+    sequence = {}
+    $('#figure-list li').each(function (i) {
+        sequence[$(this).find('p').text()] = i + 1;
+    });
+    $('#edit-problem input[name="figure-sequence"]').val(JSON.stringify(sequence));
 }

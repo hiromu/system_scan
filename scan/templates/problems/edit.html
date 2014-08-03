@@ -44,9 +44,11 @@
                 <figcaption>{{ figure.caption }}</figcaption>
             </figure>
             <input class="btn btn-danger" type="button" onclick="openDeleteFigureDialog('{% url 'scan.views.problems.delete_figure' contest.id genre.id problem.id figure.id %}')" value="{% trans '削除' %}" />
+            <p class="hidden">{{ figure.id }}</p>
         </li>
         {% endfor %}
     </ul>
+    <input type="hidden" name="figure-sequence" />
     <input class="btn btn-default" type="button" onclick="openAddFigureDialog()" value="{% trans '図を追加する' %}" />
     <a href="{% url 'scan.views.problems.get_figures' contest.id genre.id problem.id %}">図の読み込み(JSON)</a>
 </div>

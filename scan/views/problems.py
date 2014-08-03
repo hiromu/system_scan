@@ -87,6 +87,12 @@ def edit(request, contest_id, genre_id, problem_id):
     if request.method == 'POST':
         form = ProblemEditForm(request.POST, instance = problem)
         if form.is_valid():
+            if request.POST['figure-sequence']:
+                figures = Figure.objects.filter(problem = problem).order_by('sequence_number')
+                sequence = json.loads(request.POST['figure-sequence'])
+                for figure in figures:
+                    figure.sequence_number = sequence[str(figure.id)]
+                    figure.save()
             form.save()
             if 'preview' in request.POST and request.POST['preview'] == 'true':
                 return redirect('scan.views.problems.preview', contest_id, genre_id, problem_id)
