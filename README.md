@@ -10,14 +10,15 @@
 ----
 ## Requirements
 
-1. Python 2.7 or 3.3
-2. Django 1.5.5
+1. Python 2.7 or 3.4
+2. Django 1.6.5
 3. Pillow or PIL(Python Imaging Library)
-4. Python Markdown
+4. django-markdown-deux
 
 You can install these packages as below in Ubuntu.
 
-    apt-get install python2.7 python-django python-pillow python-markdown
+    apt-get install python2.7 python-django python-pillow
+    pip install git+https://github.com/Mine02C4/django-markdown-deux.git
 
 And according to your environments, please install database drivers or django plugins.
 
