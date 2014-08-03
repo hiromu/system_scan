@@ -23,7 +23,7 @@
             <ul id="figure-list" class="clearfix">
                 {% for figure in figures %}
                 <li>
-                    <figure>
+                    <figure class="nohover">
                         <img class="figure-image" src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
                         <figcaption>{{ figure.caption }}</figcaption>
                     </figure>

@@ -170,6 +170,10 @@ header>ul>li {
     cursor: pointer;
 }
 
+#figure-list figure.nohover {
+    cursor: auto;
+}
+
 #figure-list figure>img.figure-image {
     max-width: 380px;
 }
@@ -193,6 +197,10 @@ header>ul>li {
 
 #figure-list figure:hover {
     background: #e6e6e6;
+}
+
+#figure-list figure.nohover:hover {
+    background: none;
 }
 
 #figure-list figcaption {
