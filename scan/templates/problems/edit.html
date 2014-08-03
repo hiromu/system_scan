@@ -5,7 +5,6 @@
 {% load gravatar %}
 
 {% block main %}
-<script type="text/javascript" src="{{ STATIC_URL }}figure.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}problem.js"></script>
 <h2><a class="title" href="{% url 'scan.views.contests.index' contest.id %}">{{ contest.name }}</a> > <a class="title" href="{% url 'scan.views.problems.index' contest.id genre.id %}">{{ genre.name }}</a></h2>
 {% if not is_edit %}
@@ -39,11 +38,12 @@
     <ul id="figure-list" class="clearfix">
         {% for figure in figures %}
         <li>
-            <figure onclick="showFigureDialog(this)">
-                <img src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+            <figure>
+                <img class="figure-image" src="{{ figure.graphics.url }}" alt="{{ figure.caption }}" />
+                <img class="figure-expand" src="{{ STATIC_URL }}img/expand.svg" alt="拡大ボタン" onclick="showFigureDialog(this)" />
                 <figcaption>{{ figure.caption }}</figcaption>
+                <input class="btn btn-danger" type="button" onclick="openDeleteFigureDialog('{% url 'scan.views.problems.delete_figure' contest.id genre.id problem.id figure.id %}')" value="{% trans '削除' %}" />
             </figure>
-            <input class="btn btn-danger" type="button" onclick="openDeleteFigureDialog('{% url 'scan.views.problems.delete_figure' contest.id genre.id problem.id figure.id %}')" value="{% trans '削除' %}" />
             <p class="hidden">{{ figure.id }}</p>
         </li>
         {% endfor %}

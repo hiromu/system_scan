@@ -164,13 +164,31 @@ header>ul>li {
 }
 
 #figure-list figure {
+    position: relative;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
-#figure-list figure>img {
+#figure-list figure>img.figure-image {
     max-width: 380px;
+}
+
+#figure-list figure>img.figure-expand {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    opacity: 0;
+}
+
+#figure-list figure:hover>img.figure-expand {
+    opacity: 0.5;
+}
+
+#figure-list figure>img.figure-expand:hover {
+    opacity: 1;
 }
 
 #figure-list figure:hover {
@@ -180,6 +198,10 @@ header>ul>li {
 #figure-list figcaption {
     text-align: center;
     margin-top: 10px;
+}
+
+#figure-list figure>input {
+    margin-top: 5px;
 }
 
 #figure-list>li {

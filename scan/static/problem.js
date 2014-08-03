@@ -47,7 +47,8 @@ $(function(){
     });
     remakeAutoForm();
     restoreForm();
-    $('#figure-list').sortable({cursor: "move", opacity: 0.5});
+    $('#figure-list').sortable({ cursor: "move", opacity: 0.5 });
+    $('body').append($('<div>').attr({ id: 'figure-dialog' }));
 });
 
 function remakeAutoForm(){
@@ -245,4 +246,16 @@ function setFigureSequence() {
         sequence[$(this).find('p').text()] = i + 1;
     });
     $('#edit-problem input[name="figure-sequence"]').val(JSON.stringify(sequence));
+}
+
+function showFigureDialog(t) {
+    $('#figure-dialog').empty();
+    $('#figure-dialog').append($('<img>').attr({ src: $(t).parent().find('.figure-image').attr('src'), alt: $(t).parent().find('figcaption').text() }));
+    $('#figure-dialog').dialog({
+        title: $(t).parent().find('figcaption').text(),
+        closeOnEscape: true,
+        modal: true,
+        width: 'auto',
+        height: 'auto',
+    });
 }

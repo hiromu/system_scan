@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="layer1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+<path d="M373.5,500H126.5C56.9,500,0,443.1,0,373.5V126.5C0,56.9,56.9,0,126.5,0h246.9C443.1,0,500,56.9,500,126.5v246.9C500,443.1,443.1,500,373.5,500z"/>
+<g>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="213" y1="213.9" x2="61.3" y2="62.2"/>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="61" y1="62" x2="191" y2="62"/>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="61" y1="62" x2="61" y2="192"/>
+</g>
+<g>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="286" y1="287" x2="437.7" y2="438.7"/>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="438" y1="439" x2="308" y2="439"/>
+  <line fill="none" stroke="#FFFFFF" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="438" y1="439" x2="438" y2="309"/>
+</g>
+</svg>
