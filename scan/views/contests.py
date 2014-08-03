@@ -199,7 +199,7 @@ def detail(request, contest_id):
     for i in range(len(ranking)-1):
         if ranking[i][1].total == ranking[i+1][1].total:
             ranking[i+1][0] = ranking[i][0]
-    problems = Problem.objects.filter(contest = contest).annotate(point_sum = Sum('answer__point'))
+    problems = Problem.objects.filter(contest = contest).order_by('sequence_number', 'id').annotate(point_sum = Sum('answer__point'))
     for problem in problems:
         if problem.point_sum:
             problem.percentage = float(problem.point_sum) / (problem.point * len(users)) * 100
