@@ -41,4 +41,5 @@
 <a class="btn btn-primary" href="{% url 'scan.views.problems.add' contest.id genre.id %}">{% trans '追加' %}</a>
 <a class="btn btn-default" href="{% url 'scan.views.contests.index' contest.id %}">{% trans '戻る' %}</a>
 <a class="btn btn-info" href="{% url 'scan.views.problems.rearrange' contest.id genre.id %}">{% trans '並べ替え' %}</a>
+<a class="btn btn-default" href="{% url 'scan.views.problems.upload' contest.id genre.id %}">{% trans 'アップロード' %}</a>
 {% endblock %}

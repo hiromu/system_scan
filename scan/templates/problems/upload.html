@@ -1,0 +1,20 @@
+{% extends 'template.html' %}
+{% load url from future %}
+{% load i18n %}
+
+{% block main %}
+<p>{% trans 'YAML形式の問題をアップロードします。' %}</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="form">
+        {{ form }}
+        <tr>
+            <th></th>
+            <td>
+                <input type="submit" class="btn btn-primary" value="{% trans 'アップロード' %}" />
+                <a href="{% url 'scan.views.problems.index' contest.id genre.id %}" class="btn btn-default">{% trans '戻る' %}</a>
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

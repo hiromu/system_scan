@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import datetime, json
+import datetime, json, yaml
 
 from scan.forms.contests import AnswerForm
-from scan.forms.problems import ProblemEditForm, ProblemDeleteForm, FigureAddForm, CommentForm
+from scan.forms.problems import ProblemEditForm, UploadProblemForm, ProblemDeleteForm, FigureAddForm, CommentForm
 from scan.models import Contest, Genre, Problem, Figure, Comment
 from scan.libs import error_as_json_response, send_notification_mail
 
@@ -75,6 +75,54 @@ def add(request, contest_id, genre_id):
 
     context = {'subtitles': [contest.name, _(u'問題追加')], 'contest': contest, 'genre': genre, 'form': form}
     return render(request, 'problems/edit.html', context)
+
+@login_required
+def upload(request, contest_id, genre_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+
+    if request.method == 'POST':
+        form = UploadProblemForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            valid = True
+            for data in yaml.safe_load_all(file.read().decode('utf8')):
+                if data['type'] == 'radio':
+                    type = 0
+                    option = json.dumps(data['list'])
+                elif data['type'] == 'checkbox':
+                    type = 1
+                    option = json.dumps(data['list'])
+                elif data['type'] == 'text':
+                    type = 2
+                elif data['type'] == 'textarea':
+                    type = 3
+                else:
+                    valid = False
+                    form._errors['file'] = form.error_class([_(u"不正なタイプです。")])
+                    continue
+                problem = Problem(
+                                  contest = contest,
+                                  genre = genre,
+                                  type = type,
+                                  title = data['title'],
+                                  statement = data['question'],
+                                  result = data['answer'],
+                                  point = data['point'],
+                                  author = request.user,
+                                  sequence_number = Problem.objects.filter(contest = contest, genre = genre).count() + 1
+                                  )
+                if type == 0 or type == 1:
+                    problem.option = option
+                problem.save()
+            if valid:
+                return redirect('scan.views.problems.index', contest_id, genre_id)
+    else:
+        form = UploadProblemForm()
+    context = {'form': form, 'contest': contest, 'genre': genre}
+    return render(request, 'problems/upload.html', context)
 
 @login_required
 def edit(request, contest_id, genre_id, problem_id):
