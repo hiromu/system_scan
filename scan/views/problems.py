@@ -209,7 +209,7 @@ def add_figure(request, contest_id, genre_id, problem_id):
         if form.is_valid():
             figure = form.save(commit = False)
             figure.problem = problem
-            figure.sequence_number = 1
+            figure.sequence_number = Problem.objects.filter(contest = contest, genre = genre).count() + 1
             figure.save()
             return HttpResponse(json.dumps({'status': 'success'}) , mimetype = 'application/json')
         else:
@@ -243,7 +243,7 @@ def get_figures(request, contest_id, genre_id, problem_id):
 
     figure_list = []
     for figure in figures:
-        figure_list.append({'url': figure.graphics.url, 'caption': figure.caption, 'delete': reverse('scan.views.problems.delete_figure', args=[contest_id, genre_id, problem_id, figure.id])})
+        figure_list.append({'id': figure.id, 'url': figure.graphics.url, 'caption': figure.caption, 'delete': reverse('scan.views.problems.delete_figure', args=[contest_id, genre_id, problem_id, figure.id])})
 
     return HttpResponse(json.dumps(figure_list), mimetype = 'application/json')
 

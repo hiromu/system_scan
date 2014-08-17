@@ -229,7 +229,37 @@ function reloadFigures(){
         success: function(data){
             $('#figure-list').children().remove();
             for(var i = 0; i < data.length; i++){
-                $('#figure-list').append($('<li>').append($('<figure>').append($('<img>').attr({src:data[i].url,alt:data[i].caption})).append($('<figcaption>').text(data[i].caption))).append($('<input>').attr({class:'btn btn-danger',type:'button',onclick:'openDeleteFigureDialog(\''+data[i].delete+'\')',value:'削除'})))
+                $('#figure-list').append(
+                    $('<li>').append(
+                        $('<figure>').append(
+                            $('<img>').attr({
+                                'class': 'figure-image',
+                                src: data[i].url,
+                                alt: data[i].caption
+                            })
+                        ).append(
+                            $('<img>').attr({
+                                'class': 'figure-expand',
+                                src: STATIC_URL + 'img/expand.svg',
+                                alt: '拡大ボタン',
+                                onclock: 'showFigureDialog(this)'
+                            })
+                        ).append(
+                            $('<figcaption>').text(data[i].caption)
+                        ).append(
+                            $('<input>').attr({
+                                'class': 'btn btn-danger',
+                                type: 'button',
+                                onclick: 'openDeleteFigureDialog(\'' + data[i].delete + '\')',
+                                value: '削除'
+                            })
+                        )
+                    ).append(
+                        $('<p>').attr({
+                            'class': 'hidden'
+                        }).text(data[i].id)
+                    )
+                )
             }
         }
     });
