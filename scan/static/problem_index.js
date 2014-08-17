@@ -27,6 +27,7 @@ $.ajaxSetup({
 function editPoint(url, self) {
     point = $(self).text();
     $(self).empty();
+    $.data($(self).get(0), 'onclick', $(self).attr('onclick'));
     $(self).removeAttr('onclick');
     $(self).append($('<input>').attr({ type: 'text', value: point, size: 5 }));
     $(self).find('input').keypress(function (e) {
@@ -47,6 +48,7 @@ function updatePoint(url, point, self){
                 parent = $(self).parent();
                 parent.empty();
                 parent.text(point);
+                parent.attr({ onclick: $.data(parent.get(0), 'onclick') });
             }
         }
     });
