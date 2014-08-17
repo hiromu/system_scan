@@ -7,7 +7,7 @@ from scan.forms.problems import ProblemEditForm, UploadProblemForm, ProblemDelet
 from scan.models import Contest, Genre, Problem, Figure, Comment
 from scan.libs import error_as_json_response, send_notification_mail
 
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext_lazy as _
@@ -176,6 +176,25 @@ def delete(request, contest_id, genre_id, problem_id):
 
     context = {'subtitles': [contest.name, _(u'問題削除')], 'contest': contest, 'genre': genre, 'form': form, 'problem': problem}
     return render(request, 'problems/delete.html', context)
+
+@login_required
+def update_point(request, contest_id, genre_id, problem_id):
+    result = check(request, contest_id, genre_id)
+    if not isinstance(result, tuple):
+        return result
+    contest, genre = result
+
+    problem = get_object_or_404(Problem, pk = problem_id)
+    if request.method == 'POST':
+        if request.POST['point']:
+            point = int(request.POST['point'])
+            problem.point = point
+            problem.save()
+            return HttpResponse(json.dumps({'status': 'success'}) , mimetype = 'application/json')
+        else:
+            return HttpResponseBadRequest()
+    else:
+         return HttpResponseNotAllowed(['POST'])
 
 @login_required
 def add_figure(request, contest_id, genre_id, problem_id):

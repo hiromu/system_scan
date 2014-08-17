@@ -579,7 +579,7 @@ a.btn {
     border-radius: 4px;
 }
 
-.table td {
+.table>tbody>tr>td {
     vertical-align: middle;
     white-space: nowrap;
 }
