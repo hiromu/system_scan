@@ -33,7 +33,9 @@ And according to your environments, please install database drivers or django pl
 
 1. Download and install Python.
 2. Run cmd or PowerShell.
+
         pip install Django==1.6.8 Pillow django-markdown-deux pyyaml
+
 3. Clone this repository and move its directory in cmd or PowerShell.
 4. TODO: Write configuration
     python manage.py runserver
