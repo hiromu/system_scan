@@ -10,8 +10,8 @@
 ----
 ## Requirements
 
-1. Python 2.7 or 3.4
-2. Django 1.6.5
+1. Python 2.7 or 3.4(Recommend 3.4)
+2. Django 1.6.8
 3. Pillow or PIL(Python Imaging Library)
 4. django-markdown-deux
 
@@ -27,3 +27,13 @@ And according to your environments, please install database drivers or django pl
 
 > Todo: write installation process
 
+## Setup development environment
+
+### Windows
+
+1. Download and install Python.
+2. Run cmd or PowerShell.
+    pip install Django==1.6.8 Pillow django-markdown-deux pyyaml
+3. Clone this repository and move its directory in cmd or PowerShell.
+4. TODO: Write configuration
+    python manage.py runserver
