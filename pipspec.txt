@@ -1,0 +1,4 @@
+Django==1.6.8
+Pillow
+PyYAML
+django-markdown-deux
